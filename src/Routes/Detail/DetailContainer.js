@@ -33,9 +33,9 @@ export default class extends React.Component {
         let result = null;
         try {
             if(isMovie) {
-                ({ data: result }) = await moviesApi.movieDetail(parsedId);
+                ({ data: result } = await moviesApi.movieDetail(parsedId));
             } else {
-                ({ data: result }) = await tvApi.showDetail(parsedId);
+                ({ data: result } = await tvApi.showDetail(parsedId));
             }
         } catch {
             this.setState({ error: "Can't find anything" });
