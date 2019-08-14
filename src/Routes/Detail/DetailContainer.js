@@ -14,7 +14,7 @@ export default class extends React.Component {
             error: null,
             loading: true,
             isMovie: pathname.includes("/movie/")
-        }
+        };
     }
 
     async componentDidMount() {
@@ -45,12 +45,6 @@ export default class extends React.Component {
     }
     render() {
         const { result, error, loading } = this.state;
-        return(
-            <DetailPresenter 
-                result={result}
-                error={error}
-                loading={loading}
-            />
-        );
+        return <DetailPresenter result={result} error={error} loading={loading} />;
     }
 }
