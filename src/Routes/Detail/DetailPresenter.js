@@ -68,7 +68,7 @@ const Overview = styled.p`
     width: 50%;
 `;
 
-const DetailPresenter = ({ result, loading, error }) => 
+const DetailPresenter = ({ result, imdb_id, loading, error }) => 
     loading ? (
         <>
             <Helmet>
@@ -106,10 +106,35 @@ const DetailPresenter = ({ result, loading, error }) =>
                         </Item>
                         <Divider>•</Divider>
                         <Item>
-                            {console.log(!result.runtime)}
                             {result.runtime ? result.runtime : (result.runtime === 0 ? '' : result.episode_run_time[0])} min
                         </Item> 
                         <Divider>•</Divider>
+                        <Item>
+                            {   
+                                <>
+                                    <span className="imdbRatingPlugin" data-user="ur107063764" data-title={`${imdb_id.imdb_id}`} data-style="t1">
+                                        <a href={`https://www.imdb.com/title/${imdb_id.imdb_id}/?ref_=tt_plg_rt`}>
+                                            <img alt={`${result.title ? result.title : result.name} on IMDb`} src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png" />
+                                        </a>
+                                    </span>
+                                    <script>
+                                        {(function(d,s,id){
+                                            var js,stags=d.getElementsByTagName(s)[0];
+                                            if(d.getElementById(id)){return;}
+                                                js=d.createElement(s);
+                                                js.id=id;
+                                                js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";
+                                                stags.parentNode.insertBefore(js,stags);
+                                        })(document,'script','imdb-rating-api')}    
+                                    </script>                    
+                                </>                
+                            }         
+                            {/* <A href={`https://www.imdb.com/title/${result.imdb_id}/`}>
+                                <Button src={require("../../assets/IMDb.png")} />
+                            </A> */}
+                        </Item>
+                    </ItemContainer>
+                    <ItemContainer>
                         <Item>
                             {result.genres &&
                                 result.genres.map((genre, index) =>

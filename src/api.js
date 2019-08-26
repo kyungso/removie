@@ -19,6 +19,8 @@ export const moviesApi = {
                 append_to_response: "videos"
             }
         }),
+    movieFindImdbId: id => 
+        api.get(`movie/${id}/external_ids`),
     search: term => 
         api.get("search/movie", {
             params: {
@@ -37,6 +39,8 @@ export const tvApi = {
                 append_to_response: "videos"
             }
         }),
+    showFindImdbId: id => 
+        api.get(`tv/${id}/external_ids`),
     search: term =>
         api.get("search/tv", {
             params: {

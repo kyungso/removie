@@ -11,6 +11,7 @@ export default class extends React.Component {
         
         this.state = {
             result: null,
+            imdb_id: null,
             error: null,
             loading: true,
             isMovie: pathname.includes("/movie/")
@@ -30,21 +31,23 @@ export default class extends React.Component {
             return push("/");
         }
 
-        let result = null;
+        let result, imdb_id = null;
         try {
             if(isMovie) {
                 ({ data: result } = await moviesApi.movieDetail(parsedId));
+                ({ data: imdb_id } = await moviesApi.movieFindImdbId(parsedId));
             } else {
                 ({ data: result } = await tvApi.showDetail(parsedId));
+                ({ data: imdb_id } = await tvApi.showFindImdbId(parsedId));
             }
         } catch {
             this.setState({ error: "Can't find anything" });
         } finally {
-            this.setState({ loading: false, result });
+            this.setState({ loading: false, result, imdb_id });
         }
     }
     render() {
-        const { result, error, loading } = this.state;
-        return <DetailPresenter result={result} error={error} loading={loading} />;
+        const { result, imdb_id, error, loading } = this.state;
+        return <DetailPresenter result={result} imdb_id={imdb_id} error={error} loading={loading} />;
     }
 }
