@@ -80,7 +80,7 @@ const DetailPresenter = ({ result, loading, error }) =>
         <Container>
             <Helmet>
                 <title>
-                    {result.original_title ? result.original_title : result.original_name}{" "}
+                    {result.title ? result.title : result.name}{" "}
                 </title>
             </Helmet>
             <Backdrop bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}/>
@@ -94,9 +94,9 @@ const DetailPresenter = ({ result, loading, error }) =>
                 />
                 <Data>
                     <Title>
-                        {result.original_title
-                            ? result.original_title
-                            : result.original_name}
+                        {result.title
+                            ? result.title
+                            : result.name}
                     </Title>
                     <ItemContainer>
                         <Item>
