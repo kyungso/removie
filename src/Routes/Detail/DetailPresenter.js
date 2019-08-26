@@ -106,7 +106,7 @@ const DetailPresenter = ({ result, loading, error }) =>
                         </Item>
                         <Divider>•</Divider>
                         <Item>
-                            {result.runtime ? (result.runtime === 0 ? 0 : result.runtime) : result.episode_run_time[0]} min
+                            {result.runtime ? (result.runtime === 0 ? "0" : result.runtime) : result.episode_run_time[0]} min
                         </Item> 
                         <Divider>•</Divider>
                         <Item>
