@@ -19,6 +19,7 @@ const Header = styled.header`
 
 const List = styled.ul`
     display: flex;
+    padding-left: 20px;
 `;
 
 const Item = styled.li`
@@ -27,7 +28,10 @@ const Item = styled.li`
     text-align: center;
     border-bottom: 3px solid
         ${props => (props.current ? "#3498db" : "transparent")};
+    color: ${props => (props.current ? "#ffffff" : "#7d7d7d")}
     transition: border-bottom 0.5s ease-in-out;
+    font-size: 14px;
+    font-weight: 500;
 `;
 
 const SLink = styled(Link)`
@@ -41,7 +45,10 @@ export default withRouter(({ location: { pathname }}) => (
     <Header>
         <List>
             <Item current={pathname === "/"}>
-                <SLink to="/">Movies</SLink>
+                <SLink to="/">Home</SLink>
+            </Item>
+            <Item current={pathname === "/movie"}>
+                <SLink to="/movie">Movies</SLink>
             </Item>
             <Item current={pathname === "/tv"}>
                 <SLink to="/tv">TV</SLink>

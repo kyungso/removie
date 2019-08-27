@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Loader from "../../Components/Loader";
 import Helmet from "react-helmet";  // public/index.html 변경
+import DetailTabs from "../../Components/DetailTabs";
 
 const Container = styled.div`
     height: calc(100vh - 50px);
@@ -44,7 +45,7 @@ const Cover = styled.div`
 
 const Data = styled.div`
     width: 70%;
-    margin-left: 10px;
+    margin-left: 25px;
 `;
 
 const Title = styled.h3`
@@ -59,13 +60,6 @@ const Item = styled.span``;
 
 const Divider = styled.span`
     margin: 0 10px;
-`;
-
-const Overview = styled.p`
-    font-size: 12px;
-    opacity: 0.7;
-    line-height: 1.5;
-    width: 50%;
 `;
 
 const DetailPresenter = ({ result, imdb_id, loading, error }) => 
@@ -128,10 +122,7 @@ const DetailPresenter = ({ result, imdb_id, loading, error }) =>
                                         })(document,'script','imdb-rating-api')}    
                                     </script>                    
                                 </>                
-                            }         
-                            {/* <A href={`https://www.imdb.com/title/${result.imdb_id}/`}>
-                                <Button src={require("../../assets/IMDb.png")} />
-                            </A> */}
+                            }        
                         </Item>
                     </ItemContainer>
                     <ItemContainer>
@@ -141,10 +132,12 @@ const DetailPresenter = ({ result, imdb_id, loading, error }) =>
                                     index === result.genres.length - 1
                                       ? genre.name
                                       : `${genre.name} / `
-                                )}
+                            )}
                         </Item>
                     </ItemContainer>
-                    <Overview>{result.overview}</Overview>
+                    <ItemContainer>
+                        <DetailTabs overview={result.overview} result={result}/>
+                    </ItemContainer>
                 </Data>
             </Content>
         </Container>
