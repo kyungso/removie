@@ -45,9 +45,9 @@ const Company = ({ result }) => (
                 {result.production_companies &&
                             result.production_companies.map((company) =>
                     company.logo_path !== null &&
-                        <LogoContainer>
-                            <Logo key={company.id} logoImg={`https://image.tmdb.org/t/p/original${company.logo_path}`} />
-                            <Title key={company.id}>{company.name}</Title> 
+                        <LogoContainer key={company.id}>
+                            <Logo logoImg={`https://image.tmdb.org/t/p/original${company.logo_path}`} />
+                            <Title>{company.name}</Title> 
                         </LogoContainer>
                 )}
             </CompanyGrid>

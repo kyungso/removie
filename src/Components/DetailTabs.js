@@ -27,9 +27,13 @@ const Tab = styled.li`
     text-align: center;
     border-bottom: 3px solid
         ${props => (props.current ? "#3498db" : "transparent")};
+    margin-right: 3px;
     color: ${props => (props.current ? "#ffffff" : "#949494")}
     transition: border-bottom 0.5s ease-in-out;
     font-weight: 600;
+    &:hover {
+        border-bottom: 3px solid rgb(52,152,219,0.8);
+    }
 `;
 
 const TLink = styled(Link)`
@@ -41,6 +45,7 @@ const TLink = styled(Link)`
 
 const TabContentContainer = styled.div`
     margin: 20px 0;
+    height: 100px;
 `;
 
 const DetailTabs = withRouter(({ match, location, overview, result }) => {

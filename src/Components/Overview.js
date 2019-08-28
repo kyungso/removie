@@ -5,7 +5,7 @@ const OverviewContent = styled.p`
     font-size: 12px;
     opacity: 0.7;
     line-height: 1.5;
-    width: 50%;
+    width: 60%;
 `;
 
 const Overview = ({ overview }) => (

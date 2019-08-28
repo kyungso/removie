@@ -28,10 +28,15 @@ const Item = styled.li`
     text-align: center;
     border-bottom: 3px solid
         ${props => (props.current ? "#3498db" : "transparent")};
+    margin-right: 3px;
     color: ${props => (props.current ? "#ffffff" : "#7d7d7d")}
     transition: border-bottom 0.5s ease-in-out;
     font-size: 14px;
     font-weight: 500;
+    &:hover {
+        border-bottom: 3px solid rgb(52,152,219,0.8);
+    }
+
 `;
 
 const SLink = styled(Link)`

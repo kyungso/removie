@@ -20,7 +20,7 @@ const Input = styled.input`
     all: unset;
     font-size: 28px;
     width: 100%;
-    padding-left: 20px;
+    padding-left: 50px;
 `;
 
 const SearchPresenter = ({ movieResults, tvResults, loading, error, searchTerm, handleSubmit, updateTerm }) => 
