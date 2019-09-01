@@ -6,6 +6,7 @@ import Section from "../../Components/Section";
 import Loader from "../../Components/Loader";
 import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
+import SearchTabs from  "../../Components/SearchTabs";
 
 const Container = styled.div`
     padding: 20px;
@@ -21,6 +22,11 @@ const Input = styled.input`
     font-size: 28px;
     width: 100%;
     padding-left: 50px;
+`;
+
+const SectionContainer = styled.div`
+    padding-left: 165px;
+    margin-bottom: 100px;
 `;
 
 const SearchPresenter = ({ movieResults, tvResults, loading, error, searchTerm, handleSubmit, updateTerm }) => 
@@ -39,7 +45,9 @@ const SearchPresenter = ({ movieResults, tvResults, loading, error, searchTerm, 
             <Loader />
         ) : (
             <>
+                {(movieResults || tvResults) && <SearchTabs />}
                 {movieResults && movieResults.length > 0 && (
+                    <SectionContainer>
                     <Section title="Movie Results">
                         {movieResults.map(movie => (
                             <Poster 
@@ -53,9 +61,11 @@ const SearchPresenter = ({ movieResults, tvResults, loading, error, searchTerm, 
                             />
                         ))}
                     </Section>
+                    </SectionContainer>
                 )}
 
                 {tvResults && tvResults.length > 0 && (
+                    <SectionContainer>
                     <Section title="TV Show Results">
                         {tvResults.map(show => (
                             <Poster 
@@ -68,6 +78,7 @@ const SearchPresenter = ({ movieResults, tvResults, loading, error, searchTerm, 
                             />
                         ))}
                     </Section>
+                    </SectionContainer>
                 )}
                 {error && <Message color="#e74c3c" text={error} />}
                 {tvResults &&
