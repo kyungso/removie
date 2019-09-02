@@ -47,8 +47,8 @@ const Year = styled.span`
     color: rgba(255, 255, 255, 0.5);
 `;
 
-const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
-    <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
+const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollection = false }) => (
+    <Link to={isMovie ? `/movie/${id}` : (isCollection ? `/collection/${id}` : `/show/${id}`)}>
         <Container>
             <ImageContainer>
                 <Image 
@@ -58,17 +58,18 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
                             : require("../assets/noPosterSmall.png")
                     } 
                 />
+                { !isCollection &&
                 <Rating>
                     <span role="img" aria-label="rating">
                         ⭐️
                     </span>{" "}
                     {rating}/10
-                </Rating>
+                </Rating> }
             </ImageContainer>
             <Title>
                 {title.length > 18 ? `${title.substring(0, 18)}...` : title}
             </Title>
-            <Year>{year}</Year>
+            { !isCollection && <Year>{year}</Year> }
         </Container>
     </Link>
 );
@@ -79,7 +80,8 @@ Poster.propTypes = {
     title: PropTypes.string.isRequired,
     rating: PropTypes.number,
     year: PropTypes.string,
-    isMovie: PropTypes.bool
+    isMovie: PropTypes.bool,
+    isCollection: PropTypes.bool
 };
 
 export default Poster;

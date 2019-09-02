@@ -23,10 +23,11 @@ export const moviesApi = {
         api.get(`movie/${id}/external_ids`),
     movieVideos: id =>
         api.get(`movie/${id}/videos`),
-    search: term => 
+    search: (term, i) => 
         api.get("search/movie", {
             params: {
-                query: decodeURIComponent(term)            
+                query: decodeURIComponent(term),
+                page: i            
             }
         })
 };
@@ -45,10 +46,24 @@ export const tvApi = {
         api.get(`tv/${id}/external_ids`),
     showVideos: id =>
         api.get(`tv/${id}/videos`),
-    search: term =>
+    search: (term, i) =>
         api.get("search/tv", {
             params: {
-                query: decodeURIComponent(term)
+                query: decodeURIComponent(term),
+                page: i
             }
         })
+};
+
+export const collectionApi = {
+    collectionDetail: id => 
+        api.get(`collection/${id}`),
+    search: (term, i) =>
+        api.get("search/collection", {
+            params: {
+                query: decodeURIComponent(term),
+                page: i
+            }
+        })
+
 };

@@ -31,8 +31,8 @@ const Videos = ({ videos }) => (
        <Title>Related Videos</Title>
        <VideoList>
             {videos.results && videos.results !== null &&
-                videos.results.map((video) => 
-                <Video>
+                videos.results.map(video => 
+                <Video key={video.key}>
                     <ReactPlayer url={`https://www.youtube.com/watch?v=${video.key}`} controls width='100%' height='100%'/>
                 </Video>
             )}

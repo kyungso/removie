@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
-import Overview from "../Components/Overview";
-import Company from "../Components/Company";
-import Country from "../Components/Country";
+import Overview from "./Overview";
+import Company from "./Company";
+import Country from "./Country";
 
 const TabContainer = styled.header`
     color: white;

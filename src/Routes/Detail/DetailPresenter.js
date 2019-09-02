@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Loader from "../../Components/Loader";
 import Helmet from "react-helmet";  // public/index.html 변경
-import DetailTabs from "../../Components/DetailTabs";
-import Videos from "../../Components/Videos";
+
+import Loader from "../../Components/Loader";
+import Message from "../../Components/Message";
+import DetailTabs from "../../Components/Detail/DetailTabs";
+import Videos from "../../Components/Detail/Videos";
 
 const Container = styled.div`
     height: calc(100vh - 50px);
@@ -144,6 +146,7 @@ const DetailPresenter = ({ result, imdb_id, videos, loading, error }) =>
                     </ItemContainer>
                 </Data>
             </Content>
+            {error && <Message color="#e74c3c" text={error} />}
         </Container>
     );
 

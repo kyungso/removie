@@ -23,12 +23,12 @@ const List = styled.ul`
 `;
 
 const Item = styled.li`
-    width: 80px;
+    width: 85px;
     height: 50px;
     text-align: center;
     border-bottom: 3px solid
         ${props => (props.current ? "#3498db" : "transparent")};
-    margin-right: 3px;
+    margin-right: 5px;
     color: ${props => (props.current ? "#ffffff" : "#7d7d7d")}
     transition: border-bottom 0.5s ease-in-out;
     font-size: 14px;
