@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from "styled-components";
+
 import Section from "../Section";
 import Poster from "../Poster";
 
@@ -53,10 +54,7 @@ const SectionContainer = styled.div`
     margin-bottom: 100px;
 `;
 
-var request = new XMLHttpRequest();
-console.log(request);
-
-export default withRouter(({ location, match, history, movieResults, tvResults, collectionResults }) => (
+export default withRouter(({ location, movieResults, tvResults, collectionResults }) => (
     <>
     <SearchTabContainer>
         <SearchTabs>

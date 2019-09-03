@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Route,
   Redirect,
   Switch
@@ -24,9 +24,9 @@ export default () => (
           <Route path="/search" exact component={Search} />
           <Route path="/search/tv_result" exact component={Search} />
           <Route path="/search/collection_result" exact component={Search} />
-          <Route path="/movie/:id" component={Detail} />
-          <Route path="/show/:id" component={Detail} />
-          <Route path="/collection/:id" component={Collection} />
+          <Route path="/movie/:id" exact component={Detail} />
+          <Route path="/show/:id" exact component={Detail} />
+          <Route path="/collection/:id" exact component={Collection} />
           <Redirect from="*" to="/" />
         </Switch>
     </>
