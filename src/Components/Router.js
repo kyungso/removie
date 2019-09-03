@@ -25,7 +25,11 @@ export default () => (
           <Route path="/search/tv_result" exact component={Search} />
           <Route path="/search/collection_result" exact component={Search} />
           <Route path="/movie/:id" exact component={Detail} />
+          <Route path="/movie/:id/companies" exact component={Detail} />
+          <Route path="/movie/:id/countries" exact component={Detail} />
           <Route path="/show/:id" exact component={Detail} />
+          <Route path="/show/:id/companies" exact component={Detail} />
+          <Route path="/show/:id/countries" exact component={Detail} />
           <Route path="/collection/:id" exact component={Collection} />
           <Redirect from="*" to="/" />
         </Switch>

@@ -48,26 +48,30 @@ const TabContentContainer = styled.div`
     height: 100px;
 `;
 
-const DetailTabs = withRouter(({ match, location, overview, result }) => {
+const DetailTabs = withRouter(({ location, overview, result }) => {
+   const id = `${result.id}`;
+   const isMovie = location.pathname.includes("/movie/");
+   const url = (isMovie ? `/movie/${id}` : `/show/${id}`);
+
    return (
     <>
     <TabContainer>
         <TabList>
-            <Tab current={location.pathname === `${match.url}`}>
-                <TLink to={`${match.url}`}>OVERVIEW</TLink>
+            <Tab current={location.pathname === url}>
+                <TLink to={url}>OVERVIEW</TLink>
             </Tab>
-            <Tab current={location.pathname === `${match.url}/companies`}>
-                <TLink to={`${match.url}/companies`}>Production Companies</TLink>
+            <Tab current={location.pathname === `${url}/companies`}>
+                <TLink to={`${url}/companies`}>Production Companies</TLink>
             </Tab>
-            <Tab current={location.pathname === `${match.url}/countries`}>
-                <TLink to={`${match.url}/countries`}>Production Countries</TLink>
+            <Tab current={location.pathname === `${url}/countries`}>
+                <TLink to={`${url}/countries`}>Production Countries</TLink>
             </Tab>
         </TabList>
     </TabContainer>
     <TabContentContainer>
-        {location.pathname === `${match.url}` && <Overview overview={overview} /> }
-        {location.pathname === `${match.url}/companies` && <Company result={result}/>}
-        {location.pathname === `${match.url}/countries` && <Country result={result}/>}
+        {location.pathname === url && <Overview overview={overview} /> }
+        {location.pathname === `${url}/companies` && <Company result={result}/>}
+        {location.pathname === `${url}/countries` && <Country result={result}/>}
     </TabContentContainer>
     </>
    );
