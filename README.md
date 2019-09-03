@@ -23,10 +23,11 @@ Learning React and ES6 by building a Movie Discovery App.
 ## Code Challenges
 
 - [x] IMDB Link
-- [x] Tabs inside of Movie / Show Details (YT Videos, Production Company & Countries)
-- [x] Collection Link in Search
+- [x] Tabs inside of Movie / Show Details (Production Company, Countries, YT Videos)
+- [x] Movie, TV show result Links in Search
+- [x] Collection result Link in Search
 - [x] /collection Route
-- [ ] On TV Show, show seasons and creators
+- [x] Home Screen (Get the daily trending items)
 
 # Preview:
 

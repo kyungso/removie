@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.span`
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 600;
 `;
 
@@ -23,10 +23,21 @@ const Grid = styled.div`
     grid-gap: 25px;
 `;
 
-const Section = ({ title, children }) => (
+const HomeGrid = styled.div`
+    margin-top: 25px;
+    margin-right: 80px;
+    display: grid;
+    grid-template-columns: repeat(100, 125px);
+    grid-gap: 15px;
+    overflow-x: scroll;
+`;
+
+const Section = ({ title, isHome, children }) => (
     <Container>
         <Title>{title}</Title>
-        <Grid>{children}</Grid>
+        {isHome 
+         ? <HomeGrid>{children}</HomeGrid>
+         : <Grid>{children}</Grid>}
     </Container>
 );
 

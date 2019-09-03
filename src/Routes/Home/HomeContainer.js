@@ -1,12 +1,11 @@
 import React from 'react';
 import HomePresenter from "./HomePresenter";
-import { moviesApi } from "../../api";
+import { moviesApi, tvApi } from "../../api";
 
 export default class extends React.Component {
     state = {
-        nowPlaying: null,
-        upcoming: null,
-        popular: null,
+        movieTrending: null,
+        tvTrending: null,
         error: null,
         loading: true
     };
@@ -14,24 +13,20 @@ export default class extends React.Component {
     async componentDidMount() {
         try {
             const {
-                data: { results: nowPlaying }
-            } = await moviesApi.nowPlaying();
+                data: { results: movieTrending }
+            } = await moviesApi.trending();
             const {
-                data: { results: upcoming }
-            } = await moviesApi.upcoming();
-            const {
-                data: { results: popular }
-            } = await moviesApi.popular();
-
+                data: { results: tvTrending }
+            } = await tvApi.trending();
+    
             this.setState({
-                nowPlaying,
-                upcoming,
-                popular
+                movieTrending,
+                tvTrending
             });
             
         } catch {
             this.setState({
-                error: "Can't find movie information."
+                error: "Can't find trending information."
             });
         } finally {
             this.setState({
@@ -40,12 +35,11 @@ export default class extends React.Component {
         }
     }
     render() {
-        const { nowPlaying, upcoming, popular, error, loading } = this.state;
+        const { movieTrending, tvTrending, error, loading } = this.state;
         return (
             <HomePresenter 
-                nowPlaying={nowPlaying}
-                upcoming={upcoming}
-                popular={popular}
+                movieTrending={movieTrending}
+                tvTrending={tvTrending}
                 error={error}
                 loading={loading}
             />

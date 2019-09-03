@@ -9,10 +9,11 @@ const VideoContainer = styled.div`
 
 const VideoList = styled.div`
     display: grid;
-    grid-template-columns: repeat(1000, calc(50% - 130px));
+    grid-template-columns: repeat(1000, 310px);
     grid-gap: 10px;
     grid-template-rows: minmax(150px, 1fr);
     padding-top 10px;
+    margin-right: 100px;
     overflow-x: scroll;
 `;
 
