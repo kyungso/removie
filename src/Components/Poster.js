@@ -10,10 +10,11 @@ const Container = styled.div`
 const Image = styled.div`
     background-image: url(${props => props.bgUrl});
     height: 180px;
-    background-size: cover;
+    background-size: ${props => props.poster};
     border-radius: 4px;
     background-position: center center;
     transition: opacity 0.1s linear;
+    background-repeat: no-repeat;
 `;
 
 const Rating = styled.span`
@@ -47,7 +48,7 @@ const Year = styled.span`
     color: rgba(255, 255, 255, 0.5);
 `;
 
-const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollection = false }) => (
+const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollection = false, isCarousel = false }) => (
     <Link to={isMovie ? `/movie/${id}` : (isCollection ? `/collection/${id}` : `/show/${id}`)}>
         <Container>
             <ImageContainer>
@@ -57,6 +58,11 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollecti
                             ? `https://image.tmdb.org/t/p/w300${imageUrl}`
                             : require("../assets/noPosterSmall.png")
                     } 
+                    poster={
+                        isCarousel
+                            ? "contain"
+                            : "cover"
+                    }
                 />
                 { !isCollection &&
                 <Rating>
@@ -66,9 +72,11 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollecti
                     {rating}/10
                 </Rating> }
             </ImageContainer>
-            <Title>
-                {title.length > 18 ? `${title.substring(0, 18)}...` : title}
-            </Title>
+            { !isCarousel && 
+                <Title>
+                    {title.length > 18 ? `${title.substring(0, 18)}...` : title}
+                </Title>
+            }
             { !isCollection && <Year>{year}</Year> }
         </Container>
     </Link>

@@ -7,12 +7,14 @@ import Section from "../../Components/Section";
 import Loader from "../../Components/Loader";
 import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
+import Carousel from "../../Components/Carousel/Carousel";
 
 const Container = styled.div`
+    margin-top: 10px;
     padding: 20px;
 `;
   
-const HomePresenter = ({ movieTrending, tvTrending, loading, error }) => (
+const HomePresenter = ({ movieTrending, tvTrending, topRated, loading, error }) => (
     <>
         <Helmet>
             <title>Home | Netflix</title>
@@ -20,10 +22,14 @@ const HomePresenter = ({ movieTrending, tvTrending, loading, error }) => (
         {loading ? (
             <Loader /> 
             ) : (
+            <>
             <Container>
                 <Helmet>
                     <title>Home | Netflix</title>
                 </Helmet>
+
+                <Carousel topRated={topRated} />
+
                 {movieTrending && movieTrending.length > 0 && (
                     <Section title="Trending Movies" isHome={true}>
                         {movieTrending.map(movie => (
@@ -56,6 +62,7 @@ const HomePresenter = ({ movieTrending, tvTrending, loading, error }) => (
                 )}
                 {error && <Message color="#e74c3c" text={error} />}
             </Container>
+            </>
         )}
     </>
 );
