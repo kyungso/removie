@@ -1,0 +1,35 @@
+@import 'utils';
+
+.company-container {
+    width: 75%;
+
+    .company-grid {
+        :not(:last-child) { 
+            margin-bottom: 10px;
+        }
+
+        .grid-wrapper {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 150px);
+            grid-gap: 10px;
+        }
+    }
+}
+
+.logo-wrapper {
+    font-size: 12px;
+
+    .logo {
+        height: 40px;
+        background-position: center center;
+        background-size: contain;
+        border-radius: 4px;
+        background-repeat: no-repeat;
+    }
+
+    .logo-title {
+        display: block;
+        text-align: center;
+    }
+}

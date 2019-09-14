@@ -1,0 +1,21 @@
+@import 'utils';
+
+.carousel-container {
+    margin-bottom: 80px;
+    margin-left: 80px;
+    margin-right: 100px;
+
+    .carousel-title {
+        margin-bottom: 20px;
+        font-size: 17px;
+        font-weight: 600;
+    }
+}
+
+.slick-dots li button:before {
+    color: white;
+}
+
+.slick-dots li.slick-active button:before {
+    color: white;
+}

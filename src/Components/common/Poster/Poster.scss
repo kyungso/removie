@@ -1,0 +1,45 @@
+@import 'utils';
+
+.poster-container {
+    font-size: 12px;
+
+    .posterImage-container{
+        margin-bottom: 5px;
+        position: relative;
+        &:hover {
+            .poster-image {
+                opacity: 0.3;
+            }
+            .poster-rating {
+                opacity: 1;
+            }
+        }
+
+        .poster-image {
+            height: 180px;
+            background-position: center center;
+            transition: opacity 0.1s linear;
+            background-repeat: no-repeat;
+        }
+
+        .poster-rating {
+            bottom: 5px;
+            right: 5px;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.1s linear;
+        }
+    }
+
+   
+}
+
+.poster-title {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.poster-year {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+}

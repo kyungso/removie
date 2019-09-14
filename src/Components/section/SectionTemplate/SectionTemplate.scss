@@ -1,0 +1,31 @@
+@import 'utils';
+
+// last-child만 제외하고 적용 (:not)
+.section-container {
+    &:not(:last-child) { 
+        margin-bottom: 50px;
+    }
+    margin-left: 80px;
+    margin-right: 50px;
+
+    .section-title {
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .section-home {
+        margin-top: 25px;
+        margin-right: 80px;
+        display: grid;
+        grid-template-columns: repeat(100, 125px);
+        grid-gap: 15px;
+        overflow-x: scroll;
+    }
+
+    .section {
+        margin-top: 25px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 125px);
+        grid-gap: 25px;
+    }
+}
