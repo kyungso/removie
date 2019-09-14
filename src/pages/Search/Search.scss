@@ -1,0 +1,18 @@
+@import 'utils'; 
+
+.search-container {
+    padding: 20px;
+    min-height: calc(100vh - 10rem);
+}
+
+.search-form {
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.search-input {
+    all: unset;
+    font-size: 28px;
+    width: 100%;
+    padding-left: 50px;
+}

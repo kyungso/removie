@@ -1,0 +1,26 @@
+@import 'utils';
+
+.video-container {
+    width: 89%;
+    margin-top: 120px;
+
+    .video-title {
+        font-size: 15px;
+    }
+
+    .video-list {
+        display: grid;
+        grid-template-columns: repeat(1000, 310px);
+        grid-gap: 10px;
+        grid-template-rows: minmax(150px, 1fr);
+        padding-top: 10px;
+        margin-right: 100px;
+        overflow-x: scroll;
+
+        .video {
+            width: 310px;
+            height: 200px;
+            border-radius: 5px;
+        }
+    }
+}
