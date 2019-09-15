@@ -14,7 +14,7 @@ const Carousel = ({ topRated }) => {
         slidesToShow: 3,
         slideToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000
+        autoplaySpeed: 2000
     };
     return (
         <div className={cx('carousel-container')}>
