@@ -17,8 +17,10 @@ class SearchContainer extends Component {
         const { location, SearchActions } = this.props;
         const query = queryString.parse(location.search)
         const value = query.keyword;
-
-        if(value && value.length > 0) {
+        
+        if(!value) {
+            SearchActions.initialize();
+        } else if(value && value.length > 0) {
             SearchActions.changeInput({value});
         } 
     }
@@ -106,6 +108,7 @@ class SearchContainer extends Component {
         if(searchTerm && (!movieResults || !tvResults || !collectionResults)) {
             this.searchByTerm();
         }
+
         return(
             <SearchPresenter 
                 movieResults={movieResults}
