@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 
 import Section from "components/section/SectionTemplate";
 import Poster from "components/common/Poster";
+import Message from "components/common/Message";
 
 const cx = classNames.bind(styles);
 
@@ -60,6 +61,5 @@ export default withRouter(({ location, movieResults, tvResults, collectionResult
             </Section>
         </div>
     )}
-
     </>
 ));
