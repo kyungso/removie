@@ -31,7 +31,7 @@ class SearchContainer extends Component {
         // console.log(prevProps.movieResults);
         // console.log(this.props.movieResults);
 
-        if(prevProps.searchTerm !== this.props.searchTerm) {
+        if(this.props.searchTerm.length > 0 && prevProps.searchTerm !== this.props.searchTerm) {
             this.searchByTerm();
         }
         if(!prevProps.movieResults && !this.props.movieResults) {
