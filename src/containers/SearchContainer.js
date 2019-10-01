@@ -14,10 +14,10 @@ class SearchContainer extends Component {
     constructor(props) {
         super(props);
 
-        const { location, SearchActions } = this.props;
-        const query = queryString.parse(location.search)
-        const value = query.keyword;
-        
+        let { location, SearchActions } = this.props;
+        let query = queryString.parse(location.search)
+        let value = query.keyword;
+
         if(!value) {
             SearchActions.initialize();
         } else if(value && value.length > 0) {
@@ -25,25 +25,18 @@ class SearchContainer extends Component {
         } 
     }
 
-    async componentDidMount() {
-        // const { SearchActions } = this.props;
-        // SearchActions.initialize();
-        
-        // const { location, SearchActions } = this.props;
-        // const query = queryString.parse(location.search)
-        // const value = query.keyword;
-        
-        // try {
-        //     if(value && value.length > 0) {
-        //         SearchActions.changeInput({value});
-        //     } else {
-        //         SearchActions.changeInput('');
-        //         SearchActions.initialize();
-        //     }
-        // } catch (e){
-        //     console.log(e);
-        // }
-        
+    componentDidUpdate(prevProps, prevState) {
+        // console.log(prevProps.searchTerm);
+        // console.log(this.props.searchTerm);
+        // console.log(prevProps.movieResults);
+        // console.log(this.props.movieResults);
+
+        if(prevProps.searchTerm !== this.props.searchTerm) {
+            this.searchByTerm();
+        }
+        if(!prevProps.movieResults && !this.props.movieResults) {
+            this.searchByTerm();
+        }
     }
 
     updateTerm = (event) => {
@@ -56,7 +49,7 @@ class SearchContainer extends Component {
         event.preventDefault();
         const { searchTerm } = this.props;
         if(searchTerm !== "") {
-            this.props.history.push(`/search?keyword=${searchTerm}`);
+            this.props.history.push(`/search/movie_result?keyword=${searchTerm}`);
             this.searchByTerm();
         }
     };
@@ -104,11 +97,7 @@ class SearchContainer extends Component {
 
     render() {
         const { movieResults, tvResults, collectionResults, searchTerm, loading } = this.props;
-
-        if(searchTerm && (!movieResults || !tvResults || !collectionResults)) {
-            this.searchByTerm();
-        }
-
+        
         return(
             <SearchPresenter 
                 movieResults={movieResults}

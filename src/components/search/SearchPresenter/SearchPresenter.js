@@ -29,21 +29,13 @@ const SearchPresenter = ({ movieResults, tvResults, collectionResults, searchTer
             <Loader />
         ) : (
             <>  
-                {(movieResults || tvResults || collectionResults) &&
+                {(movieResults && tvResults && collectionResults) &&
                 <>
                     <SearchTab movieResults={movieResults} tvResults={tvResults} collectionResults={collectionResults} searchTerm={searchTerm}/> 
                     <SearchResults movieResults={movieResults} tvResults={tvResults} collectionResults={collectionResults} searchTerm={searchTerm}/>
                 </>
 
                 }
-                {/* {tvResults &&
-                  movieResults &&
-                    collectionResults &&
-                    tvResults.length === 0 &&
-                      movieResults.length === 0 && 
-                      collectionResults.length === 0 && (
-                        <Message text="Nothing found" color="#95a5a6" />
-                )} */}
             </>
         )}
     </div>

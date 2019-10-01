@@ -5,13 +5,12 @@ import classNames from 'classnames/bind';
 
 import Section from "components/section/SectionTemplate";
 import Poster from "components/common/Poster";
-import Message from "components/common/Message";
 
 const cx = classNames.bind(styles);
 
 export default withRouter(({ location, movieResults, tvResults, collectionResults }) => (
     <>
-    {location.pathname === "/search" && movieResults && movieResults.length > 0 && (
+    {location.pathname === "/search/movie_result" && movieResults && movieResults.length > 0 && (
         <div className={cx('search-results')}>
             <Section title={`Movie Results (${movieResults.length })`}>
                 {movieResults.map(movie => (
@@ -21,7 +20,7 @@ export default withRouter(({ location, movieResults, tvResults, collectionResult
                         imageUrl={movie.poster_path}
                         title={movie.title}
                         rating={movie.vote_average}
-                        year={movie.release_date.substring(0, 4)}
+                        year={movie.release_date ? movie.release_date.substring(0, 4) : ''}
                         isMovie={true}
                     />
                 ))}
