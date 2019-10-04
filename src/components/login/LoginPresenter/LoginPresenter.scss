@@ -1,0 +1,76 @@
+@import 'utils'; 
+
+.login-container {
+    padding: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 50px;
+    min-height: calc(100vh - 11rem);
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    p {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    a {
+        color: cornflowerblue;
+    }
+}
+
+.login-form {
+    margin-top: 40px;
+
+    .login-username {
+        all: unset;
+        display: block;
+        font-size: 28px;
+        margin-bottom: 40px;
+        width: 50%;
+        border-radius: 2px;
+        line-height: 45px;
+
+        &:focus {
+            border-bottom: 1px solid cornflowerblue;
+        }
+    }
+
+    .login-password {
+        all: unset;
+        display: block;
+        font-size: 28px;
+        margin-bottom: 50px;
+        width: 50%;
+        border-radius: 2px;
+        line-height: 45px;
+
+        &:focus {
+            border-bottom: 1px solid cornflowerblue;
+        }
+    }
+
+    .login-button {
+        all: unset;
+        box-sizing: border-box;
+        color: white;
+        font-size: 22px;
+        line-height: 45px;
+        padding: 0px 35px;
+        background-color: rgb(2, 102, 153);
+        border-color: rgb(2, 102, 153);
+        border-radius: 0.25rem;
+        cursor: pointer;
+        opacity: 0.9;
+        transition: background-color 0.1s linear opacity 0.1s linear;
+        box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
+
+        &:hover {
+            background-color: rgb(2, 99, 148);
+            opacity: 0.75;
+        }
+    }
+}

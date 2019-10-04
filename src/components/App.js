@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from "react-router-dom";
-import { HomePage, MoviePage, TVPage, SearchPage, DetailPage, CollectionPage } from 'pages';
+import { HomePage, LoginPage, MoviePage, TVPage, SearchPage, DetailPage, CollectionPage } from 'pages';
 import Header from "components/common/Header";
 import Footer from 'components/common/Footer';
 
@@ -11,6 +11,7 @@ class App extends Component {
             <Header/>
             <Switch>
               <Route path="/" exact component={HomePage} />
+              <Route path="/login" exact component={LoginPage} />
               <Route path="/movie" exact component={MoviePage} />
               <Route path="/tv" exact component={TVPage} />
               <Route path="/search/movie_result?keyword=:searchValue" exact component={SearchPage} />
