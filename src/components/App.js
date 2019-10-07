@@ -11,6 +11,12 @@ class App extends Component {
             <Header/>
             <Switch>
               <Route path="/" exact component={HomePage} />
+              <Route path="/permission" exact component={() => {
+                let token = localStorage.getItem('token');
+                //window.location.href=`https://www.themoviedb.org/authenticate/${token}`;
+                window.location.replace(`https://www.themoviedb.org/authenticate/${token}`);
+                return null;
+              }} />
               <Route path="/login" exact component={LoginPage} />
               <Route path="/movie" exact component={MoviePage} />
               <Route path="/tv" exact component={TVPage} />

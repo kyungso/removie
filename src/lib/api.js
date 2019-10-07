@@ -73,6 +73,6 @@ export const collectionApi = {
 
 export const loginApi = {
     createRequetToken: () => api.get("authentication/token/new"),
-    createSessionWithLogin: ({username, password, request_token}) => api.post("authentication/token/validate_with_login", {username, password, request_token})
-    
-}
+    validateWithLogin: ({username, password, request_token}) => api.post("authentication/token/validate_with_login", {username, password, request_token}),
+    createSessionId: ({request_token}) => api.post("authentication/session/new", {request_token}),
+};

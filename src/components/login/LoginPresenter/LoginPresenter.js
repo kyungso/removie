@@ -21,6 +21,7 @@ const LoginPresenter = ({ username, password, request_token, logged, loading, ha
                 placeholder="Username"
                 value={username}
                 onChange={updateUsername}
+                autoComplete="username"
             />
              <input
                 className={cx('login-password')} 
@@ -29,6 +30,7 @@ const LoginPresenter = ({ username, password, request_token, logged, loading, ha
                 value={password}
                 onChange={updatePassword}
                 onKeyUp={enterSubmit}
+                autoComplete="current-password"
             />
             <input
                 className={cx('login-button')}
