@@ -76,5 +76,4 @@ export const loginApi = {
     validateWithLogin: ({username, password, request_token}) => api.post("authentication/token/validate_with_login", {username, password, request_token}),
     createSessionId: (request_token) => api.post("authentication/session/new", {request_token}),
     deleteSessionId: (session_id) => api.delete("authentication/session", {data: {session_id: session_id}}),
-    //deleteSessionId: (session_id) => api.delete("authentication/session", {session_id}),
 };
