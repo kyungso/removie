@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const LoginPresenter = ({ username, password, request_token, logged, loading, handleSubmit, updateUsername, updatePassword, enterSubmit }) => (
+const LoginPresenter = ({ username, password, handleSubmit, updateUsername, updatePassword, enterSubmit }) => (
     <div className={cx('login-container')}>
         <Helmet>
             <title>Login | REMOVIE</title>

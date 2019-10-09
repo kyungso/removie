@@ -42,12 +42,18 @@ const Header = withRouter(({ location: { pathname }}) => {
             </div>
             <div className={cx('right-content')}>
                 <ul className={cx('right-content-list')}>
-                    <li className={cx('right-content-items')}
+                {
+                    localStorage.getItem('logged') === 'true'
+                    ? (<li className={cx('account')}>
+                        <Link to="/account">K</Link>
+                       </li>)
+                    : (<li className={cx('right-content-items')}
                         style={{ borderBottom: (pathname === "/login" ? `3px solid #3498db` : `3px solid transparent`),
                                 color: (pathname === "/login" ? `#ffffff` : `#7d7d7d`)}}
                     >
                         <Link to="/login" className={cx('nav_link')}>+ Login</Link>
-                    </li>
+                    </li>)
+                }
                 </ul>
             </div>
         </header>
