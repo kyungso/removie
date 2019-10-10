@@ -35,7 +35,7 @@ class HomeContainer extends Component {
         return (
             <>
             <Helmet>
-                <title>Home | Netflix</title>
+                <title>Home | REMOVIE</title>
             </Helmet>
             {loading 
                 ? (<Loader />) 

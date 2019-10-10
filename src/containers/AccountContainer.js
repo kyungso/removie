@@ -35,7 +35,7 @@ class AccountContainer extends Component {
     };
 
     render() {
-        const { request_token, logged, loading } = this.props;
+        //const { request_token, logged, loading } = this.props;
         //console.log(request_token, logged);
 
         return(

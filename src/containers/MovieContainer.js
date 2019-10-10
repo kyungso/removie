@@ -36,7 +36,7 @@ class MovieContainer extends Component {
         return (
             <>
             <Helmet>
-                <title>Movies | Netflix</title>
+                <title>Movies | REMOVIE</title>
             </Helmet>
             {loading 
                 ? (<Loader />) 

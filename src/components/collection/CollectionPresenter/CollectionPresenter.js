@@ -14,14 +14,14 @@ const cx = classNames.bind(styles);
 const CollectionPresenter = ({ result, error, loading }) => (
     <>
         <Helmet>
-            <title>Collections | Netflix</title>
+            <title>Collections | REMOVIE</title>
         </Helmet>
         {loading ? (
             <Loader /> 
             ) : (
             <div className={cx('collection-container')}>
                 <Helmet>
-                    <title>Collections | Netflix</title>
+                    <title>Collections | REMOVIE</title>
                 </Helmet> 
                 <div className={cx('collection-backdrop')} 
                      style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${result.backdrop_path})` }}>

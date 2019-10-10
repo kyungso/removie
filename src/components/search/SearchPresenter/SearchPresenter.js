@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 const SearchPresenter = ({ movieResults, tvResults, collectionResults, searchTerm, loading, handleSubmit, updateTerm }) => 
     <div className={cx('search-container')}>
         <Helmet>
-            <title>Search | Netflix</title>
+            <title>Search | REMOVIE</title>
         </Helmet>
         <form className={cx('search-form')} onSubmit={handleSubmit}>
             <input
