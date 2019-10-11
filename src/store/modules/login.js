@@ -59,7 +59,7 @@ export default handleActions({
         state.set('logged', true);
         localStorage.setItem('logged', true);
         let token = localStorage.getItem('token');
-        window.location.replace(`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000`);
+        window.location.replace(`https://www.themoviedb.org/authenticate/${token}?redirect_to=https://removie.netlify.com`);
         return null;
     },
     ...pender({

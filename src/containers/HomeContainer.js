@@ -17,10 +17,10 @@ class HomeContainer extends Component {
         console.log(queryString.parse(window.location.search));
         let query = queryString.parse(window.location.search);
         if(query['approved']) {
-            window.location.href='http://localhost:3000/#/approved';
+            window.location.href='https://removie.netlify.com/#/approved';
         } else if(query['denied']){
             localStorage.setItem('logged', false);
-            window.location.href='http://localhost:3000/#/login';
+            window.location.href='https://removie.netlify.com/#/login';
             alert('인증이 거부되었습니다. 다시 시도해 주세요.')
         }
         // window.location.replace("http://localhost:3000/approved");

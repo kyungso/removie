@@ -28,7 +28,7 @@ class AccountContainer extends Component {
             let sessionId = localStorage.getItem('session_id');
             await LoginActions.deleteSessionId(sessionId);
             await LoginActions.initialize();
-            window.location.replace(`http://localhost:3000`);
+            window.location.replace(`https://removie.netlify.com`);
         } catch(e) {
             console.log(e);
         }
