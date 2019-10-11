@@ -11,7 +11,6 @@ class App extends Component {
             <HeaderContainer/>
             <Switch>
               <Route path="/" exact component={HomePage} />
-              <Route path="/approved" exact component={HomePage} />
               <Route path="/login" exact component={LoginPage} />
               <Route path="/account" exact component={AccountPage} />
               <Route path="/movie" exact component={MoviePage} />

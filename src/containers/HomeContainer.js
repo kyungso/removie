@@ -14,10 +14,9 @@ class HomeContainer extends Component {
     constructor(props) {
         super(props);
 
-        console.log(queryString.parse(window.location.search));
         let query = queryString.parse(window.location.search);
         if(query['approved']) {
-            window.location.href='https://removie.netlify.com/#/approved';
+            window.location.href='https://removie.netlify.com/#/';
         } else if(query['denied']){
             localStorage.setItem('logged', false);
             window.location.href='https://removie.netlify.com/#/login';
