@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from "react-helmet";
+import queryString from 'query-string';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,6 +10,22 @@ import HomePresenter from "components/home/HomePresenter";
 import Loader from "components/common/Loader";
 
 class HomeContainer extends Component {
+
+    constructor(props) {
+        super(props);
+
+        console.log(queryString.parse(window.location.search));
+        let query = queryString.parse(window.location.search);
+        if(query['approved']) {
+            window.location.href='http://localhost:3000/#/approved';
+        } else if(query['denied']){
+            localStorage.setItem('logged', false);
+            window.location.href='http://localhost:3000/#/login';
+            alert('인증이 거부되었습니다. 다시 시도해 주세요.')
+        }
+        // window.location.replace("http://localhost:3000/approved");
+    }
+
     getMovieTrending = () => {
         const { HomeActions } = this.props;
         HomeActions.getMovieTrending();

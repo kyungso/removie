@@ -10,16 +10,16 @@ import AccountPresenter from "components/account/AccountPresenter";
 class AccountContainer extends Component {
 
     async componentDidMount() {
-        const { LoginActions } = this.props;
-        let token = localStorage.getItem('token');
-        let sessionId = localStorage.getItem('session_id');
-        try {
-            if(!sessionId) {
-                LoginActions.createSessionId(token);
-            }
-        } catch(e) {
-            console.log(e);
-        }
+        // const { LoginActions } = this.props;
+        // let token = localStorage.getItem('token');
+        // let sessionId = localStorage.getItem('session_id');
+        // try {
+        //     if(!sessionId) {
+        //         LoginActions.createSessionId(token);
+        //     }
+        // } catch(e) {
+        //     console.log(e);
+        // }
     }
 
     handleLogout = async () => {
@@ -27,16 +27,14 @@ class AccountContainer extends Component {
         try {
             let sessionId = localStorage.getItem('session_id');
             await LoginActions.deleteSessionId(sessionId);
-            this.props.history.push("/");
-            window.location.reload();
+            await LoginActions.initialize();
+            window.location.replace(`http://localhost:3000`);
         } catch(e) {
             console.log(e);
         }
     };
 
     render() {
-        //const { request_token, logged, loading } = this.props;
-        //console.log(request_token, logged);
 
         return(
            <AccountPresenter

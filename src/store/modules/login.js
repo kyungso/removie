@@ -6,6 +6,7 @@ import { pender } from 'redux-pender';
 import { loginApi } from 'lib/api';
 
 // action types
+const INITIALIZE = 'login/INITIALIZE';
 const CHANGE_USERNAME = 'login/CHANGE_USERNAME';
 const CHANGE_PASSWORD = 'login/CHANGE_PASSWORD';
 const GET_REQUEST_TOKEN = 'login/GET_REQUEST_TOKEN';
@@ -15,6 +16,7 @@ const CREATE_SESSION_ID = 'login/CREATE_SESSION_ID';
 const DELETE_SESSION_ID = 'login/DELETE_SESSION_ID';
 
 // action creators
+export const initialize = createAction(INITIALIZE);
 export const changeUsername = createAction(CHANGE_USERNAME);
 export const changePassword = createAction(CHANGE_PASSWORD);
 export const getRequestToken = createAction(GET_REQUEST_TOKEN, loginApi.createRequetToken);
@@ -35,6 +37,7 @@ const initialState = Map({
 
 // reducer
 export default handleActions({
+    [INITIALIZE]: (state, action) => initialState,
     [CHANGE_USERNAME]: (state, action) => {
         const { value } = action.payload;
         return state.set('username', value);
@@ -53,6 +56,7 @@ export default handleActions({
         }
     }),
     [ASK_USER_FOR_PERMISSION]: (state, action) => {
+        state.set('logged', true);
         localStorage.setItem('logged', true);
         let token = localStorage.getItem('token');
         window.location.replace(`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000`);

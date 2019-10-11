@@ -51,16 +51,6 @@ class LoginContainer extends Component {
         }
     };
 
-    createSessionId = async () => {
-        const { LoginActions } = this.props;
-        let token = localStorage.getItem('token');
-        try {
-            LoginActions.createSessionId({token});
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     render() {
         const { username, password, request_token, logged, loading } = this.props;
         console.log(request_token, username, password, logged);

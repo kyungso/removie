@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from "react-router-dom";
 import { HomePage, LoginPage, AccountPage, MoviePage, TVPage, SearchPage, DetailPage, CollectionPage } from 'pages';
-import Header from "components/common/Header";
+import HeaderContainer from "containers/HeaderContainer";
 import Footer from 'components/common/Footer';
 
 class App extends Component {
   render() {
     return(
         <>
-            <Header/>
+            <HeaderContainer/>
             <Switch>
               <Route path="/" exact component={HomePage} />
+              <Route path="/approved" exact component={HomePage} />
               <Route path="/login" exact component={LoginPage} />
               <Route path="/account" exact component={AccountPage} />
               <Route path="/movie" exact component={MoviePage} />
