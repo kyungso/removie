@@ -10,16 +10,16 @@ import AccountPresenter from "components/account/AccountPresenter";
 class AccountContainer extends Component {
 
     async componentDidMount() {
-        // const { LoginActions } = this.props;
-        // let token = localStorage.getItem('token');
-        // let sessionId = localStorage.getItem('session_id');
-        // try {
-        //     if(!sessionId) {
-        //         LoginActions.createSessionId(token);
-        //     }
-        // } catch(e) {
-        //     console.log(e);
-        // }
+        const { LoginActions } = this.props;
+        let token = localStorage.getItem('token');
+        let sessionId = localStorage.getItem('session_id');
+        try {
+            if(!sessionId) {
+                LoginActions.createSessionId(token);
+            }
+        } catch(e) {
+            console.log(e);
+        }
     }
 
     handleLogout = async () => {

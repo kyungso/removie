@@ -67,20 +67,20 @@
         font-weight: 500;
     }
 
-    .account {
-        color: #ffffff;
-        font-size: 15px;
-        font-weight: 600;
-        background-color: #ce3462;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        text-transform: uppercase;
-        border-radius: 50%;
-    }
+    // .account {
+    //     color: #ffffff;
+    //     font-size: 15px;
+    //     font-weight: 600;
+    //     background-color: #ce3462;
+    //     width: 32px;
+    //     height: 32px;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     text-align: center;
+    //     text-transform: uppercase;
+    //     border-radius: 50%;
+    // }
 }
 
 .nav_link {
@@ -90,3 +90,13 @@
     justify-content: center;
 }
 
+#dropdown-item-button {
+    color: #fff;
+    background-color: #ce3462;
+    border-color: #ce3462;
+    border-radius: 50%;
+    font-weight: 600;
+}
+.dropdown-toggle.btn.btn-primary::after {
+   display: none;
+}

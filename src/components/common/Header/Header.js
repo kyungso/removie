@@ -4,9 +4,12 @@ import classNames from 'classnames/bind';
 import { Link, withRouter } from 'react-router-dom';
 import logo from 'lib/assets/logo.png';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+
 const cx = classNames.bind(styles);
 
-const Header = withRouter(({ location: { pathname }}) => {
+const Header = withRouter(({ location: { pathname }, handleLogout }) => {
     return (
         <header className={cx('header')}>
             <div className={cx('left-content')}>
@@ -44,8 +47,13 @@ const Header = withRouter(({ location: { pathname }}) => {
                 <ul className={cx('right-content-list')}>
                 {
                     localStorage.getItem('logged') === 'true'
-                    ? (<li className={cx('account')}>
-                        <Link to="/account">K</Link>
+                    ? (<li>
+                        <DropdownButton id="dropdown-item-button" title="K">
+                            <Dropdown.Item href="#/account">ksjung</Dropdown.Item>
+                            <Dropdown.Divider />
+                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                        </DropdownButton>
+                        {/* <Link to="/account" className={cx('account')}>K</Link> */}
                        </li>)
                     : (<li className={cx('right-content-items')}
                         style={{ borderBottom: (pathname === "/login" ? `3px solid #3498db` : `3px solid transparent`),

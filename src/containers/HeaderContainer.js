@@ -23,10 +23,23 @@ class HeaderContainer extends Component {
         }
     }
 
+    handleLogout = async () => {
+        const { LoginActions } = this.props;
+        try {
+            let sessionId = localStorage.getItem('session_id');
+            await LoginActions.deleteSessionId(sessionId);
+            await LoginActions.initialize();
+            window.location.replace(`https://removie.netlify.com`);
+        } catch(e) {
+            console.log(e);
+        }
+    };
+    
+
     render() {
 
         return(
-           <Header />
+           <Header handleLogout={this.handleLogout}/>
         );
     }
 }
