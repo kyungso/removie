@@ -30,7 +30,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                         >
                             <Link to="/account/favorite/tv" className={cx('flink')}
                                 style={{ color: (pathname === "/account/favorite/tv" ? `#ffffff` : `#AAAAAA`) }}
-                            >TV</Link>
+                            >TV <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {favoriteTV.length}</span></Link>
                         </li>
                     </ul>
                 </div>
@@ -99,6 +99,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
 
 Favorites.propTypes = {
     favoriteMovies: PropTypes.array,
+    favoriteTV: PropTypes.array
 };
 
 export default Favorites;

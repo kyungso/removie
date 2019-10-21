@@ -56,7 +56,7 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
 
         <div className={cx('account-tab-data')}>
         {pathname === "/account" && <Overview /> }
-        {pathname === "/account/favorite" && <Favorites favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} /> }
+        {(pathname === "/account/favorite" || pathname === "/account/favorite/tv") && <Favorites favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} /> }
         {pathname === "/account/rating" && <Rating /> }
         </div>
     </div>
