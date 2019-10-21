@@ -30,12 +30,13 @@ class AccountContainer extends Component {
             let account_id = accountDetail.id;
             if(sessionId) {
                 AccountActions.getFavoriteMovies(account_id, sessionId);
+                AccountActions.getFavoriteTV(account_id, sessionId);
             }
         }
     }
 
     render() {
-        const { accountDetail, favoriteMovies, loading } = this.props;
+        const { accountDetail, favoriteMovies, favoriteTV, loading } = this.props;
         return(
            <>
            {loading
@@ -43,6 +44,7 @@ class AccountContainer extends Component {
             : accountDetail && <AccountPresenter
                 accountDetail={accountDetail}
                 favoriteMovies={favoriteMovies}
+                favoriteTV={favoriteTV}
                 loading={loading}
               />
             }
@@ -55,7 +57,8 @@ export default withRouter(connect(
     (state) => ({
         accountDetail: state.account.get('accountDetail'),
         favoriteMovies: state.account.get('favoriteMovies'),
-        loading: state.pender.pending['account/GET_ACCOUNT_DETAILS'] || state.pender.pending['account/GET_FAVORITE_MOVIES']
+        favoriteTV: state.account.get('favoriteTV'),
+        loading: state.pender.pending['account/GET_ACCOUNT_DETAILS'] || state.pender.pending['account/GET_FAVORITE_MOVIES'] || state.pender.pending['account/GET_FAVORITE_TV']
     }),
     (dispatch) => ({
         AccountActions: bindActionCreators(accountActions, dispatch)

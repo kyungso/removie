@@ -9,8 +9,7 @@ import Poster from 'components/common/Poster';
 
 const cx = classNames.bind(styles);
 
-const Favorites = withRouter(({ location: { pathname }, favoriteMovies }) => { 
-    console.log(favoriteMovies);   
+const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favoriteTV }) => {    
     return (
         <>
         <div className={cx('favorite-container')}>
@@ -20,15 +19,17 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies }) => {
                 <div className={cx('favorite-tab')}>
                     <ul className={cx('tab-menu')} >
                         <li className={cx('tab-menu-items')}
-                            style={{ borderBottom: (pathname === "/favorites" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                            style={{ borderBottom: (pathname === "/favorite" ? `3px solid #ce3462` : `3px solid transparent`) }}
                         >
-                            <Link to="/favorites" className={cx('flink')}
-                                style={{ color: (pathname === "/favorites" ? `#ffffff` : `#AAAAAA`) }}
+                            <Link to="/favorite" className={cx('flink')}
+                                style={{ color: (pathname === "/favorite" ? `#ffffff` : `#AAAAAA`) }}
                             >Movies <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {favoriteMovies.length}</span></Link>
                         </li>
-                        <li className={cx('tab-menu-items')}>
-                            <Link to="/favorites/tv" className={cx('flink')}
-                                style={{ color: (pathname === "favorites/tv" ? `#ffffff` : `#AAAAAA`) }}
+                        <li className={cx('tab-menu-items')}
+                            style={{ borderBottom: (pathname === "/favorite/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                        >
+                            <Link to="/favorite/tv" className={cx('flink')}
+                                style={{ color: (pathname === "favorite/tv" ? `#ffffff` : `#AAAAAA`) }}
                             >TV</Link>
                         </li>
                     </ul>
@@ -36,7 +37,8 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies }) => {
             </div>
 
             <div className={cx('favorite-content')}>
-                {favoriteMovies.map(movie => (
+            {pathname === "/favorite" && 
+                favoriteMovies.map(movie => (
                     <div className={cx('favorite-items')} key={movie.id}>
                         <Poster
                             key={movie.id}
@@ -60,7 +62,35 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies }) => {
                             </div>
                         </div>
                     </div>
-                ))}
+                ))
+            }
+            {pathname === "/favorite/tv" && 
+                favoriteTV.map(show => (
+                    <div className={cx('favorite-items')} key={show.id}>
+                        <Poster
+                            key={show.id}
+                            id={show.id}
+                            imageUrl={show.poster_path}
+                            title={show.name}
+                            rating={show.vote_average}
+                            year={show.first_air_date ? show.first_air_date.substring(0, 4) : ''}
+                            isMovie={true}
+                        />
+                        <div className={cx('poster-content')}>
+                            <div className={cx('titleSection')}>
+                                <Link to={`/show/${show.id}`} className={cx('movieTitle')}>{show.name}</Link>
+                                <span className={cx('releaseDate')}>({show.first_air_date ? show.first_air_date.substring(5, 7) + ", " + show.first_air_date.substring(0, 4) : ''})</span>
+                            </div>
+                            <div className={cx('mOverview')}>
+                                <p>{show.overview}</p>
+                            </div>
+                            <div className={cx('actionBar')}>
+                                
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
             </div>
         </div>
         </>
