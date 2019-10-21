@@ -19,17 +19,17 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                 <div className={cx('favorite-tab')}>
                     <ul className={cx('tab-menu')} >
                         <li className={cx('tab-menu-items')}
-                            style={{ borderBottom: (pathname === "/favorite" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                            style={{ borderBottom: (pathname === "/account/favorite" ? `3px solid #ce3462` : `3px solid transparent`) }}
                         >
-                            <Link to="/favorite" className={cx('flink')}
-                                style={{ color: (pathname === "/favorite" ? `#ffffff` : `#AAAAAA`) }}
+                            <Link to="/account/favorite" className={cx('flink')}
+                                style={{ color: (pathname === "/account/favorite" ? `#ffffff` : `#AAAAAA`) }}
                             >Movies <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {favoriteMovies.length}</span></Link>
                         </li>
                         <li className={cx('tab-menu-items')}
-                            style={{ borderBottom: (pathname === "/favorite/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                            style={{ borderBottom: (pathname === "/account/favorite/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
                         >
-                            <Link to="/favorite/tv" className={cx('flink')}
-                                style={{ color: (pathname === "favorite/tv" ? `#ffffff` : `#AAAAAA`) }}
+                            <Link to="/account/favorite/tv" className={cx('flink')}
+                                style={{ color: (pathname === "/account/favorite/tv" ? `#ffffff` : `#AAAAAA`) }}
                             >TV</Link>
                         </li>
                     </ul>
@@ -37,7 +37,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
             </div>
 
             <div className={cx('favorite-content')}>
-            {pathname === "/favorite" && 
+            {pathname === "/account/favorite" && 
                 favoriteMovies.map(movie => (
                     <div className={cx('favorite-items')} key={movie.id}>
                         <Poster
@@ -64,7 +64,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                     </div>
                 ))
             }
-            {pathname === "/favorite/tv" && 
+            {pathname === "/account/favorite/tv" && 
                 favoriteTV.map(show => (
                     <div className={cx('favorite-items')} key={show.id}>
                         <Poster
