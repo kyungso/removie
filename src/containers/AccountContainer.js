@@ -3,54 +3,61 @@ import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as loginActions from 'store/modules/login';
+import * as accountActions from 'store/modules/account';
 
 import AccountPresenter from "components/account/AccountPresenter";
+import Loader from "components/common/Loader";
 
 class AccountContainer extends Component {
 
     async componentDidMount() {
-        const { LoginActions } = this.props;
-        let token = localStorage.getItem('token');
+        const { AccountActions } = this.props;
         let sessionId = localStorage.getItem('session_id');
         try {
-            if(!sessionId) {
-                LoginActions.createSessionId(token);
+            if(sessionId) {
+                AccountActions.getAccountDetail(sessionId);
             }
         } catch(e) {
             console.log(e);
         }
     }
 
-    handleLogout = async () => {
-        const { LoginActions } = this.props;
-        try {
+    async componentDidUpdate(prevProps) {
+        const { AccountActions, accountDetail } = this.props;
+
+        if(accountDetail !== prevProps.accountDetail) {
             let sessionId = localStorage.getItem('session_id');
-            await LoginActions.deleteSessionId(sessionId);
-            await LoginActions.initialize();
-            window.location.replace(`https://removie.netlify.com`);
-        } catch(e) {
-            console.log(e);
+            let account_id = accountDetail.id;
+            if(sessionId) {
+                AccountActions.getFavoriteMovies(account_id, sessionId);
+            }
         }
-    };
+    }
 
     render() {
-
+        const { accountDetail, favoriteMovies, loading } = this.props;
         return(
-           <AccountPresenter
-                handleLogout={this.handleLogout}
-           />
+           <>
+           {loading
+            ? <Loader />
+            : accountDetail && <AccountPresenter
+                accountDetail={accountDetail}
+                favoriteMovies={favoriteMovies}
+                loading={loading}
+              />
+            }
+           </>
         );
     }
 }
 
 export default withRouter(connect(
     (state) => ({
-        session_id: state.login.get('session_id'),
-        logged: state.login.get('logged'),
-        loading: state.pender.pending['login/GET_REQUEST_TOKEN'] || state.pender.pending['login/VALIDATE_WITH_LOGIN'] || state.pender.pending['login/CREATE_SESSION_ID'],
+        accountDetail: state.account.get('accountDetail'),
+        favoriteMovies: state.account.get('favoriteMovies'),
+        loading: state.pender.pending['account/GET_ACCOUNT_DETAILS'] || state.pender.pending['account/GET_FAVORITE_MOVIES']
     }),
     (dispatch) => ({
-        LoginActions: bindActionCreators(loginActions, dispatch)
+        AccountActions: bindActionCreators(accountActions, dispatch)
     })
 )(AccountContainer));

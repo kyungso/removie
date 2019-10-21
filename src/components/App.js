@@ -13,6 +13,8 @@ class App extends Component {
               <Route path="/" exact component={HomePage} />
               <Route path="/login" exact component={LoginPage} />
               <Route path="/account" exact component={AccountPage} />
+              <Route path="/account/favorites" exact component={AccountPage} />
+              <Route path="/account/rating" exact component={AccountPage} />
               <Route path="/movie" exact component={MoviePage} />
               <Route path="/tv" exact component={TVPage} />
               <Route path="/search/movie_result?keyword=:searchValue" exact component={SearchPage} />

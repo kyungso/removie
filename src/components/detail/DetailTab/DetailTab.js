@@ -19,19 +19,22 @@ const DetailTab = withRouter(({ location, overview, result }) => {
     <header className={cx('detailTab-container')}>
         <ul className={cx('tab-list')}>
             <li className={cx('tab-items')} 
-                style={{ borderBottom: (location.pathname === url ? `3px solid #3498db` : `3px solid transparent`),
-                         color: (location.pathname === url ? `#ffffff` : `#7d7d7d`)}}>
-                <Link to={url} className={cx('tab-link')}>OVERVIEW</Link>
+                style={{ borderBottom: (location.pathname === url ? `3px solid #3498db` : `3px solid transparent`) }}>
+                <Link to={url} className={cx('tab-link')}
+                    style={{ color: (location.pathname === url ? `#ffffff` : `#7d7d7d`) }}
+                >OVERVIEW</Link>
             </li>
             <li className={cx('tab-items')}
-                style={{ borderBottom: (location.pathname === `${url}/companies` ? `3px solid #3498db` : `3px solid transparent`),
-                         color: (location.pathname === `${url}/companies` ? `#ffffff` : `#7d7d7d`)}} >
-                <Link to={`${url}/companies`} className={cx('tab-link')}>Production Companies</Link>
+                style={{ borderBottom: (location.pathname === `${url}/companies` ? `3px solid #3498db` : `3px solid transparent`) }} >
+                <Link to={`${url}/companies`} className={cx('tab-link')}
+                    style={{ color: (location.pathname === `${url}/companies` ? `#ffffff` : `#7d7d7d`) }}
+                >Production Companies</Link>
             </li>
             <li className={cx('tab-items')} 
-                style={{ borderBottom: (location.pathname === `${url}/countries` ? `3px solid #3498db` : `3px solid transparent`),
-                         color: (location.pathname === `${url}/countries` ? `#ffffff` : `#7d7d7d`)}}>
-                <Link to={`${url}/countries`} className={cx('tab-link')}>Production Countries</Link>
+                style={{ borderBottom: (location.pathname === `${url}/countries` ? `3px solid #3498db` : `3px solid transparent`) }}>
+                <Link to={`${url}/countries`} className={cx('tab-link')}
+                    style={{ color: (location.pathname === `${url}/countries` ? `#ffffff` : `#7d7d7d`) }}
+                >Production Countries</Link>
             </li>
         </ul>
     </header>

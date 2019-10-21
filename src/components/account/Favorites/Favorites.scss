@@ -1,0 +1,121 @@
+@import 'utils'; 
+
+.favorite-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
+    padding: 40px 0px;
+
+    .favorite-title {
+        display: flex;
+        width: 100%;
+        height: 40px;
+
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5em;
+        }
+
+        .favorite-tab {
+            display: flex;
+            flex-direction: row;
+            margin-left: 20px;
+            
+            .tab-menu {
+                display: flex;
+                height: 40px;
+                justify-content: center;
+                align-items: center;
+                color: #AAAAAA;
+        
+                .tab-menu-items {
+                    margin: 0 10px;
+                    font-size: 14px;
+                    font-weight: 500;
+
+                    .flink {
+                        display: flex;
+                        height: 40px;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.favorite-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.favorite-items {
+    display: flex;
+    width: 100%;
+    height: 228px;
+    border: 1px solid #e3e3e3;
+    margin-top: 30px;
+    
+    .poster {
+        display: flex;
+    }
+    .poster-content {
+        display: flex;
+
+    }
+}
+
+.favorite-items {
+    .poster-container {
+        width: 150px;
+        .poster-image {
+            height: 225px;
+        }
+    }
+    .poster-title {
+        display: none;
+    }
+    .poster-year {
+        display: none;
+    }
+    .poster-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 30px;
+
+        .titleSection {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 30px;
+            .movieTitle {
+                font-size: 17px;
+                font-weight: 600;
+            }
+            .releaseDate {
+                margin-left: 10px;
+            }
+        }
+
+        .mOverview {
+            overflow-wrap: break-word;
+            width: 100%;
+            margin-top: 18px;
+            overflow: hidden;
+        }
+
+        .actionBar {
+            height: 30px;
+            margin-top: 18px;
+        }
+
+    }
+}

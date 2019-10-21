@@ -1,5 +1,10 @@
 @import 'utils';
 
+body a:hover {
+    color: white;
+    text-decoration: none;
+}
+
 .header {
     color: white;
     position: fixed;
@@ -27,6 +32,7 @@
     display: flex;
     width: 60%;
     margin-left: 3%;
+    color: #ffffff;
 
     .left-content-list {
         display: flex;
@@ -42,6 +48,14 @@
         transition: border-bottom 0.5s ease-in-out;
         font-size: 14px;
         font-weight: 500;
+
+        .nav_link {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
     }
 }
 
@@ -66,28 +80,6 @@
         font-size: 15px;
         font-weight: 500;
     }
-
-    // .account {
-    //     color: #ffffff;
-    //     font-size: 15px;
-    //     font-weight: 600;
-    //     background-color: #ce3462;
-    //     width: 32px;
-    //     height: 32px;
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     text-align: center;
-    //     text-transform: uppercase;
-    //     border-radius: 50%;
-    // }
-}
-
-.nav_link {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #dropdown-item-button {
@@ -96,6 +88,10 @@
     border-color: #ce3462;
     border-radius: 50%;
     font-weight: 600;
+    &:focus {
+        box-shadow: none;
+        outline: none;
+    }
 }
 .dropdown-toggle.btn.btn-primary::after {
    display: none;

@@ -18,28 +18,32 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
                         <Link to="/"><img src={logo} className={cx('logo')} alt="logo"/></Link>
                     </li>
                     <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/" ? `3px solid #3498db` : `3px solid transparent`),
-                                color: (pathname === "/" ? `#ffffff` : `#7d7d7d`)}}
+                        style={{ borderBottom: (pathname === "/" ? `3px solid #3498db` : `3px solid transparent`) }}
                     >
-                        <Link to="/" className={cx('nav_link')}>Home</Link>
+                        <Link to="/" className={cx('nav_link')} 
+                            style={{ color: (pathname === "/" ? `#ffffff` : `#7d7d7d`) }}
+                        >Home</Link>
                     </li>
                     <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/movie" ? `3px solid #3498db` : `3px solid transparent`),
-                                color: (pathname === "/movie" ? `#ffffff` : `#7d7d7d`)}}
+                        style={{ borderBottom: (pathname === "/movie" ? `3px solid #3498db` : `3px solid transparent`) }}
                     >
-                        <Link to="/movie" className={cx('nav_link')}>Movies</Link>
+                        <Link to="/movie" className={cx('nav_link')}
+                            style={{ color: (pathname === "/movie" ? `#ffffff` : `#7d7d7d`) }}
+                        >Movies</Link>
                     </li>
                     <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/tv" ? `3px solid #3498db` : `3px solid transparent`),
-                                color: (pathname === "/tv" ? `#ffffff` : `#7d7d7d`)}}
+                        style={{ borderBottom: (pathname === "/tv" ? `3px solid #3498db` : `3px solid transparent`) }}
                     >
-                        <Link to="/tv" className={cx('nav_link')}>TV</Link>
+                        <Link to="/tv" className={cx('nav_link')}
+                            style={{ color: (pathname === "/tv" ? `#ffffff` : `#7d7d7d`) }}
+                        >TV</Link>
                     </li>
                     <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/search" ? `3px solid #3498db` : `3px solid transparent`),
-                                color: (pathname === "/search" ? `#ffffff` : `#7d7d7d`)}}
+                        style={{ borderBottom: (pathname === "/search" ? `3px solid #3498db` : `3px solid transparent`) }}
                     >
-                        <Link to="/search" className={cx('nav_link')}>Search</Link>
+                        <Link to="/search" className={cx('nav_link')}
+                            style={{ color: (pathname === "/search" ? `#ffffff` : `#7d7d7d`) }}
+                        >Search</Link>
                     </li>
                 </ul>
             </div>
@@ -53,13 +57,13 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
                             <Dropdown.Divider />
                             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </DropdownButton>
-                        {/* <Link to="/account" className={cx('account')}>K</Link> */}
                        </li>)
                     : (<li className={cx('right-content-items')}
-                        style={{ borderBottom: (pathname === "/login" ? `3px solid #3498db` : `3px solid transparent`),
-                                color: (pathname === "/login" ? `#ffffff` : `#7d7d7d`)}}
+                        style={{ borderBottom: (pathname === "/login" ? `3px solid #3498db` : `3px solid transparent`) }}
                     >
-                        <Link to="/login" className={cx('nav_link')}>+ Login</Link>
+                        <Link to="/login" className={cx('nav_link')}
+                            style={{ color: (pathname === "/login" ? `#ffffff` : `#7d7d7d`) }}
+                        >+ Login</Link>
                     </li>)
                 }
                 </ul>

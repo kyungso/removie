@@ -77,3 +77,21 @@ export const loginApi = {
     createSessionId: (request_token) => api.post("authentication/session/new", {request_token}),
     deleteSessionId: (session_id) => api.delete("authentication/session", {data: {session_id: session_id}}),
 };
+
+export const accountApi = {
+    getAccountDetail: (session_id) => api.get("account", {
+        params: {
+            session_id: session_id
+        }
+    }),
+    getFavoriteMovies: (account_id, session_id) => api.get(`account/${account_id}/favorite/movies`, {
+        params: {
+            session_id: session_id
+        }
+    }),
+    markAsFavorite: (account_id, session_id, {media_type, media_id, favorite}) => api.post(`account/${account_id}/favorite`, {media_type, media_id, favorite}, {
+        params: {
+            session_id: session_id
+        }
+    }),
+}

@@ -15,7 +15,7 @@ class HeaderContainer extends Component {
         let token = localStorage.getItem('token');
         let sessionId = localStorage.getItem('session_id');
         try {
-            if(logged && !sessionId) {
+            if(logged === 'true' && !sessionId) {
                 LoginActions.createSessionId(token);
             }
         } catch(e) {
