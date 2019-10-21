@@ -48,14 +48,6 @@ body a:hover {
         transition: border-bottom 0.5s ease-in-out;
         font-size: 14px;
         font-weight: 500;
-
-        .nav_link {
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
     }
 }
 
@@ -95,4 +87,12 @@ body a:hover {
 }
 .dropdown-toggle.btn.btn-primary::after {
    display: none;
+}
+
+.nav_link {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
