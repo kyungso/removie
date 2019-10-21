@@ -38,10 +38,10 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
                     >Overview</Link>
                 </li>
                 <li className={cx('tab-menu-items')}
-                    style={{ borderBottom: (pathname === "/account/favorite" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                    style={{ borderBottom: ((pathname === "/account/favorite"|| pathname === "/account/favorite/tv") ? `3px solid #ce3462` : `3px solid transparent`) }}
                 >
                     <Link to="/account/favorite" className={cx('link')}
-                        style={{ color: ((pathname === "/account/favorite" || pathname === "/account/favorite/tv") ? `#ffffff` : `#AAAAAA`) }}
+                        style={{ color: (pathname === "/account/favorite" ? `#ffffff` : `#AAAAAA`) }}
                     >Favorites</Link>
                 </li>
                 <li className={cx('tab-menu-items')}
