@@ -22,7 +22,6 @@ const initialState = Map({
     accountDetail: null,
     favoriteMovies: null,
     favoriteTV: null,
-    marked: null,
     loading: true
 });
 
