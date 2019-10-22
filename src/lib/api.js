@@ -94,9 +94,16 @@ export const accountApi = {
             session_id: session_id
         }
     }),
-    markAsFavorite: (account_id, session_id, {media_type, media_id, favorite}) => api.post(`account/${account_id}/favorite`, {media_type, media_id, favorite}, {
+    markAsFavorite: (account_id, session_id, {media_type, media_id, favorite}) => {
+        api.post(`account/${account_id}/favorite`, {
+            media_type: media_type,
+            media_id: parseInt(media_id),
+            favorite: (favorite !== 'false')
+        }, {
         params: {
             session_id: session_id
-        }
-    }),
+        },
+        }) 
+    }
+    
 }

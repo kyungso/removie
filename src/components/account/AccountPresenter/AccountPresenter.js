@@ -12,7 +12,7 @@ import Rating from 'components/account/Rating';
 
 const cx = classNames.bind(styles);
 
-const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, favoriteMovies, favoriteTV }) => (
+const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, favoriteMovies, favoriteTV, handleMarkFavorite }) => (
 <>
     <Helmet>
          <title>{accountDetail.username} | REMOVIE</title>
@@ -56,7 +56,7 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
 
         <div className={cx('account-tab-data')}>
         {pathname === "/account" && <Overview /> }
-        {(pathname === "/account/favorite" || pathname === "/account/favorite/tv") && <Favorites favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} /> }
+        {(pathname === "/account/favorite" || pathname === "/account/favorite/tv") && <Favorites favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} handleMarkFavorite={handleMarkFavorite}/> }
         {pathname === "/account/rating" && <Rating /> }
         </div>
     </div>
@@ -67,6 +67,7 @@ AccountPresenter.propTypes = {
     accountDetail: PropTypes.object,
     favoriteMovies: PropTypes.array,
     favoriteTV: PropTypes.array,
+    handleMarkFavorite: PropTypes.func,
     loading: PropTypes.bool,
 };
 

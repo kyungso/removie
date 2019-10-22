@@ -53,7 +53,7 @@ class LoginContainer extends Component {
 
     render() {
         const { username, password, request_token, logged, loading } = this.props;
-        console.log(request_token, username, password, logged);
+        // console.log(request_token, username, password, logged);
         
         return(
             <LoginPresenter 

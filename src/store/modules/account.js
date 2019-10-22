@@ -22,6 +22,7 @@ const initialState = Map({
     accountDetail: null,
     favoriteMovies: null,
     favoriteTV: null,
+    marked: null,
     loading: true
 });
 
@@ -31,6 +32,7 @@ export default handleActions({
         type: GET_ACCOUNT_DETAILS,
         onSuccess: (state, action) => {
             const { data: accountDetail } = action.payload;
+            localStorage.setItem('accountId', accountDetail.id);
             return state.set('accountDetail', accountDetail);
         }
     }),
@@ -50,10 +52,11 @@ export default handleActions({
     }),
     ...pender({
         type: MARK_AS_FAVORITE,
-        onSuccess: (state, action) => {
-            const { data: result } = action.payload;
-            return console.log(result);
-        }
+        // onSuccess: (state, action) => {
+        //     let { data } = action.payload;
+        //     localStorage.setItem('result', data)
+        //     return state.set('marked', data);
+        // }
     })
     
 }, initialState)
