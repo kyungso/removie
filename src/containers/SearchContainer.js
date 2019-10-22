@@ -8,6 +8,7 @@ import * as searchActions from 'store/modules/search';
 
 import SearchPresenter from "components/search/SearchPresenter";
 import { moviesApi, tvApi, collectionApi } from 'lib/api';
+import { prepare } from "fast-glob/out/managers/options";
 
 class SearchContainer extends Component {
 
@@ -31,9 +32,9 @@ class SearchContainer extends Component {
         // console.log(prevProps.movieResults);
         // console.log(this.props.movieResults);
 
-        if(this.props.searchTerm.length > 0 && prevProps.searchTerm !== this.props.searchTerm) {
-            this.searchByTerm();
-        }
+        // if(this.props.searchTerm.length > 0 && prevProps.searchTerm !== this.props.searchTerm) {
+        //     this.searchByTerm();
+        // }
         if(!prevProps.movieResults && !this.props.movieResults) {
             this.searchByTerm();
         }
