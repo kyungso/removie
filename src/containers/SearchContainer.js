@@ -8,7 +8,6 @@ import * as searchActions from 'store/modules/search';
 
 import SearchPresenter from "components/search/SearchPresenter";
 import { moviesApi, tvApi, collectionApi } from 'lib/api';
-import { prepare } from "fast-glob/out/managers/options";
 
 class SearchContainer extends Component {
 

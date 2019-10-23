@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 export default withRouter(({ location, movieResults, tvResults, collectionResults, searchTerm }) => (
     <>
-    {movieResults && movieResults.length > 0 &&
+    {(location.pathname === "/search/movie_result" || location.pathname === "/search/tv_result" || location.pathname === "/search/collection_result") && movieResults && movieResults.length > 0 &&
     <header className={cx('searchTab-container')}>
         <ul className={cx('searchTab')}>
             <li className={cx('searchTab-item')}
