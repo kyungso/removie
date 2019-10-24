@@ -29,7 +29,7 @@ class HeaderContainer extends Component {
             let sessionId = localStorage.getItem('session_id');
             await LoginActions.deleteSessionId(sessionId);
             await LoginActions.initialize();
-            window.location.replace(`https://removie.netlify.com`);
+            window.location.replace(`#`);
         } catch(e) {
             console.log(e);
         }

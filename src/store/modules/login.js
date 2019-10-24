@@ -88,7 +88,6 @@ export default handleActions({
     ...pender({
         type: DELETE_SESSION_ID,
         onSuccess: (state, action) => {
-            console.log(state, action);
             return localStorage.clear();
         },
     })
