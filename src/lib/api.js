@@ -103,6 +103,11 @@ export const accountApi = {
         params: {
             session_id: session_id
         },
+        }).then(function (response) {
+            if(response.status === 200) {
+                window.location.replace("#/account/favorite");
+            }
+            return window.location.reload();
         }) 
     }
     

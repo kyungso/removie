@@ -51,11 +51,6 @@ export default handleActions({
     }),
     ...pender({
         type: MARK_AS_FAVORITE,
-        // onSuccess: (state, action) => {
-        //     let { data } = action.payload;
-        //     localStorage.setItem('result', data)
-        //     return state.set('marked', data);
-        // }
     })
     
 }, initialState)
