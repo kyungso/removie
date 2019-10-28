@@ -1,56 +1,155 @@
 @import 'utils'; 
 
-.overview-container {
+.rating-container {
     display: flex;
+    flex-direction: column;
     width: 80%;
     height: 100%;
     padding: 40px 0px;
 
-    .overview-content {
+    .rating-title {
         display: flex;
-        flex-direction: column;
         width: 100%;
+        height: 40px;
 
-        .title {
+        .Rtitle {
             display: flex;
+            justify-content: center;
+            align-items: center;
             font-weight: 700;
-            margin-bottom: 25px;
             font-size: 1.5em;
+        }
+
+        .rating-tab {
+            display: flex;
+            flex-direction: row;
+            margin-left: 20px;
+            
+            .Rtab-menu {
+                display: flex;
+                height: 40px;
+                justify-content: center;
+                align-items: center;
+                color: #AAAAAA;
+        
+                .Rtab-menu-items {
+                    margin: 0 10px;
+                    font-size: 14px;
+                    font-weight: 500;
+
+                    .Rlink {
+                        display: flex;
+                        height: 40px;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
         }
     }
 }
 
-.stat_blocks {
+.rating-content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    
+}
 
-    .stat_block {
-        display: block;
-        box-sizing: border-box;
-        
-        h3 {
-            margin: 0 0 20px 0;
-            font-weight: 600;
-            font-size: 1.2em;
-            line-height: 1.2em;
+.rating-items {
+    display: flex;
+    width: 100%;
+    height: 228px;
+    border: 1px solid #e3e3e3;
+    margin-top: 30px;
+    
+    .poster {
+        display: flex;
+    }
+    .poster-content {
+        display: flex;
+
+    }
+}
+
+.rating-items {
+    .poster-container {
+        width: 150px;
+        .poster-image {
+            height: 225px;
+        }
+    }
+    .poster-title {
+        display: none;
+    }
+    .poster-year {
+        display: none;
+    }
+    .poster-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 30px;
+
+        .titleSection {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 30px;
+            .movieTitle {
+                font-size: 17px;
+                font-weight: 600;
+            }
+            .releaseDate {
+                margin-left: 10px;
+            }
         }
 
-        .color {
-            font-size: 4.2em;
-            line-height: 0.7em;
-            margin: 0;
-            font-weight: 700;
-            color: #d40242;
+        .mOverview {
+            overflow-wrap: break-word;
+            width: 100%;
+            height: 60px;
+            margin-top: 18px;
+            overflow: hidden;
         }
 
-        .rating_chart {
-            width: 300px;
-            height: 150px;
+        .actionBar {
+            height: 30px;
+            margin-top: 18px;
+
+            .ratingButton {
+                color: #959595;
+                display: flex;
+                align-items: center;
+                padding-right: 7px;
+                font-size: 15px;
+
+                .glyphicon-heart {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: #ef47b6;
+                    border: 1px solid #ef47b6;
+                    color: #fff;
+                    margin-right: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &:hover:before {
+                        content: "\e014";
+                    }
+                }
+            }
+
+            .ratingButton {
+                &:hover {
+                    .glyphicon-heart::before {
+                        content: "\e014";
+                    }
+                }
+            }
         }
 
-        .genre_chart {
-            width: 300px;
-            height: 150px;
-        }
     }
 }

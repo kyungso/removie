@@ -1,122 +1,114 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Bar, Pie } from 'react-chartjs-2';
+import { Link, withRouter } from 'react-router-dom';
 
 import styles from './Rating.scss';
 import classNames from 'classnames/bind';
 
+import Poster from 'components/common/Poster';
+
 const cx = classNames.bind(styles);
 
-const Rating = () => {    
-    const [barData, setBarData] = useState({
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-        datasets:[
-          {
-            data:[
-              1, 1, 1, 1, 1, 1, 2, 3, 4, 5
-            ],
-            backgroundColor:[
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-              'rgba(153, 102, 255, 0.6)',
-              'rgba(255, 159, 64, 0.6)',
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-            ]
-          }
-        ]
-      });
-      
-      const [PieData, setPieData] = useState({
-        labels: ['Action', 'Adventure', 'Comedy', 'Crime', 'Other'],
-        datasets:[
-          {
-            data:[
-              16.67, 16.67, 8.33, 8.33, 50
-            ],
-            backgroundColor:[
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-              'rgba(153, 102, 255, 0.6)',
-            ]
-          }
-        ]
-      });
-
+const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => {    
     return (
     <>
-        <div className={cx('overview-container')}>
-            <div className={cx('overview-content')}>
-                <h2 className={cx('title')}>Stats</h2>
-                <div className={cx('stat_blocks')}>
-                    <div className={cx('stat_block')}>
-                        <h3>Total Edits</h3>
-                        <h2 className={cx('color')}>44</h2>
-                    </div>
-                    <div className={cx('stat_block')}>
-                        <h3>Total Ratings</h3>
-                        <h2 className={cx('color')}>5</h2>
-                    </div>
-                    <div className={cx('stat_block')}>
-                        <h3>Rating Overview</h3>
-                       <div className={cx('rating_chart')}>
-                        <Bar 
-                            data={barData}
-                            options={{
-                                legend: {
-                                    labels: false
-                                },
-                            }}
+        <div className={cx('rating-container')}>
+        
+          <div className={cx('rating-title')}>
+                  <h2 className={cx('Rtitle')}>My Ratings</h2>
 
+                  <div className={cx('rating-tab')}>
+                      <ul className={cx('Rtab-menu')} >
+                          <li className={cx('Rtab-menu-items')}
+                              style={{ borderBottom: (pathname === "/account/rating" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                          >
+                              <Link to="/account/rating" className={cx('Rlink')}
+                                  style={{ color: (pathname === "/account/rating" ? `#ffffff` : `#AAAAAA`) }}
+                              >Movies <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {ratedMovies.length}</span></Link>
+                          </li>
+                          <li className={cx('Rtab-menu-items')}
+                              style={{ borderBottom: (pathname === "/account/rating/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                          >
+                              <Link to="/account/rating/tv" className={cx('Rlink')}
+                                  style={{ color: (pathname === "/account/rating/tv" ? `#ffffff` : `#AAAAAA`) }}
+                              >TV <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {ratedTV.length}</span></Link>
+                          </li>
+                      </ul>
+                  </div>
+                  
+              </div>
+
+            <div className={cx('rating-content')}>
+            {pathname === "/account/rating" && 
+                ratedMovies.map(movie => (
+                    <div className={cx('rating-items')} key={movie.id}>
+                        <Poster
+                            key={movie.id}
+                            id={movie.id}
+                            imageUrl={movie.poster_path}
+                            title={movie.title}
+                            rating={movie.vote_average}
+                            year={movie.release_date ? movie.release_date.substring(0, 4) : ''}
+                            isMovie={true}
                         />
-                       </div>
-                    </div>
-                    <div className={cx('stat_block')}>
-                        <h3>Most Watched Genres</h3>
-                        <div className={cx('genre_chart')}>
-                        <Pie
-                            data={PieData}
-                            options={{
-                                legend: {
-                                    position: 'right'
-                                },
-                                tooltips: {
-                                    callbacks: {
-                                      label: function(tooltipItem, data) {
-                                        //get the concerned dataset
-                                        var dataset = data.datasets[tooltipItem.datasetIndex];
-                                        //calculate the total of this data set
-                                        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                                          return previousValue + currentValue;
-                                        });
-                                        //get the current items value
-                                        var currentValue = dataset.data[tooltipItem.index];
-                                        //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
-                                        var percentage = ((currentValue/total) * 100).toFixed(2);
-                                  
-                                        return percentage + "%";
-                                      }
-                                    }
-                                  } 
-                            }}
-                        />
+                        <div className={cx('poster-content')}>
+                            <div className={cx('titleSection')}>
+                                <Link to={`/movie/${movie.id}`} className={cx('movieTitle')}>{movie.title}</Link>
+                                <span className={cx('releaseDate')}>({movie.release_date ? movie.release_date.substring(5, 7) + ", " + movie.release_date.substring(0, 4) : ''})</span>
+                            </div>
+                            <div className={cx('mOverview')}>
+                                <p>{movie.overview}</p>
+                            </div>
+                            <div className={cx('actionBar')}>
+                                <ul>
+                                    <li>
+                                        <Link to={`/account/rating?media_type=movie&media_id=${movie.id}&favorite=false`} className={cx('ratingButton')}>
+                                            <span className={cx('glyphicon glyphicon-heart')}></span>
+                                             Favorite
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                ))
+            }
+            {pathname === "/account/rating/tv" && 
+                ratedTV.map(show => (
+                    <div className={cx('rating-items')} key={show.id}>
+                        <Poster
+                            key={show.id}
+                            id={show.id}
+                            imageUrl={show.poster_path}
+                            title={show.name}
+                            rating={show.vote_average}
+                            year={show.first_air_date ? show.first_air_date.substring(0, 4) : ''}
+                            isMovie={true}
+                        />
+                        <div className={cx('poster-content')}>
+                            <div className={cx('titleSection')}>
+                                <Link to={`/show/${show.id}`} className={cx('movieTitle')}>{show.name}</Link>
+                                <span className={cx('releaseDate')}>({show.first_air_date ? show.first_air_date.substring(5, 7) + ", " + show.first_air_date.substring(0, 4) : ''})</span>
+                            </div>
+                            <div className={cx('mOverview')}>
+                                <p>{show.overview}</p>
+                            </div>
+                            <div className={cx('actionBar')}>
+                                
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
             </div>
         </div>
     </>
     );
-};
+});
 
 Rating.propTypes = {
-    
+    ratedMovies: PropTypes.array,
+    ratedTV: PropTypes.array
 };
 
 export default Rating;

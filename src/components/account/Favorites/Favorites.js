@@ -9,7 +9,7 @@ import Poster from 'components/common/Poster';
 
 const cx = classNames.bind(styles);
 
-const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favoriteTV, handleMarkFavorite }) => {    
+const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favoriteTV }) => {    
     return (
         <>
         <div className={cx('favorite-container')}>
@@ -34,6 +34,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                         </li>
                     </ul>
                 </div>
+                
             </div>
 
             <div className={cx('favorite-content')}>

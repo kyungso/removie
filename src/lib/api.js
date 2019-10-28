@@ -109,6 +109,16 @@ export const accountApi = {
             }
             return window.location.reload();
         }) 
-    }
+    },
+    getRatedMovies: (account_id, session_id) => api.get(`account/${account_id}/rated/movies`, {
+        params: {
+            session_id: session_id
+        }
+    }),
+    getRatedTV: (account_id, session_id) => api.get(`account/${account_id}/rated/tv`, {
+        params: {
+            session_id: session_id
+        }
+    }),
     
 }

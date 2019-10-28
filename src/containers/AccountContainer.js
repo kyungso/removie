@@ -28,11 +28,14 @@ class AccountContainer extends Component {
 
         let sessionId = localStorage.getItem('session_id');
         let accountId = localStorage.getItem('accountId');
-
+        // pathname이 각각 favorite이거나 rated일 때 되는 걸로 수정
+        // if(prevProps.location !== this.props.location) {}
         if(accountDetail !== prevProps.accountDetail) {
             if(sessionId) {
                 AccountActions.getFavoriteMovies(accountId, sessionId);
                 AccountActions.getFavoriteTV(accountId, sessionId);
+                AccountActions.getRatedMovies(accountId, sessionId);
+                AccountActions.getRatedTV(accountId, sessionId);
             }
         }
 
@@ -46,7 +49,7 @@ class AccountContainer extends Component {
     }
 
     render() {
-        const { accountDetail, favoriteMovies, favoriteTV, loading } = this.props;
+        const { accountDetail, favoriteMovies, favoriteTV, ratedMovies, ratedTV, loading } = this.props;
         return(
            <>
            {loading
@@ -55,6 +58,8 @@ class AccountContainer extends Component {
                 accountDetail={accountDetail}
                 favoriteMovies={favoriteMovies}
                 favoriteTV={favoriteTV}
+                ratedMovies={ratedMovies}
+                ratedTV={ratedTV}
                 loading={loading}
               />
             }
@@ -68,7 +73,9 @@ export default withRouter(connect(
         accountDetail: state.account.get('accountDetail'),
         favoriteMovies: state.account.get('favoriteMovies'),
         favoriteTV: state.account.get('favoriteTV'),
-        loading: state.pender.pending['account/GET_ACCOUNT_DETAILS'] || state.pender.pending['account/GET_FAVORITE_MOVIES'] || state.pender.pending['account/GET_FAVORITE_TV'] || state.pender.pending['account/MARK_AS_FAVORITE']
+        ratedMovies: state.account.get('ratedMovies'),
+        ratedTV: state.account.get('ratedTV'),
+        loading: state.pender.pending['account/GET_ACCOUNT_DETAILS'] || state.pender.pending['account/GET_FAVORITE_MOVIES'] || state.pender.pending['account/GET_FAVORITE_TV'] || state.pender.pending['account/GET_RATED_MOVIES'] || state.pender.pending['account/GET_RATED_TV']
     }),
     (dispatch) => ({
         AccountActions: bindActionCreators(accountActions, dispatch)

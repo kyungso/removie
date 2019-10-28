@@ -10,18 +10,24 @@ const GET_ACCOUNT_DETAILS = 'account/GET_ACCOUNT_DETAILS';
 const GET_FAVORITE_MOVIES = 'account/GET_FAVORITE_MOVIES';
 const GET_FAVORITE_TV = 'account/GET_FAVORITE_TV';
 const MARK_AS_FAVORITE = 'account/MARK_AS_FAVORITE';
+const GET_RATED_MOVIES = 'account/GET_RATED_MOVIES';
+const GET_RATED_TV = 'account/GET_RATED_TV';
 
 // action creators
 export const getAccountDetail = createAction(GET_ACCOUNT_DETAILS, accountApi.getAccountDetail);
 export const getFavoriteMovies = createAction(GET_FAVORITE_MOVIES, accountApi.getFavoriteMovies);
 export const getFavoriteTV = createAction(GET_FAVORITE_TV, accountApi.getFavoriteTV);
 export const markAsFavorite = createAction(MARK_AS_FAVORITE, accountApi.markAsFavorite);
+export const getRatedMovies = createAction(GET_RATED_MOVIES, accountApi.getRatedMovies);
+export const getRatedTV = createAction(GET_RATED_TV, accountApi.getRatedTV);
 
 // initial state
 const initialState = Map({
     accountDetail: null,
     favoriteMovies: null,
     favoriteTV: null,
+    ratedMovies: null,
+    ratedTV: null,
     loading: true
 });
 
@@ -51,6 +57,20 @@ export default handleActions({
     }),
     ...pender({
         type: MARK_AS_FAVORITE,
-    })
+    }),
+    ...pender({
+        type: GET_RATED_MOVIES,
+        onSuccess: (state, action) => {
+            const { data: { results: ratedMovies }} = action.payload;
+            return state.set('ratedMovies', ratedMovies);
+        }
+    }),
+    ...pender({
+        type: GET_RATED_TV,
+        onSuccess: (state, action) => {
+            const { data: { results: ratedTV }} = action.payload;
+            return state.set('ratedTV', ratedTV);
+        }
+    }),
     
 }, initialState)
