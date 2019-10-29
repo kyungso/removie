@@ -102,5 +102,6 @@ body a:focus {
     align-items: center;
     justify-content: center;
     width: 100%;
+    min-height: calc(100vh - 24rem);
     background-color: black;
 }
