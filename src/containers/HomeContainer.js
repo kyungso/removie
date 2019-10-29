@@ -25,25 +25,11 @@ class HomeContainer extends Component {
         // window.location.replace("http://localhost:3000/approved");
     }
 
-    getMovieTrending = () => {
+    componentDidMount() {
         const { HomeActions } = this.props;
         HomeActions.getMovieTrending();
-    }
-
-    getTvTrending = () => {
-        const { HomeActions } = this.props;
         HomeActions.getTvTrending();
-    }
-
-    getTopRated = () => {
-        const { HomeActions } = this.props;
         HomeActions.getTopRated();
-    }
-
-    componentDidMount() {
-        this.getMovieTrending();
-        this.getTvTrending();
-        this.getTopRated();
     }
 
     render() {
