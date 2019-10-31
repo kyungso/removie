@@ -14,6 +14,7 @@ class App extends Component {
               <Route path="/login" exact component={LoginPage} />
               <Route path="/account" exact component={AccountPage} />
               <Route path={`/account/favorite?media_type=:media_type&media_id=:media_id&favorite=:favorite`} exact component={AccountPage} />
+              <Route path={`/account/favorite/tv?media_type=:media_type&media_id=:media_id&favorite=:favorite`} exact component={AccountPage} />
               <Route path="/account/favorite" exact component={AccountPage} />
               <Route path="/account/favorite/tv" exact component={AccountPage} />
               <Route path="/account/rating" exact component={AccountPage} />

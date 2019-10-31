@@ -106,9 +106,11 @@ export const accountApi = {
         },
         }).then(function (response) {
             if(response.status === 200) {
-                window.location.replace("#/account/favorite");
+                window.location.href.includes("/tv") 
+                ? window.location.replace("#/account/favorite/tv")
+                : window.location.replace("#/account/favorite"); 
             }
-            return window.location.reload();
+           return window.location.reload();
         }) 
     },
     getRatedMovies: (account_id, session_id) => api.get(`account/${account_id}/rated/movies`, {

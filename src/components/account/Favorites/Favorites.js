@@ -93,7 +93,14 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                                 <p>{show.overview}</p>
                             </div>
                             <div className={cx('actionBar')}>
-                                
+                                <ul>
+                                    <li>
+                                        <Link to={`/account/favorite/tv?media_type=tv&media_id=${show.id}&favorite=false`} className={cx('favoriteButton')}>
+                                            <span className={cx('glyphicon glyphicon-heart')}></span>
+                                             Favorite
+                                        </Link>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
