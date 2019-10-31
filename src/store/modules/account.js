@@ -12,6 +12,8 @@ const GET_FAVORITE_TV = 'account/GET_FAVORITE_TV';
 const MARK_AS_FAVORITE = 'account/MARK_AS_FAVORITE';
 const GET_RATED_MOVIES = 'account/GET_RATED_MOVIES';
 const GET_RATED_TV = 'account/GET_RATED_TV';
+const GET_GENRE_LIST = 'account/GET_GENRE_LIST';
+
 
 // action creators
 export const getAccountDetail = createAction(GET_ACCOUNT_DETAILS, accountApi.getAccountDetail);
@@ -20,6 +22,7 @@ export const getFavoriteTV = createAction(GET_FAVORITE_TV, accountApi.getFavorit
 export const markAsFavorite = createAction(MARK_AS_FAVORITE, accountApi.markAsFavorite);
 export const getRatedMovies = createAction(GET_RATED_MOVIES, accountApi.getRatedMovies);
 export const getRatedTV = createAction(GET_RATED_TV, accountApi.getRatedTV);
+export const getGenreList = createAction(GET_GENRE_LIST, accountApi.getGenreList);
 
 // initial state
 const initialState = Map({
@@ -28,6 +31,7 @@ const initialState = Map({
     favoriteTV: null,
     ratedMovies: null,
     ratedTV: null,
+    genreList: null,
     loading: true
 });
 
@@ -70,6 +74,13 @@ export default handleActions({
         onSuccess: (state, action) => {
             const { data: { results: ratedTV }} = action.payload;
             return state.set('ratedTV', ratedTV);
+        }
+    }),
+    ...pender({
+        type: GET_GENRE_LIST,
+        onSuccess: (state, action) => {
+            const { data: { genres: genreList } } = action.payload;
+            return state.set('genreList', genreList);
         }
     }),
     

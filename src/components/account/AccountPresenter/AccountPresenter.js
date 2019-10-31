@@ -12,7 +12,7 @@ import Rating from 'components/account/Rating';
 
 const cx = classNames.bind(styles);
 
-const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, favoriteMovies, favoriteTV, ratedMovies, ratedTV }) => (
+const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList }) => (
 <>
     <Helmet>
          <title>{accountDetail.username} | REMOVIE</title>
@@ -49,13 +49,13 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
                 >
                     <Link to="/account/rating" className={cx('link')}
                         style={{ color: (pathname === "/account/rating" ? `#ffffff` : `#AAAAAA`) }}
-                    >Rating</Link>
+                    >Ratings</Link>
                 </li>
             </ul>
         </div>
 
         <div className={cx('account-tab-data')}>
-        {pathname === "/account" && <Overview /> }
+        {pathname === "/account" && <Overview favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} ratedMovies={ratedMovies} ratedTV={ratedTV} genreList={genreList} /> }
         {(pathname === "/account/favorite" || pathname === "/account/favorite/tv") && <Favorites favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} /> }
         {(pathname === "/account/rating" || pathname === "/account/rating/tv") && <Rating ratedMovies={ratedMovies} ratedTV={ratedTV} /> }
         </div>
@@ -69,6 +69,7 @@ AccountPresenter.propTypes = {
     favoriteTV: PropTypes.array,
     ratedMovies: PropTypes.array, 
     ratedTV: PropTypes.array,
+    genreList: PropTypes.array,
     loading: PropTypes.bool,
 };
 

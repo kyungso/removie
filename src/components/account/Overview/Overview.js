@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Bar, Pie} from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 
 import styles from './Overview.scss';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Overview = () => {    
-    const [barData, setBarData] = useState({
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+//** check for data
+let  arr = {};
+const isCheck = (name) => {
+  !arr[name] ? arr[name] = 1 : arr[name] = arr[name] + 1;
+}
+
+const toBeZero = (index) => {
+  arr[index] = arr[index] || 0;
+}
+
+const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList }) => {    
+
+    //** for barData
+    const ratingList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    ratedMovies.map(movie => isCheck(movie.rating));
+    ratedTV.map(tv => isCheck(tv.rating));
+    ratingList.map(rating => toBeZero(rating));
+
+    const [barData] = useState({
+        labels: ratingList,
         datasets:[
           {
             data:[
-              1, 1, 1, 1, 1, 1, 2, 3, 4, 5
+              arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9], arr[10]
             ],
             backgroundColor:[
               'rgba(255, 99, 132, 0.6)',
@@ -26,17 +43,37 @@ const Overview = () => {
               'rgba(54, 162, 235, 0.6)',
               'rgba(255, 206, 86, 0.6)',
               'rgba(75, 192, 192, 0.6)',
-            ]
+            ],
           }
         ]
       });
+
+      //** for PieData **
+      arr = {};
       
-      const [PieData, setPieData] = useState({
-        labels: ['Action', 'Adventure', 'Comedy', 'Crime', 'Other'],
+      genreList.filter(genre => {
+        ratedMovies.map(movie => (movie.genre_ids).map(id => {
+          if(genre.id === id) {
+            isCheck(genre.name);
+          }
+          return null;
+        }))
+        return null;
+      })
+
+      arr = Object.entries(arr).sort((a,b) => b[1] - a[1]);
+
+      let otherData = 0;
+      for(let i = 4; i < arr.length; i++) {
+        otherData = otherData + arr[i][1];
+      }
+
+      const [PieData] = useState({
+        labels: [arr[0][0], arr[1][0], arr[2][0], arr[3][0], 'Other'],
         datasets:[
           {
             data:[
-              16.67, 16.67, 8.33, 8.33, 50
+              arr[0][1], arr[1][1], arr[2][1], arr[3][1], otherData
             ],
             backgroundColor:[
               'rgba(255, 99, 132, 0.6)',
@@ -49,6 +86,10 @@ const Overview = () => {
         ]
       });
 
+      //** for Total
+      const Total_Favorites = favoriteMovies.length + favoriteTV.length;
+      const Total_Ratings = ratedMovies.length + ratedTV.length;
+
     return (
     <>
         <div className={cx('overview-container')}>
@@ -56,12 +97,12 @@ const Overview = () => {
                 <h2 className={cx('title')}>Stats</h2>
                 <div className={cx('stat_blocks')}>
                     <div className={cx('stat_block')}>
-                        <h3>Total Edits</h3>
-                        <h2 className={cx('color')}>0</h2>
+                        <h3>Total Favorites</h3>
+                        <h2 className={cx('color')}>{Total_Favorites}</h2>
                     </div>
                     <div className={cx('stat_block')}>
                         <h3>Total Ratings</h3>
-                        <h2 className={cx('color')}>5</h2>
+                        <h2 className={cx('color')}>{Total_Ratings}</h2>
                     </div>
                     <div className={cx('stat_block')}>
                         <h3>Rating Overview</h3>
@@ -72,6 +113,20 @@ const Overview = () => {
                                 legend: {
                                     labels: false
                                 },
+                                tooltips: {
+                                  callbacks: {
+                                    label: function(tooltipItem, data) {
+                                      //get the concerned dataset
+                                      var dataset = data.datasets[tooltipItem.datasetIndex];
+                                      //get the current items value
+                                      var currentValue = dataset.data[tooltipItem.index];
+                                      return currentValue + " ratings";
+                                    },
+                                    title: function(tooltipItem, data) {
+                                      return "★ " + tooltipItem[0].xLabel;
+                                    }
+                                  }
+                              } 
                             }}
 
                         />
@@ -84,7 +139,10 @@ const Overview = () => {
                             data={PieData}
                             options={{
                                 legend: {
-                                    position: 'right'
+                                    position: 'right',
+                                    labels: {
+                                      fontColor: 'rgb(192, 192, 192)'
+                                    }
                                 },
                                 tooltips: {
                                     callbacks: {
@@ -103,7 +161,7 @@ const Overview = () => {
                                         return percentage + "%";
                                       }
                                     }
-                                  } 
+                                } 
                             }}
                         />
                         </div>
@@ -116,7 +174,11 @@ const Overview = () => {
 };
 
 Overview.propTypes = {
-    
+    favoriteMovies: PropTypes.array,
+    favoriteTV: PropTypes.array,
+    ratedMovies: PropTypes.array,
+    ratedTV: PropTypes.array,
+    genreList: PropTypes.array,
 };
 
 export default Overview;
