@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Bar, Pie } from 'react-chartjs-2';
 
@@ -8,29 +8,35 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 //** check for data
-let  arr = {};
-const isCheck = (name) => {
-  !arr[name] ? arr[name] = 1 : arr[name] = arr[name] + 1;
+let  arr_Bar = {};
+const isBarCheck = (name) => {
+  !arr_Bar[name] ? arr_Bar[name] = 1 : arr_Bar[name] = arr_Bar[name] + 1;
+}
+
+let arr_Pie = {};
+const isPieCheck = (name) => {
+  !arr_Pie[name] ? arr_Pie[name] = 1 : arr_Pie[name] = arr_Pie[name] + 1;
 }
 
 const toBeZero = (index) => {
-  arr[index] = arr[index] || 0;
+  arr_Bar[index] = arr_Bar[index] || 0;
 }
 
 const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList }) => {    
 
     //** for barData
     const ratingList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    ratedMovies.map(movie => isCheck(movie.rating));
-    ratedTV.map(tv => isCheck(tv.rating));
+    arr_Bar = {};
+    ratedMovies.map(movie => isBarCheck(movie.rating));
+    ratedTV.map(tv => isBarCheck(tv.rating));
     ratingList.map(rating => toBeZero(rating));
-
+    console.log(arr_Bar);
     const [barData] = useState({
         labels: ratingList,
         datasets:[
           {
             data:[
-              arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9], arr[10]
+              arr_Bar[1], arr_Bar[2], arr_Bar[3], arr_Bar[4], arr_Bar[5], arr_Bar[6], arr_Bar[7], arr_Bar[8], arr_Bar[9], arr_Bar[10]
             ],
             backgroundColor:[
               'rgba(255, 99, 132, 0.6)',
@@ -48,32 +54,31 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
         ]
       });
 
-      //** for PieData **
-      arr = {};
-      
+      //** for PieData ** 
+      arr_Pie = {}     
       genreList.filter(genre => {
         ratedMovies.map(movie => (movie.genre_ids).map(id => {
           if(genre.id === id) {
-            isCheck(genre.name);
+            isPieCheck(genre.name);
           }
           return null;
         }))
         return null;
       })
 
-      arr = Object.entries(arr).sort((a,b) => b[1] - a[1]);
+      arr_Pie = Object.entries(arr_Pie).sort((a,b) => b[1] - a[1]);
 
       let otherData = 0;
-      for(let i = 4; i < arr.length; i++) {
-        otherData = otherData + arr[i][1];
+      for(let i = 4; i < arr_Pie.length; i++) {
+        otherData = otherData + arr_Pie[i][1];
       }
-
+console.log(arr_Pie);
       const [PieData] = useState({
-        labels: [arr[0][0], arr[1][0], arr[2][0], arr[3][0], 'Other'],
+        labels: [arr_Pie[0][0], arr_Pie[1][0], arr_Pie[2][0], arr_Pie[3][0], 'Other'],
         datasets:[
           {
             data:[
-              arr[0][1], arr[1][1], arr[2][1], arr[3][1], otherData
+              arr_Pie[0][1], arr_Pie[1][1], arr_Pie[2][1], arr_Pie[3][1], otherData
             ],
             backgroundColor:[
               'rgba(255, 99, 132, 0.6)',
@@ -85,7 +90,7 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
           }
         ]
       });
-
+      
       //** for Total
       const Total_Favorites = favoriteMovies.length + favoriteTV.length;
       const Total_Ratings = ratedMovies.length + ratedTV.length;
