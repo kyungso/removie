@@ -9,29 +9,30 @@ Learning React and ES6 by building a Movie Discovery App.
 - [x] TV
 - [x] Search
 - [x] Detail
+- [x] Collection
+- [] Account
 
 ## API Verbs
 
-- [x] Trending - day (Movie, TV)
-- [x] Now Playing (Movie)
-- [x] Upcoming (Movie)
-- [x] Top Rated (Movie, TV)
-- [x] Popular (Movie, TV)
-- [x] Airing Today (TV)
-- [x] TV Show Detail
-- [x] Movie Detail
-- [x] Find IMDB_ID (Movie, TV)
-- [x] Videos (Movie, TV)
-- [x] Search (Movie, TV, Collection)
-- [x] Collection of Search Results (Movie)
+calling **'The Movie Database(TMDb) API v3'** for Data
+
 
 ## Code Challenges
 
-- [x] IMDB Link
+- [x] IMDB Link (Detail)
 - [x] Tabs inside of Movie / Show Details (Production Company, Countries, Youtube Videos)
-- [x] Movie, TV, Collection show result Links in Search
+- [x] Tabs inside of Search page (Movie, TV show, Collection result)
+- [x] maintain state after a page refresh (Search)
 - [x] /collection Route
 - [x] Home Screen (Get the daily trending items)
+- [x] Carousel (react-slick) in Home
+- [x] login using session
+- [x] account button using dropdown of bootstrap
+- [x] Tabs inside of Account page (Overview, Favorites, Ratings)
+- [x] chart (react-chartjs-2) in Overview
+- [x] favorite button to mark a favorite movie or TV show in Favorites (Post request)
+- [] rating button to rate a movie (Post request)
+- [] consider using Windows OS (Scrollbar)
 
 # Preview:
 
