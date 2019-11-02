@@ -30,7 +30,7 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
     ratedMovies.map(movie => isBarCheck(movie.rating));
     ratedTV.map(tv => isBarCheck(tv.rating));
     ratingList.map(rating => toBeZero(rating));
-    console.log(arr_Bar);
+  
     const [barData] = useState({
         labels: ratingList,
         datasets:[
@@ -72,7 +72,7 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
       for(let i = 4; i < arr_Pie.length; i++) {
         otherData = otherData + arr_Pie[i][1];
       }
-console.log(arr_Pie);
+
       const [PieData] = useState({
         labels: [arr_Pie[0][0], arr_Pie[1][0], arr_Pie[2][0], arr_Pie[3][0], 'Other'],
         datasets:[

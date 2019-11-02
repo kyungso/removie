@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from 'react-router-dom';
 
 import styles from './Rating.scss';
 import classNames from 'classnames/bind';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+
 import Poster from 'components/common/Poster';
 
 const cx = classNames.bind(styles);
 
-const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => {    
+//** for date
+let date = new Date();
+let month = [];
+    month[0] = "January";
+    month[1] = "February";
+    month[2] = "March";
+    month[3] = "April";
+    month[4] = "May";
+    month[5] = "June";
+    month[6] = "July";
+    month[7] = "August";
+    month[8] = "September";
+    month[9] = "October";
+    month[10] = "November";
+    month[11] = "December";
+let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
+const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => {  
+
     return (
     <>
         <div className={cx('rating-container')}>
@@ -62,10 +82,25 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => 
                             <div className={cx('actionBar')}>
                                 <ul>
                                     <li>
-                                        <Link to={`/account/rating?media_type=movie&media_id=${movie.id}&favorite=false`} className={cx('ratingButton')}>
-                                            <span className={cx('glyphicon glyphicon-heart')}></span>
-                                             Favorite
-                                        </Link>
+                                        <OverlayTrigger
+                                            trigger="click"
+                                            key={movie.id}
+                                            rootClose
+                                            placement='right'
+                                            overlay={
+                                                <Tooltip className={cx('rating_tooltip')}>
+                                                    <div className={cx('rating_stars')}>
+                                                        <p>Rated on {currentDate}</p>
+                                                    </div>
+                                                </Tooltip>
+                                            }
+                                        >
+                                            <button to={`/account/rating`} className={cx('ratingButton')}>
+                                            <span className={cx('rating_number')}>{movie.rating}</span>
+                                             Your rating
+                                            </button>
+                                        </OverlayTrigger>
+
                                     </li>
                                 </ul>
                             </div>
@@ -94,7 +129,14 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => 
                                 <p>{show.overview}</p>
                             </div>
                             <div className={cx('actionBar')}>
-                                
+                                <ul>
+                                    <li>
+                                        <Link to={`/account/rating/tv`} className={cx('ratingButton')}>
+                                            <span className={cx('rating_number')}>{show.rating}</span>
+                                             Your rating
+                                        </Link>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

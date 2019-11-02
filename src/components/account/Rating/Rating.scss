@@ -1,5 +1,9 @@
 @import 'utils'; 
 
+button {
+    all: unset;
+}
+
 .rating-container {
     display: flex;
     flex-direction: column;
@@ -115,41 +119,66 @@
 
         .actionBar {
             height: 30px;
+            width: 120px;
             margin-top: 18px;
 
             .ratingButton {
-                color: #959595;
+                color: #AAAAAA;
                 display: flex;
                 align-items: center;
                 padding-right: 7px;
                 font-size: 15px;
 
-                .glyphicon-heart {
+                .rating_number {
                     width: 30px;
                     height: 30px;
                     border-radius: 50%;
-                    background-color: #ef47b6;
-                    border: 1px solid #ef47b6;
+                    background-color: #02d277;
+                    border: 1px solid #02d277;
                     color: #fff;
+                    font-weight: 700;
                     margin-right: 8px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
 
-                    &:hover:before {
-                        content: "\e014";
+                    &:hover {
+                        background-color: #959595;
+                        border: #959595;
                     }
                 }
             }
 
             .ratingButton {
                 &:hover {
-                    .glyphicon-heart::before {
-                        content: "\e014";
+                    .rating_number {
+                        background-color: #959595;
+                        border: #959595;
                     }
+                }
+                &:focus {
+                    outline: none;
                 }
             }
         }
 
     }
+}
+
+.rating_tooltip {
+    .tooltip-inner {
+        background-color: #959595;
+        color: white;
+        padding: .4rem .6rem;
+    }
+
+    .rating_stars {
+        p {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+    border-right-color: #959595 !important;
 }

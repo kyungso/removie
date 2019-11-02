@@ -41,14 +41,14 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
                     style={{ borderBottom: ((pathname === "/account/favorite"|| pathname === "/account/favorite/tv") ? `3px solid #ce3462` : `3px solid transparent`) }}
                 >
                     <Link to="/account/favorite" className={cx('link')}
-                        style={{ color: (pathname === "/account/favorite" ? `#ffffff` : `#AAAAAA`) }}
+                        style={{ color: (pathname === "/account/favorite"|| pathname === "/account/favorite/tv" ? `#ffffff` : `#AAAAAA`) }}
                     >Favorites</Link>
                 </li>
                 <li className={cx('tab-menu-items')}
-                    style={{ borderBottom: (pathname === "/account/rating" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                    style={{ borderBottom: (pathname === "/account/rating"|| pathname === "/account/rating/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
                 >
                     <Link to="/account/rating" className={cx('link')}
-                        style={{ color: (pathname === "/account/rating" ? `#ffffff` : `#AAAAAA`) }}
+                        style={{ color: (pathname === "/account/rating"|| pathname === "/account/rating/tv" ? `#ffffff` : `#AAAAAA`) }}
                     >Ratings</Link>
                 </li>
             </ul>

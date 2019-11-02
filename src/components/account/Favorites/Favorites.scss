@@ -115,10 +115,11 @@
 
         .actionBar {
             height: 30px;
+            width: 100px;
             margin-top: 18px;
 
             .favoriteButton {
-                color: #959595;
+                color: #AAAAAA;
                 display: flex;
                 align-items: center;
                 padding-right: 7px;
@@ -137,7 +138,7 @@
                     justify-content: center;
 
                     &:hover:before {
-                        content: "\e014";
+                        content: "\e014";   // glyphicon-remove
                     }
                 }
             }
