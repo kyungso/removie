@@ -28,7 +28,7 @@ class AccountContainer extends Component {
 
         let sessionId = localStorage.getItem('session_id');
         let accountId = localStorage.getItem('accountId');
-            
+    
         if(accountDetail !== prevProps.accountDetail) {
             if(sessionId) {
                 AccountActions.getFavoriteMovies(accountId, sessionId);
@@ -46,6 +46,22 @@ class AccountContainer extends Component {
         if(query && Object.keys(query).length !== 0) {
             await AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
         }
+
+        if(!accountDetail && !prevProps.accountDetail) {
+            AccountActions.getAccountDetail(sessionId);
+        }
+    }
+
+    handleClearRating = (id) => {
+        const { location: { pathname }, AccountActions } = this.props;
+        let sessionId = localStorage.getItem('session_id');
+        let isTV = pathname.includes("/tv");
+
+        if(isTV) {
+            AccountActions.deleteRatingTV(id, sessionId);
+        } else  {
+            AccountActions.deleteRatingMovies(id, sessionId);
+        }
     }
 
     render() {
@@ -61,6 +77,7 @@ class AccountContainer extends Component {
                 ratedMovies={ratedMovies}
                 ratedTV={ratedTV}
                 genreList={genreList}
+                handleClearRating={this.handleClearRating}
                 loading={loading}
               />
             }

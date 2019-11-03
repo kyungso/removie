@@ -123,5 +123,17 @@ export const accountApi = {
             session_id: session_id
         }
     }),
+    deleteRatingMovies: (movie_id, session_id) => api.delete(`movie/${movie_id}/rating`, {
+        headers: { 'content-type': 'application/json;charset=utf-8'},
+        params: {
+            session_id: session_id
+        }
+    }),
+    deleteRatingTV: (tv_id, session_id) => api.delete(`tv/${tv_id}/rating`, {
+        headers: { 'content-type': 'application/json;charset=utf-8'},
+        params: {
+            session_id: session_id
+        }
+    }),
     
 }

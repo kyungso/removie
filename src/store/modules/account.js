@@ -13,7 +13,8 @@ const MARK_AS_FAVORITE = 'account/MARK_AS_FAVORITE';
 const GET_RATED_MOVIES = 'account/GET_RATED_MOVIES';
 const GET_RATED_TV = 'account/GET_RATED_TV';
 const GET_GENRE_LIST = 'account/GET_GENRE_LIST';
-
+const DELETE_RATING_MOVIES = 'account/DELETE_RATING_MOVIES';
+const DELETE_RATING_TV = 'account/DELETE_RATING_TV';
 
 // action creators
 export const getAccountDetail = createAction(GET_ACCOUNT_DETAILS, accountApi.getAccountDetail);
@@ -23,6 +24,8 @@ export const markAsFavorite = createAction(MARK_AS_FAVORITE, accountApi.markAsFa
 export const getRatedMovies = createAction(GET_RATED_MOVIES, accountApi.getRatedMovies);
 export const getRatedTV = createAction(GET_RATED_TV, accountApi.getRatedTV);
 export const getGenreList = createAction(GET_GENRE_LIST, accountApi.getGenreList);
+export const deleteRatingMovies = createAction(DELETE_RATING_MOVIES, accountApi.deleteRatingMovies);
+export const deleteRatingTV = createAction(DELETE_RATING_TV, accountApi.deleteRatingTV);
 
 // initial state
 const initialState = Map({
@@ -83,5 +86,16 @@ export default handleActions({
             return state.set('genreList', genreList);
         }
     }),
-    
+    ...pender({
+        type: DELETE_RATING_MOVIES,
+        onSuccess: (state, action) => {
+            return console.log('success');
+        },
+    }),
+    ...pender({
+        type: DELETE_RATING_TV,
+        onSuccess: (state, action) => {
+            return console.log('success');
+        },
+    }),
 }, initialState)

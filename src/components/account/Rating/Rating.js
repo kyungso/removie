@@ -30,7 +30,7 @@ let month = [];
     month[11] = "December";
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
 
-const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => {  
+const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handleClearRating }) => {  
 
     return (
     <>
@@ -94,7 +94,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => 
                                                     <div className={cx('rating_wrapper')}>
                                                         <p>Rated on {currentDate}</p>
                                                         <div className={cx('rating_stars_wrapper')}>
-                                                            <div className={cx('clear-rating')}>
+                                                            <div className={cx('clear-rating')} onClick={() => handleClearRating(movie.id)} >
                                                                 <span className={cx('glyphicon glyphicon-minus-sign')}></span>
                                                             </div>
                                                             <div className={cx('rating_stars')}>
@@ -112,7 +112,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => 
                                                 </Tooltip>
                                             }
                                         >
-                                            <button to={`/account/rating`} className={cx('ratingButton')}>
+                                            <button className={cx('ratingButton')}>
                                             <span className={cx('rating_number')}>{movie.rating}</span>
                                              Your rating
                                             </button>
@@ -135,7 +135,6 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => 
                             title={show.name}
                             rating={show.vote_average}
                             year={show.first_air_date ? show.first_air_date.substring(0, 4) : ''}
-                            isMovie={true}
                         />
                         <div className={cx('poster-content')}>
                             <div className={cx('titleSection')}>
@@ -148,10 +147,40 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => 
                             <div className={cx('actionBar')}>
                                 <ul>
                                     <li>
-                                        <Link to={`/account/rating/tv`} className={cx('ratingButton')}>
+                                        <OverlayTrigger
+                                            trigger="click"
+                                            key={show.id}
+                                            rootClose
+                                            placement='right'
+                                            overlay={
+                                                <Tooltip className={cx('rating_tooltip')}>
+                                                    <div className={cx('rating_wrapper')}>
+                                                        <p>Rated on {currentDate}</p>
+                                                        <div className={cx('rating_stars_wrapper')}>
+                                                            <div className={cx('clear-rating')} onClick={() => handleClearRating(show.id)} >
+                                                                <span className={cx('glyphicon glyphicon-minus-sign')}></span>
+                                                            </div>
+                                                            <div className={cx('rating_stars')}>
+                                                                <StarRating
+                                                                    placeholderRating={show.rating}
+                                                                    emptySymbol="fa fa-star-o fa-2x"
+                                                                    fullSymbol="fa fa-star fa-2x"
+                                                                    placeholderSymbol="fa fa-star fa-2x"
+                                                                    fractions={2}
+                                                                    onClick={(rate) => console.log(rate)}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Tooltip>
+                                            }
+                                        >
+                                            <button className={cx('ratingButton')}>
                                             <span className={cx('rating_number')}>{show.rating}</span>
                                              Your rating
-                                        </Link>
+                                            </button>
+                                        </OverlayTrigger>
+
                                     </li>
                                 </ul>
                             </div>

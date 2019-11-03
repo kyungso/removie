@@ -70,7 +70,7 @@ body a:focus {
 .account-tab {
     display: flex;
     align-items: center;
-    padding: 0px 60px;
+    padding: 0px 120px;
     width: 100%;
     height: 70px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -99,9 +99,8 @@ body a:focus {
 
 .account-tab-data {
     display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     min-height: calc(100vh - 24rem);
     background-color: black;
+    padding: 0px 150px;
 }
