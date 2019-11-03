@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import Poster from 'components/common/Poster';
+import StarRating from 'components/StarRating';
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ let month = [];
     month[10] = "November";
     month[11] = "December";
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
+
 const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => {  
 
     return (
@@ -89,8 +91,23 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV }) => 
                                             placement='right'
                                             overlay={
                                                 <Tooltip className={cx('rating_tooltip')}>
-                                                    <div className={cx('rating_stars')}>
+                                                    <div className={cx('rating_wrapper')}>
                                                         <p>Rated on {currentDate}</p>
+                                                        <div className={cx('rating_stars_wrapper')}>
+                                                            <div className={cx('clear-rating')}>
+                                                                <span className={cx('glyphicon glyphicon-minus-sign')}></span>
+                                                            </div>
+                                                            <div className={cx('rating_stars')}>
+                                                                <StarRating
+                                                                    placeholderRating={movie.rating}
+                                                                    emptySymbol="fa fa-star-o fa-2x"
+                                                                    fullSymbol="fa fa-star fa-2x"
+                                                                    placeholderSymbol="fa fa-star fa-2x"
+                                                                    fractions={2}
+                                                                    onClick={(rate) => console.log(rate)}
+                                                                />
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </Tooltip>
                                             }

@@ -172,7 +172,7 @@ button {
         padding: .4rem .6rem;
     }
 
-    .rating_stars {
+    .rating_wrapper {
         p {
             margin-bottom: 5px;
         }
@@ -181,4 +181,20 @@ button {
 
 .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
     border-right-color: #959595 !important;
+}
+
+.rating_stars_wrapper, .clear-rating {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.rating_stars_wrapper .clear-rating {
+    padding-right: 5px;
+    cursor: pointer;
+    font-size: 1.3em;
+}
+
+.rating_stars_wrapper .rating_stars {
+    font-size: 1.2em;
 }
