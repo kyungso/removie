@@ -30,7 +30,7 @@ let month = [];
     month[11] = "December";
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
 
-const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handleClearRating }) => {  
+const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handleClearRating, handleRating }) => {  
 
     return (
     <>
@@ -104,7 +104,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                                                                     fullSymbol="fa fa-star fa-2x"
                                                                     placeholderSymbol="fa fa-star fa-2x"
                                                                     fractions={2}
-                                                                    onClick={(rate) => console.log(rate)}
+                                                                    onClick={(rate) => handleRating(movie.id, rate)}
                                                                 />
                                                             </div>
                                                         </div>
@@ -167,7 +167,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                                                                     fullSymbol="fa fa-star fa-2x"
                                                                     placeholderSymbol="fa fa-star fa-2x"
                                                                     fractions={2}
-                                                                    onClick={(rate) => console.log(rate)}
+                                                                    onClick={(rate) => handleRating(show.id, rate)}
                                                                 />
                                                             </div>
                                                         </div>

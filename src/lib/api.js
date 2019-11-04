@@ -135,5 +135,24 @@ export const accountApi = {
             session_id: session_id
         }
     }),
-    
+    postRatingMovies: (movie_id, rate, session_id) => { 
+        api.post(`movie/${movie_id}/rating`, {
+            value: rate
+        },{
+            headers: { 'content-type': 'application/json;charset=utf-8'},
+            params: {
+                session_id: session_id
+            }
+        })
+    },
+    postRatingTV: (tv_id, rate, session_id) => {
+        api.post(`tv/${tv_id}/rating`, {
+            value: rate
+        },{
+            headers: { 'content-type': 'application/json;charset=utf-8'},
+            params: {
+                session_id: session_id
+            }
+        })
+    }
 }

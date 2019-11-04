@@ -49,6 +49,8 @@ class AccountContainer extends Component {
 
         if(!accountDetail && !prevProps.accountDetail) {
             AccountActions.getAccountDetail(sessionId);
+        } else if(!accountDetail && prevProps.accountDetail) {
+            AccountActions.getAccountDetail(sessionId);
         }
     }
 
@@ -61,6 +63,20 @@ class AccountContainer extends Component {
             AccountActions.deleteRatingTV(id, sessionId);
         } else  {
             AccountActions.deleteRatingMovies(id, sessionId);
+        }
+    }
+
+    handleRating = async(id, rate) => {
+        const { location: { pathname }, AccountActions } = this.props;
+        let sessionId = localStorage.getItem('session_id');
+        let isTV = pathname.includes("/tv");
+
+        if(isTV) {
+            await AccountActions.postRatingTV(id, rate, sessionId);
+            AccountActions.editRatedTV([id, rate]);
+        } else  {
+            await AccountActions.postRatingMovies(id, rate, sessionId);
+            AccountActions.editRatedMovies([id, rate]);
         }
     }
 
@@ -78,6 +94,7 @@ class AccountContainer extends Component {
                 ratedTV={ratedTV}
                 genreList={genreList}
                 handleClearRating={this.handleClearRating}
+                handleRating={this.handleRating}
                 loading={loading}
               />
             }
@@ -94,6 +111,7 @@ export default withRouter(connect(
         ratedMovies: state.account.get('ratedMovies'),
         ratedTV: state.account.get('ratedTV'),
         genreList: state.account.get('genreList'),
+        updateRating: state.account.get('updateRating'),
         loading: state.pender.pending['account/GET_ACCOUNT_DETAILS'] 
                 || state.pender.pending['account/GET_FAVORITE_MOVIES'] 
                 || state.pender.pending['account/GET_FAVORITE_TV'] 
