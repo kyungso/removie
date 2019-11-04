@@ -28,8 +28,8 @@ export const markAsFavorite = createAction(MARK_AS_FAVORITE, accountApi.markAsFa
 export const getRatedMovies = createAction(GET_RATED_MOVIES, accountApi.getRatedMovies);
 export const getRatedTV = createAction(GET_RATED_TV, accountApi.getRatedTV);
 export const getGenreList = createAction(GET_GENRE_LIST, accountApi.getGenreList);
-export const deleteRatingMovies = createAction(DELETE_RATING_MOVIES, accountApi.deleteRatingMovies);
-export const deleteRatingTV = createAction(DELETE_RATING_TV, accountApi.deleteRatingTV);
+export const deleteRatingMovies = createAction(DELETE_RATING_MOVIES, accountApi.deleteRatingMovies, payload => payload);
+export const deleteRatingTV = createAction(DELETE_RATING_TV, accountApi.deleteRatingTV, payload => payload);
 export const postRatingMovies = createAction(POST_RATING_MOVIES, accountApi.postRatingMovies);
 export const postRatingTV = createAction(POST_RATING_TV, accountApi.postRatingTV);
 export const editRatedMovies = createAction(EDIT_RATED_MOVIES);
@@ -97,18 +97,20 @@ export default handleActions({
     }),
     ...pender({
         type: DELETE_RATING_MOVIES,
-        // onSuccess: (state, action) => {
-        //     return console.log('success');
-        // },
+        onSuccess: (state, action) => {
+            const id = action.meta;
+            return state && state.set('ratedMovies', state.get('ratedMovies').filter(movie => movie.id !== id));
+        },
     }),
     ...pender({
         type: DELETE_RATING_TV,
-        // onSuccess: (state, action) => {
-        //     return console.log('success');
-        // },
+        onSuccess: (state, action) => {
+            const id = action.meta;
+            return state && state.set('ratedTV', state.get('ratedTV').filter(tv => tv.id !== id));
+        },
     }),
     ...pender({
-        type: POST_RATING_MOVIES
+        type: POST_RATING_MOVIES,
     }),
     ...pender({
         type: POST_RATING_TV

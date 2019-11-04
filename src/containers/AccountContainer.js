@@ -47,11 +47,11 @@ class AccountContainer extends Component {
             await AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
         }
 
-        if(!accountDetail && !prevProps.accountDetail) {
-            AccountActions.getAccountDetail(sessionId);
-        } else if(!accountDetail && prevProps.accountDetail) {
-            AccountActions.getAccountDetail(sessionId);
-        }
+        // if(!accountDetail && !prevProps.accountDetail) {
+        //     AccountActions.getAccountDetail(sessionId);
+        // } else if(!accountDetail && prevProps.accountDetail) {
+        //     AccountActions.getAccountDetail(sessionId);
+        // }
     }
 
     handleClearRating = (id) => {
