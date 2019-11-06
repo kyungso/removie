@@ -7,9 +7,11 @@ import { accountApi } from 'lib/api';
 
 // action types
 const GET_ACCOUNT_DETAILS = 'account/GET_ACCOUNT_DETAILS';
+
 const GET_FAVORITE_MOVIES = 'account/GET_FAVORITE_MOVIES';
 const GET_FAVORITE_TV = 'account/GET_FAVORITE_TV';
 const MARK_AS_FAVORITE = 'account/MARK_AS_FAVORITE';
+
 const GET_RATED_MOVIES = 'account/GET_RATED_MOVIES';
 const GET_RATED_TV = 'account/GET_RATED_TV';
 const GET_GENRE_LIST = 'account/GET_GENRE_LIST';
@@ -22,9 +24,11 @@ const EDIT_RATED_TV = 'account/EDIT_RATED_TV';
 
 // action creators
 export const getAccountDetail = createAction(GET_ACCOUNT_DETAILS, accountApi.getAccountDetail);
+
 export const getFavoriteMovies = createAction(GET_FAVORITE_MOVIES, accountApi.getFavoriteMovies);
 export const getFavoriteTV = createAction(GET_FAVORITE_TV, accountApi.getFavoriteTV);
 export const markAsFavorite = createAction(MARK_AS_FAVORITE, accountApi.markAsFavorite);
+
 export const getRatedMovies = createAction(GET_RATED_MOVIES, accountApi.getRatedMovies);
 export const getRatedTV = createAction(GET_RATED_TV, accountApi.getRatedTV);
 export const getGenreList = createAction(GET_GENRE_LIST, accountApi.getGenreList);
@@ -110,23 +114,21 @@ export default handleActions({
         },
     }),
     ...pender({
-        type: POST_RATING_MOVIES,
+        type: POST_RATING_MOVIES
     }),
     ...pender({
         type: POST_RATING_TV
     }),
     [EDIT_RATED_MOVIES]: (state, action) => {
-        let ratedMovies = state.get('ratedMovies')
-        let id = action.payload[0];
-        let rate = action.payload[1]
+        let ratedMovies = state.get('ratedMovies');
+        const { id, rate } = action.payload;
         let index = ratedMovies.findIndex(movie => movie.id === id);
         if(index > -1) state.set(state.get('ratedMovies')[index].rating = rate);
         return state.set('updateRating', []);
     },
     [EDIT_RATED_TV]: (state, action) => {
         let ratedTV = state.get('ratedTV')
-        let id = action.payload[0];
-        let rate = action.payload[1]
+        const { id, rate } = action.payload;
         let index = ratedTV.findIndex(tv => tv.id === id);
         if(index > -1) state.set(state.get('ratedTV')[index].rating = rate);
         return state.set('updateRating', []);

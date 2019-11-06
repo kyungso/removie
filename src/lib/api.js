@@ -99,19 +99,13 @@ export const accountApi = {
         api.post(`account/${account_id}/favorite`, {
             media_type: media_type,
             media_id: parseInt(media_id),
-            favorite: (favorite !== 'false')
+            favorite: favorite
         }, {
-        params: {
-            session_id: session_id
-        },
-        }).then(function (response) {
-            if(response.status === 200) {
-                window.location.href.includes("/tv") 
-                ? window.location.replace("#/account/favorite/tv")
-                : window.location.replace("#/account/favorite"); 
-            }
-           return window.location.reload();
-        }) 
+            headers: { 'content-type': 'application/json;charset=utf-8'},
+            params: {
+                session_id: session_id
+            },
+        })
     },
     getRatedMovies: (account_id, session_id) => api.get(`account/${account_id}/rated/movies`, {
         params: {

@@ -136,10 +136,6 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-
-                    &:hover:before {
-                        content: "\e014";   // glyphicon-remove
-                    }
                 }
             }
 
@@ -149,8 +145,13 @@
                         content: "\e014";
                     }
                 }
+                &:active, &:visited {
+                    .glyphicon-heart {
+                        background-color: #959595;
+                        border: 1px solid #959595;
+                    }
+                }
             }
         }
-
     }
 }

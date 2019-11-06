@@ -24,7 +24,7 @@ class AccountContainer extends Component {
     }
 
     async componentDidUpdate(prevProps) {
-        const { location, AccountActions, accountDetail } = this.props;
+        const { AccountActions, accountDetail } = this.props;
 
         let sessionId = localStorage.getItem('session_id');
         let accountId = localStorage.getItem('accountId');
@@ -38,20 +38,21 @@ class AccountContainer extends Component {
                 AccountActions.getGenreList();
             }
         }
+    }
 
-        let query = queryString.parse(location.search);
-        let media_type = query.media_type;
-        let media_id = query.media_id;
-        let favorite = query.favorite;
-        if(query && Object.keys(query).length !== 0) {
-            await AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
+    handleFavoriteBtn = (media_id) => {
+        const { location: { pathname }, AccountActions } = this.props;
+        let sessionId = localStorage.getItem('session_id');
+        let accountId = localStorage.getItem('accountId');
+        let isTV = pathname.includes("/tv");
+        let media_type = isTV ? 'tv' : 'movie';
+        let favorite = false;
+
+        if(isTV) {
+            AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
+        } else  {
+            AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
         }
-
-        // if(!accountDetail && !prevProps.accountDetail) {
-        //     AccountActions.getAccountDetail(sessionId);
-        // } else if(!accountDetail && prevProps.accountDetail) {
-        //     AccountActions.getAccountDetail(sessionId);
-        // }
     }
 
     handleClearRating = (id) => {
@@ -66,17 +67,17 @@ class AccountContainer extends Component {
         }
     }
 
-    handleRating = async(id, rate) => {
+    handleRating = (id, rate) => {
         const { location: { pathname }, AccountActions } = this.props;
         let sessionId = localStorage.getItem('session_id');
         let isTV = pathname.includes("/tv");
 
         if(isTV) {
-            await AccountActions.postRatingTV(id, rate, sessionId);
-            AccountActions.editRatedTV([id, rate]);
+            AccountActions.postRatingTV(id, rate, sessionId);
+            AccountActions.editRatedTV({id, rate});
         } else  {
-            await AccountActions.postRatingMovies(id, rate, sessionId);
-            AccountActions.editRatedMovies([id, rate]);
+            AccountActions.postRatingMovies(id, rate, sessionId);
+            AccountActions.editRatedMovies({id, rate});
         }
     }
 
@@ -93,6 +94,7 @@ class AccountContainer extends Component {
                 ratedMovies={ratedMovies}
                 ratedTV={ratedTV}
                 genreList={genreList}
+                handleFavoriteBtn={this.handleFavoriteBtn}
                 handleClearRating={this.handleClearRating}
                 handleRating={this.handleRating}
                 loading={loading}
