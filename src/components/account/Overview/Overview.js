@@ -131,7 +131,14 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
                                       return "★ " + tooltipItem[0].xLabel;
                                     }
                                   }
-                              } 
+                              },
+                              scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                }]
+                              }  
                             }}
 
                         />

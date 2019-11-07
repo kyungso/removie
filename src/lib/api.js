@@ -99,19 +99,13 @@ export const accountApi = {
         api.post(`account/${account_id}/favorite`, {
             media_type: media_type,
             media_id: parseInt(media_id),
-            favorite: (favorite !== 'false')
+            favorite: favorite
         }, {
-        params: {
-            session_id: session_id
-        },
-        }).then(function (response) {
-            if(response.status === 200) {
-                window.location.href.includes("/tv") 
-                ? window.location.replace("#/account/favorite/tv")
-                : window.location.replace("#/account/favorite"); 
-            }
-           return window.location.reload();
-        }) 
+            headers: { 'content-type': 'application/json;charset=utf-8'},
+            params: {
+                session_id: session_id
+            },
+        })
     },
     getRatedMovies: (account_id, session_id) => api.get(`account/${account_id}/rated/movies`, {
         params: {
@@ -123,5 +117,36 @@ export const accountApi = {
             session_id: session_id
         }
     }),
-    
+    deleteRatingMovies: (movie_id, session_id) => api.delete(`movie/${movie_id}/rating`, {
+        headers: { 'content-type': 'application/json;charset=utf-8'},
+        params: {
+            session_id: session_id
+        }
+    }),
+    deleteRatingTV: (tv_id, session_id) => api.delete(`tv/${tv_id}/rating`, {
+        headers: { 'content-type': 'application/json;charset=utf-8'},
+        params: {
+            session_id: session_id
+        }
+    }),
+    postRatingMovies: (movie_id, rate, session_id) => { 
+        api.post(`movie/${movie_id}/rating`, {
+            value: rate
+        },{
+            headers: { 'content-type': 'application/json;charset=utf-8'},
+            params: {
+                session_id: session_id
+            }
+        })
+    },
+    postRatingTV: (tv_id, rate, session_id) => {
+        api.post(`tv/${tv_id}/rating`, {
+            value: rate
+        },{
+            headers: { 'content-type': 'application/json;charset=utf-8'},
+            params: {
+                session_id: session_id
+            }
+        })
+    }
 }

@@ -3,7 +3,7 @@
 .favorite-container {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     height: 100%;
     padding: 40px 0px;
 
@@ -136,10 +136,6 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-
-                    &:hover:before {
-                        content: "\e014";   // glyphicon-remove
-                    }
                 }
             }
 
@@ -149,8 +145,13 @@
                         content: "\e014";
                     }
                 }
+                &:active, &:visited {
+                    .glyphicon-heart {
+                        background-color: #959595;
+                        border: 1px solid #959595;
+                    }
+                }
             }
         }
-
     }
 }
