@@ -19,7 +19,12 @@
         display: grid;
         grid-template-columns: repeat(100, 125px);
         grid-gap: 15px;
-        overflow-x: scroll;
+        overflow-y: hidden;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+            display: none !important;
+        }
     }
 
     .section {
