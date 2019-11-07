@@ -11,10 +11,10 @@ const Company = ({ result }) => (
                 {result.production_companies &&
                             result.production_companies.map((company) =>
                     company.logo_path !== null &&
-                        <div className={cx('logo-wrapper')} key={company.id}>
-                            <div className={cx('logo')} 
+                        <div className={cx('company-wrapper')} key={company.id}>
+                            <div className={cx('company')} 
                                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${company.logo_path})`}}/>
-                            <span className={cx('logo-title')}>{company.name}</span> 
+                            <span className={cx('company-title')}>{company.name}</span> 
                         </div>
                 )}
             </div>
