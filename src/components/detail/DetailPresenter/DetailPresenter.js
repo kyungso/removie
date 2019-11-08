@@ -5,12 +5,14 @@ import Helmet from "react-helmet";  // public/index.html 변경
 import styles from './DetailPresenter.scss';
 import classNames from 'classnames/bind';
 
+import DetailActionBar from "components/detail/DetailActionBar";
 import DetailTab from "components/detail/DetailTab";
 import Video from "components/detail/Video";
 
 const cx = classNames.bind(styles);
 
-const DetailPresenter = ({ result, imdb_id, videos }) => (
+const DetailPresenter = ({ result, account_state, imdb_id, videos }) => {
+    return (
     <>
     <div className={cx('detail-container')}>
         <Helmet>
@@ -43,29 +45,6 @@ const DetailPresenter = ({ result, imdb_id, videos }) => (
                     </span> 
                     <span className={cx('detailItem-divider')}>•</span>
                     <span>
-                        {   
-                            <>
-                                <span className="imdbRatingPlugin" data-user="ur107063764" data-title={`${imdb_id.imdb_id}`} data-style="t1">
-                                    <a href={`https://www.imdb.com/title/${imdb_id.imdb_id}/?ref_=tt_plg_rt`}>
-                                        <img alt={`${result.title ? result.title : result.name} on IMDb`} src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png" />
-                                    </a>
-                                </span>
-                                <script>
-                                    {(function(d,s,id){
-                                        var js,stags=d.getElementsByTagName(s)[0];
-                                        if(d.getElementById(id)){return;}
-                                            js=d.createElement(s);
-                                            js.id=id;
-                                            js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";
-                                            stags.parentNode.insertBefore(js,stags);
-                                    })(document,'script','imdb-rating-api')}    
-                                </script>                    
-                            </>                
-                        }        
-                    </span>
-                </div>
-                <div className={cx('detailItem-container')}>
-                    <span>
                         {result.genres &&
                             result.genres.map((genre, index) =>
                                 index === result.genres.length - 1
@@ -73,6 +52,13 @@ const DetailPresenter = ({ result, imdb_id, videos }) => (
                                     : `${genre.name} / `
                         )}
                     </span>
+                    <span className={cx('detailItem-divider')}>•</span>
+                    <span className={cx("imdbRatingPlugin")} data-user="ur107063764" data-title={`${imdb_id.imdb_id}`} data-style="t1">
+                        <a href={`https://www.imdb.com/title/${imdb_id.imdb_id}/?ref_=plg_rt_1`}>IMDb</a>
+                    </span>                
+                </div>
+                <div className={cx('detailItem-container')}>
+                    <DetailActionBar account_state={account_state} />
                 </div>
                 <div className={cx('detailItem-container', 'detailTab-wrapper')}>
                     <DetailTab overview={result.overview} result={result}/>
@@ -84,10 +70,15 @@ const DetailPresenter = ({ result, imdb_id, videos }) => (
         </div>
     </div>
     </>
-);
+    );
+}
 
 DetailPresenter.propTypes = {
     result: PropTypes.object,
+    movie_state: PropTypes.object,
+    tv_state: PropTypes.object,
+    imdb_id: PropTypes.object,
+    videos: PropTypes.object,
 };
 
 export default DetailPresenter;

@@ -21,6 +21,11 @@ export const moviesApi = {
                 append_to_response: "videos"
             }
         }),
+    movieAccountState: (id, session_id) => api.get(`movie/${id}/account_states`, {
+        params: {
+            session_id: session_id
+        }
+    }),
     movieFindImdbId: id => 
         api.get(`movie/${id}/external_ids`),
     movieVideos: id =>
@@ -45,6 +50,11 @@ export const tvApi = {
                 append_to_response: "videos"
             }
         }),
+    showAccountState: (id, session_id) => api.get(`tv/${id}/account_states`, {
+        params: {
+            session_id: session_id
+        }
+    }),
     showFindImdbId: id => 
         api.get(`tv/${id}/external_ids`),
     showVideos: id =>

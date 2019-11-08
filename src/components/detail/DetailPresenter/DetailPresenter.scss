@@ -46,9 +46,18 @@
 }
 
 .detailItem-container {
+    line-height: 1.5;
     margin: 20px 0;
 }
 
 .detailItem-divider {
     margin: 0 10px;
+}
+
+.imdbRatingPlugin {
+    color: black;
+    background-color: rgb(244,189,24);
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 5px;
 }
