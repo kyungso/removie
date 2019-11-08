@@ -11,7 +11,7 @@ import Video from "components/detail/Video";
 
 const cx = classNames.bind(styles);
 
-const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavoriteBtn }) => {
+const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavoriteBtn, handleClearRating, handleRating }) => {
     return (
     <>
     <div className={cx('detail-container')}>
@@ -58,7 +58,12 @@ const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavorit
                     </span>                
                 </div>
                 <div className={cx('detailItem-container')}>
-                    <DetailActionBar account_state={account_state} handleFavoriteBtn={handleFavoriteBtn} />
+                    <DetailActionBar 
+                        account_state={account_state} 
+                        handleFavoriteBtn={handleFavoriteBtn} 
+                        handleClearRating={handleClearRating}
+                        handleRating={handleRating} 
+                    />
                 </div>
                 <div className={cx('detailItem-container', 'detailTab-wrapper')}>
                     <DetailTab overview={result.overview} result={result}/>

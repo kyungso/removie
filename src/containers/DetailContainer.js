@@ -53,6 +53,31 @@ class DetailContainer extends Component {
         AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
     }
 
+    handleClearRating = (id) => {
+        const { location: { pathname }, AccountActions } = this.props;
+        let sessionId = localStorage.getItem('session_id');
+        let isTV = pathname.includes("/show");
+
+        if(isTV) {
+            AccountActions.deleteRatingTV(id, sessionId);
+        } else  {
+            AccountActions.deleteRatingMovies(id, sessionId);
+        }
+    }
+
+    handleRating = (id, rate) => {
+        const { location: { pathname }, DetailActions, AccountActions } = this.props;
+        let sessionId = localStorage.getItem('session_id');
+        let isTV = pathname.includes("/show");
+
+        if(isTV) {
+            AccountActions.postRatingTV(id, rate, sessionId);
+            DetailActions.editRating(rate);
+        } else  {
+            AccountActions.postRatingMovies(id, rate, sessionId);
+            DetailActions.editRating(rate);
+        }
+    }
 
     render() {
         const { result, account_state, imdb_id, videos, loading } = this.props;
@@ -70,6 +95,8 @@ class DetailContainer extends Component {
                     imdb_id={imdb_id} 
                     videos={videos}
                     handleFavoriteBtn={this.handleFavoriteBtn}
+                    handleClearRating={this.handleClearRating}
+                    handleRating={this.handleRating}
                 />)
             }
             </>

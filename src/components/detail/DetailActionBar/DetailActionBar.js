@@ -27,7 +27,7 @@ let month = [];
     month[11] = "December";
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 
-const DetailActionBar = withRouter(({ location: { pathname }, account_state, handleFavoriteBtn }) => {
+const DetailActionBar = withRouter(({ location: { pathname }, account_state, handleFavoriteBtn, handleClearRating, handleRating }) => {
 
     let isFavorite = false;
     let rating = 0;
@@ -78,8 +78,7 @@ const DetailActionBar = withRouter(({ location: { pathname }, account_state, han
                     <div className={cx('rating_wrapper')}>
                         <p>Rated on {currentDate}</p>
                         <div className={cx('rating_stars_wrapper')}>
-                            {/* <div className={cx('clear-rating')} onClick={() => handleClearRating(id)} > */}
-                            <div className={cx('clear-rating')}>
+                            <div className={cx('clear-rating')} onClick={() => handleClearRating(account_state.id)} >
                                 <span className={cx('glyphicon glyphicon-minus-sign')}></span>
                             </div>
                             <div className={cx('rating_stars')}>
@@ -89,7 +88,7 @@ const DetailActionBar = withRouter(({ location: { pathname }, account_state, han
                                     fullSymbol="fa fa-star fa-2x"
                                     placeholderSymbol="fa fa-star fa-2x"
                                     fractions={2}
-                                    // onClick={(rate) => handleRating(id, rate)}
+                                    onClick={(rate) => handleRating(account_state.id, rate)}
                                 />
                             </div>
                         </div>

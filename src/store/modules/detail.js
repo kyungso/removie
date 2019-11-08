@@ -16,6 +16,8 @@ const GET_TV_ACCOUNT_STATE = 'detail/GET_TV_ACCOUNT_STATE';
 const GET_TV_IMDB_ID = 'detail/GET_TV_IMDB_ID';
 const GET_TV_VIDEOS = 'detail/GET_TV_VIDEOS';
 
+const EDIT_RATING = 'detail/EDIT_RATING';
+
 // action creators
 export const getMovieDetail = createAction(GET_MOVIE_DETAIL, moviesApi.movieDetail);
 export const getMovieAccountState = createAction(GET_MOVIE_ACCOUNT_STATE, moviesApi.movieAccountState);
@@ -26,6 +28,8 @@ export const getTvDetail = createAction(GET_TV_DETAIL, tvApi.showDetail);
 export const getTvAccountState = createAction(GET_TV_ACCOUNT_STATE, tvApi.showAccountState);
 export const getTvImdbId = createAction(GET_TV_IMDB_ID, tvApi.showFindImdbId);
 export const getTvVideos = createAction(GET_TV_VIDEOS, tvApi.showVideos);
+
+export const editRating = createAction(EDIT_RATING);
 
 // initial state
 const initialState = Map({
@@ -94,5 +98,8 @@ export default handleActions({
             return state.set('videos', videos);
         }
     }),
-
+    [EDIT_RATING]: (state, action) => {
+        const { rate } = action.payload;
+        return state.set(state.get('account_state').rated.value = rate);
+    },
 }, initialState)
