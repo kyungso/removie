@@ -47,12 +47,7 @@ class AccountContainer extends Component {
         let isTV = pathname.includes("/tv");
         let media_type = isTV ? 'tv' : 'movie';
         let favorite = false;
-
-        if(isTV) {
-            AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
-        } else  {
-            AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
-        }
+        AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
     }
 
     handleClearRating = (id) => {
