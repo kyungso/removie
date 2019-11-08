@@ -19,3 +19,13 @@
 .slick-dots li.slick-active button:before {
     color: white;
 }
+
+@media (max-width: 820px) {
+    .slick-dots li button:before {
+        display: none;
+    }
+    
+    .slick-dots li.slick-active button:before {
+        display: none;
+    }
+}

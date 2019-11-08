@@ -74,7 +74,7 @@ const DetailPresenter = ({ result, imdb_id, videos }) => (
                         )}
                     </span>
                 </div>
-                <div className={cx('detailItem-container')}>
+                <div className={cx('detailItem-container', 'detailTab-wrapper')}>
                     <DetailTab overview={result.overview} result={result}/>
                 </div>
                 <div className={cx('detailItem-container')}>

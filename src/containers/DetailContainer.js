@@ -42,8 +42,6 @@ class DetailContainer extends Component {
     render() {
         const { result, imdb_id, videos } = this.props;
         return (
-            // 위에 componentDidMount에서 this.elem.addEventListener('touchstart',);
-            // <div ref={elem => this.elem = elem}>
             <>
             {
                 result && imdb_id && videos &&
