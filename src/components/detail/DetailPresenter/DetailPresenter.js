@@ -11,7 +11,7 @@ import Video from "components/detail/Video";
 
 const cx = classNames.bind(styles);
 
-const DetailPresenter = ({ result, account_state, imdb_id, videos }) => {
+const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavoriteBtn }) => {
     return (
     <>
     <div className={cx('detail-container')}>
@@ -58,7 +58,7 @@ const DetailPresenter = ({ result, account_state, imdb_id, videos }) => {
                     </span>                
                 </div>
                 <div className={cx('detailItem-container')}>
-                    <DetailActionBar account_state={account_state} />
+                    <DetailActionBar account_state={account_state} handleFavoriteBtn={handleFavoriteBtn} />
                 </div>
                 <div className={cx('detailItem-container', 'detailTab-wrapper')}>
                     <DetailTab overview={result.overview} result={result}/>
@@ -79,6 +79,7 @@ DetailPresenter.propTypes = {
     tv_state: PropTypes.object,
     imdb_id: PropTypes.object,
     videos: PropTypes.object,
+    handleFavoriteBtn: PropTypes.func,
 };
 
 export default DetailPresenter;

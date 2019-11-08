@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as detailActions from 'store/modules/detail';
+import * as accountActions from 'store/modules/account';
 
 import DetailPresenter from "components/detail/DetailPresenter";
 import Loader from 'components/common/Loader';
@@ -43,6 +44,16 @@ class DetailContainer extends Component {
         }
     }
 
+    handleFavoriteBtn = (media_id, favorite) => {
+        const { location: { pathname }, AccountActions } = this.props;
+        let sessionId = localStorage.getItem('session_id');
+        let accountId = localStorage.getItem('accountId');
+        let isTV = pathname.includes("/show");
+        let media_type = isTV ? 'tv' : 'movie';
+        AccountActions.markAsFavorite(accountId, sessionId, {media_type, media_id, favorite});
+    }
+
+
     render() {
         const { result, account_state, imdb_id, videos, loading } = this.props;
         
@@ -58,6 +69,7 @@ class DetailContainer extends Component {
                     account_state={account_state}
                     imdb_id={imdb_id} 
                     videos={videos}
+                    handleFavoriteBtn={this.handleFavoriteBtn}
                 />)
             }
             </>
@@ -81,6 +93,7 @@ export default withRouter(connect(
               || state.pender.pending['detail/GET_TV_VIDEOS']
     }),
     (dispatch) => ({
-        DetailActions: bindActionCreators(detailActions, dispatch)
+        DetailActions: bindActionCreators(detailActions, dispatch),
+        AccountActions: bindActionCreators(accountActions, dispatch)
     })
 )(DetailContainer));

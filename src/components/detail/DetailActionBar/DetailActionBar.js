@@ -27,9 +27,7 @@ let month = [];
     month[11] = "December";
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 
-const DetailActionBar = withRouter(({ location: { pathname }, account_state }) => {
-
-    const isMovie = pathname.includes("/movie/");
+const DetailActionBar = withRouter(({ location: { pathname }, account_state, handleFavoriteBtn }) => {
 
     let isFavorite = false;
     let rating = 0;
@@ -53,20 +51,21 @@ const DetailActionBar = withRouter(({ location: { pathname }, account_state }) =
 
     const favoriteBtn = useRef(null);
     const ratingBtn = useRef(null);
-    
-    const handleMouseOver = () => {
-        if(account_state.favorite === true) {
-            console.log(favoriteBtn.current.style);
-            console.log(favoriteBtn.current.style.color);
+
+    const onFavoriteToggle = () => {
+        if(favoriteBtn.current.style.color === 'rgb(255, 255, 255)') {
+            favoriteBtn.current.style.color = 'rgb(239, 71, 182)';
+        } else if(favoriteBtn.current.style.color === 'rgb(239, 71, 182)') {
+            favoriteBtn.current.style.color = 'rgb(255, 255, 255)';
         }
     }
-
+    
     return (
     <>
     <div className={cx('actionBar')}>
-        <span className={cx('favoriteIcon')} >
+        <span className={cx('favoriteIcon')} onClick={() => { handleFavoriteBtn(account_state.id, !account_state.favorite); onFavoriteToggle();} } >
             <span className={cx('glyphicon glyphicon-heart')} ref={favoriteBtn}
-                  style={{ color: `${isFavorite}` }} onMouseOver={() => handleMouseOver()} > 
+                  style={{ color: `${isFavorite}` }} > 
             </span>
         </span>
         <span className={cx('ratingIcon')}>
