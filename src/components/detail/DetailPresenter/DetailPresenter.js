@@ -5,8 +5,9 @@ import Helmet from "react-helmet";  // public/index.html 변경
 import styles from './DetailPresenter.scss';
 import classNames from 'classnames/bind';
 
-import DetailActionBar from "components/detail/DetailActionBar";
 import DetailTab from "components/detail/DetailTab";
+import DetailActionBar from "components/detail/DetailActionBar";
+import DetailInActionBar from 'components/detail/DetailActionBar/DetailInActionBar';
 import Video from "components/detail/Video";
 
 const cx = classNames.bind(styles);
@@ -58,12 +59,15 @@ const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavorit
                     </span>                
                 </div>
                 <div className={cx('detailItem-container')}>
+                    { account_state ?
                     <DetailActionBar 
                         account_state={account_state} 
                         handleFavoriteBtn={handleFavoriteBtn} 
                         handleClearRating={handleClearRating}
                         handleRating={handleRating} 
                     />
+                    : <DetailInActionBar />
+                    }
                 </div>
                 <div className={cx('detailItem-container', 'detailTab-wrapper')}>
                     <DetailTab overview={result.overview} result={result}/>

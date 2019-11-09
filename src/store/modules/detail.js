@@ -35,6 +35,7 @@ export const editRating = createAction(EDIT_RATING);
 const initialState = Map({
     result: null,
     account_state: null,
+    editRating: null,
     imdb_id: null,
     videos: null,
     loading: true
@@ -99,7 +100,9 @@ export default handleActions({
         }
     }),
     [EDIT_RATING]: (state, action) => {
-        const { rate } = action.payload;
-        return state.set(state.get('account_state').rated.value = rate);
+        const rate = action.payload;
+        const rateValue = { value: rate };
+        state.set(state.get('account_state').rated = rateValue);
+        return state.set('editRating', []);
     },
 }, initialState)

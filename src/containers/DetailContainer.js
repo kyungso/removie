@@ -28,17 +28,23 @@ class DetailContainer extends Component {
         try {
             const { DetailActions } = this.props;
             let sessionId = localStorage.getItem('session_id');
+            console.log(sessionId);
             if(isMovie) {
                 DetailActions.getMovieDetail(parsedId);
-                DetailActions.getMovieAccountState(parsedId, sessionId);
                 DetailActions.getMovieImdbId(parsedId);
                 DetailActions.getMovieVideos(parsedId);
+                if(sessionId) {
+                    DetailActions.getMovieAccountState(parsedId, sessionId);
+                }
             } else {
                 DetailActions.getTvDetail(parsedId);
-                DetailActions.getTvAccountState(parsedId, sessionId);
                 DetailActions.getTvImdbId(parsedId);
                 DetailActions.getTvVideos(parsedId);
+                if(sessionId) {
+                    DetailActions.getTvAccountState(parsedId, sessionId);
+                }
             }
+
         } catch (e){
            console.log(e);
         }
@@ -88,7 +94,7 @@ class DetailContainer extends Component {
                 loading 
                 ? (<Loader />) 
                 :
-                (result && imdb_id && videos && account_state &&
+                (result && imdb_id && videos &&
                 <DetailPresenter 
                     result={result} 
                     account_state={account_state}
@@ -110,6 +116,7 @@ export default withRouter(connect(
         account_state: state.detail.get('account_state'),
         imdb_id: state.detail.get('imdb_id'),
         videos: state.detail.get('videos'), 
+        editRating: state.detail.get('editRating'),
         loading: state.pender.pending['detail/GET_MOVIE_DETAIL'] 
               || state.pender.pending['detail/GET_MOVIE_ACCOUNT_STATE']
               || state.pender.pending['detail/GET_MOVIE_IMDB_ID']
