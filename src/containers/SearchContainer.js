@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
@@ -7,36 +7,24 @@ import { bindActionCreators } from 'redux';
 import * as searchActions from 'store/modules/search';
 
 import SearchPresenter from "components/search/SearchPresenter";
-import { moviesApi, tvApi, collectionApi } from 'lib/api';
 
-class SearchContainer extends Component {
+class SearchContainer extends PureComponent {
 
     constructor(props) {
         super(props);
 
         let { location, SearchActions } = this.props;
+        if(location.pathname === "/search") {
+            SearchActions.initialize();
+        }
+
         let query = queryString.parse(location.search)
         let value = query.keyword;
 
-        if(!value) {
-            SearchActions.initialize();
-        } else if(value && value.length > 0) {
+        if(value && value.length > 0) {
             SearchActions.changeInput({value});
+            this.refreshSearchByTerm(value);
         } 
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        // console.log(prevProps.searchTerm);
-        // console.log(this.props.searchTerm);
-        // console.log(prevProps.movieResults);
-        // console.log(this.props.movieResults);
-
-        // if(this.props.searchTerm.length > 0 && prevProps.searchTerm !== this.props.searchTerm) {
-        //     this.searchByTerm();
-        // }
-        if(!prevProps.movieResults && !this.props.movieResults) {
-            this.searchByTerm();
-        }
     }
 
     updateTerm = (event) => {
@@ -50,54 +38,56 @@ class SearchContainer extends Component {
         const { searchTerm } = this.props;
         if(searchTerm !== "") {
             this.props.history.push(`/search/movie_result?keyword=${searchTerm}`);
-            this.searchByTerm();
+            this.originSearchByTerm();
         }
     };
 
-    searchByTerm = async () => {
-        const { searchTerm, SearchActions } = this.props;
-        
+    searchByTerm = async (searchTerm) => {
+        const { SearchActions } = this.props;
+
         try {
-            var { data: { results: movieResults, total_pages: mtotal_pages } } = await moviesApi.search(searchTerm, 1);
+            await SearchActions.getSearchMovies(searchTerm, 1);
+            const { total_pages } = this.props;
             let mPages = 2;
-            if(mtotal_pages > 1){
-                while(mPages <= mtotal_pages) {
-                    let { data: { results: mResults }} = await moviesApi.search(searchTerm, mPages);
-                    movieResults = [...movieResults, ...mResults];
+            if(total_pages > 1){
+                while(mPages <= total_pages) {
+                    await SearchActions.getSearchPageMovies(searchTerm, mPages);
                     mPages++;
                 }
             }
 
-            var { data: { results: tvResults, total_pages: ttotal_pages } } = await tvApi.search(searchTerm, 1);
+            await SearchActions.getSearchTV(searchTerm, 1);
             let tPages = 2;
-            if(ttotal_pages > 1){
-                while(tPages <= ttotal_pages) {
-                    let { data: { results: tResults }} = await tvApi.search(searchTerm, tPages);
-                    tvResults = [...tvResults, ...tResults];
+            if(total_pages > 1){
+                while(tPages <= total_pages) {
+                    await SearchActions.getSearchPageTV(searchTerm, tPages);
                     tPages++;
                 }
             }
 
-            var { data: { results: collectionResults, total_pages: ctotal_pages } } = await collectionApi.search(searchTerm, 1);
+            await SearchActions.getSearchCollection(searchTerm, 1);
             let cPages = 2;
-            if(ctotal_pages > 1){
-                while(cPages <= ctotal_pages) {
-                    let { data: { results: cResults }} = await collectionApi.search(searchTerm, cPages);
-                    collectionResults = [...collectionResults, ...cResults];
+            if(total_pages > 1){
+                while(cPages <= total_pages) {
+                    await SearchActions.getSearchPageCollection(searchTerm, cPages);
                     cPages++;
                 }
             }
-
-            SearchActions.setSearchResults({movieResults, tvResults, collectionResults});
             
         } catch (e) {
             console.log(e);
         } 
     };
+    originSearchByTerm = () => {
+        const { searchTerm } = this.props;
+        this.searchByTerm(searchTerm);
+    }
+    refreshSearchByTerm = (searchTerm) => {
+        this.searchByTerm(searchTerm);
+    };
 
     render() {
         const { movieResults, tvResults, collectionResults, searchTerm, loading } = this.props;
-        
         return(
             <SearchPresenter 
                 movieResults={movieResults}
@@ -118,7 +108,13 @@ export default withRouter(connect(
         tvResults: state.search.get('tvResults'),
         collectionResults: state.search.get('collectionResults'),
         searchTerm: state.search.get('searchTerm'),
-        loading: state.pender.pending['search/GET_MOVIE_RESULTS'] || state.pender.pending['search/GET_TV_RESULTS'] || state.pender.pending['search/GET_COLLECTION_RESULTS'] 
+        total_pages: state.search.get('total_pages'),
+        loading: state.pender.pending['search/GET_SEARCH_MOVIES'] 
+              || state.pender.pending['search/GET_SEARCH_PAGE_MOVIES'] 
+              || state.pender.pending['search/GET_SEARCH_TV'] 
+              || state.pender.pending['search/GET_SEARCH_PAGE_TV'] 
+              || state.pender.pending['search/GET_SEARCH_COLLECTION'] 
+              || state.pender.pending['search/GET_SEARCH_PAGE_COLLECTION'] 
     }),
     (dispatch) => ({
         SearchActions: bindActionCreators(searchActions, dispatch)

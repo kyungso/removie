@@ -28,7 +28,7 @@ class DetailContainer extends Component {
         try {
             const { DetailActions } = this.props;
             let sessionId = localStorage.getItem('session_id');
-            console.log(sessionId);
+        
             if(isMovie) {
                 DetailActions.getMovieDetail(parsedId);
                 DetailActions.getMovieImdbId(parsedId);
