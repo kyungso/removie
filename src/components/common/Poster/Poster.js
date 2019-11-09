@@ -4,6 +4,8 @@ import styles from './Poster.scss';
 import classNames from 'classnames/bind';
 import { Link } from "react-router-dom";
 
+import NoImage from 'lib/assets/noPosterSmall.png';
+
 const cx = classNames.bind(styles);
 
 const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollection = false, isCarousel = false }) => (
@@ -11,7 +13,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollecti
         <div className={cx('poster-container')}>
             <div className={cx('posterImage-container')}>
                 <div className={cx('poster-image')} 
-                     style={{ backgroundImage: (imageUrl ? `url(https://image.tmdb.org/t/p/w300${imageUrl})` : `url(require("lib/assets/noPosterSmall.png"))`),
+                     style={{ backgroundImage: (imageUrl ? `url(https://image.tmdb.org/t/p/w300${imageUrl})` : `url(${NoImage})`),
                               backgroundSize: (isCarousel ? 'contain' : 'cover')
                     }}
                 />
