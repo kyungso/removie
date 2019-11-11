@@ -9,7 +9,8 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const Header = withRouter(({ location: { pathname }, handleLogout, username }) => {
+const Header = withRouter(({ location: { pathname }, handleLogout }) => {
+    let username = localStorage.getItem('username');
     return (
         <header className={cx('header')}>
             <div className={cx('left-content')}>
