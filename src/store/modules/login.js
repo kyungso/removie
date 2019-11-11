@@ -67,7 +67,7 @@ export default handleActions({
             state.set('password', '');
             localStorage.setItem('logged', false);
             state.set('logged', false);
-            return alert('다시 로그인해주세요') & window.location.reload();
+            return alert('다시 로그인해주세요');
         }
     }),
     ...pender({
