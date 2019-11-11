@@ -55,13 +55,6 @@ export default handleActions({
             return state.set('request_token', request_token);
         }
     }),
-    [ASK_USER_FOR_PERMISSION]: (state, action) => {
-        state.set('logged', true);
-        localStorage.setItem('logged', true);
-        let token = localStorage.getItem('token');
-        window.location.replace(`https://www.themoviedb.org/authenticate/${token}?redirect_to=https://removie.netlify.com`);
-        return null;
-    },
     ...pender({
         type: VALIDATE_WITH_LOGIN,
         onSuccess: (state, action) => {
@@ -82,6 +75,7 @@ export default handleActions({
         onSuccess: (state, action) => {
             const { session_id } = action.payload.data;
             localStorage.setItem('session_id', session_id);
+            window.location.href = '#/';
             return state.set('session_id', session_id);
         },
     }),
