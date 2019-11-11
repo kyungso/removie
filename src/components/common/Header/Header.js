@@ -9,7 +9,7 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const Header = withRouter(({ location: { pathname }, handleLogout }) => {
+const Header = withRouter(({ location: { pathname }, handleLogout, username }) => {
     return (
         <header className={cx('header')}>
             <div className={cx('left-content')}>
@@ -50,10 +50,10 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
             <div className={cx('right-content')}>
                 <ul className={cx('right-content-list')}>
                 {
-                    localStorage.getItem('logged') === 'true'
+                    localStorage.getItem('logged') === 'true' && localStorage.getItem('session_id') !== null
                     ? (<li>
-                        <DropdownButton id="dropdown-item-button" title="K">
-                            <Dropdown.Item href="#/account">ksjung</Dropdown.Item>
+                        <DropdownButton id="dropdown-item-button" title={username.substring(0,1).toUpperCase()}>
+                            <Dropdown.Item href="#/account">{username}</Dropdown.Item>
                             <Dropdown.Divider />
                             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </DropdownButton>

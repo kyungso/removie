@@ -10,8 +10,10 @@ import LoginPresenter from "components/login/LoginPresenter";
 class LoginContainer extends Component {
 
     async componentDidMount() {
-        const { LoginActions } = this.props;
-        LoginActions.getRequestToken();
+        const { LoginActions, logged } = this.props;
+        if(logged === false) {
+            LoginActions.getRequestToken();
+        }
     }
 
     updateUsername = (event) => {
@@ -34,26 +36,19 @@ class LoginContainer extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        const { username, password, LoginActions } = this.props;
+        const { username, password } = this.props;
         if(username !== "" && password !== "") {
-            LoginActions.askUserForPermission();
-            // //this.validateWithLogin();
+            this.validateWithLogin();
         }
     };
 
     validateWithLogin = async () => {
         const { username, password, request_token, LoginActions } = this.props;
-        
-        try {
-            await LoginActions.validateWithLogin({username, password, request_token});
-        } catch (e) { 
-            console.log(e);
-        }
+        await LoginActions.validateWithLogin({username, password, request_token});
     };
 
     render() {
-        const { username, password, request_token, logged, loading } = this.props;
-        // console.log(request_token, username, password, logged);
+        const { username, password, loading } = this.props;
         
         return(
             <LoginPresenter 
