@@ -5,15 +5,19 @@ import classNames from 'classnames/bind';
 
 import Section from "components/section/SectionTemplate";
 import Poster from "components/common/Poster";
+import Pagination from "components/common/Pagination";
+import Message from "components/common/Message";
 
 const cx = classNames.bind(styles);
 
-export default withRouter(({ location, movieResults, tvResults, collectionResults }) => (
+export default withRouter(({ location, movieResults, movieTotalPages, tvResults, tvTotalPages, collectionResults, collectionTotalPages, searchTerm, activePage, searchByPage }) => (
     <>
-    {location.pathname === "/search/movie_result" && movieResults && movieResults.length > 0 && (
+    {location.pathname === "/search/movie_result" && movieResults && (
         <div className={cx('search-results')}>
-            <Section title={`Movie Results (${movieResults.length })`}>
-                {movieResults.map(movie => (
+            <Section title={'Movie Results'}>
+                {movieResults.length === 0 
+                ? <Message text="Nothing found" color="#95a5a6" />
+                : movieResults.map(movie => (
                     <Poster 
                         key={movie.id}
                         id={movie.id}
@@ -25,13 +29,19 @@ export default withRouter(({ location, movieResults, tvResults, collectionResult
                     />
                 ))}
             </Section>
+            <Pagination pages={movieTotalPages} 
+                        toLink={`/search/movie_result?keyword=${searchTerm}&page=`} 
+                        activePage={activePage}
+                        onClick={searchByPage} />
         </div>
     )}
 
-    {location.pathname === "/search/tv_result" && tvResults && tvResults.length > 0 && (
+    {location.pathname === "/search/tv_result" && tvResults && (
         <div className={cx('search-results')}>
-            <Section title={`TV Show Results (${tvResults.length})`}>
-                {tvResults.map(show => (
+            <Section title={'TV Show Results'}>
+                {tvResults.length === 0
+                ? <Message text="Nothing found" color="#95a5a6" />
+                : tvResults.map(show => (
                     <Poster 
                         key={show.id}
                         id={show.id}
@@ -42,13 +52,19 @@ export default withRouter(({ location, movieResults, tvResults, collectionResult
                     />
                 ))}
             </Section>
+            <Pagination pages={tvTotalPages} 
+                        toLink={`/search/tv_result?keyword=${searchTerm}&page=`} 
+                        activePage={activePage}
+                        onClick={searchByPage} />
         </div>
     )}
 
-    {location.pathname === "/search/collection_result" && collectionResults && collectionResults.length > 0 && (
+    {location.pathname === "/search/collection_result" && collectionResults && (
         <div className={cx('search-results')}>
-            <Section title={`Collection Results (${collectionResults.length})`}>
-                {collectionResults.map(collection => (
+            <Section title={'Collection Results'}>
+                {collectionResults.length === 0 
+                ? <Message text="Nothing found" color="#95a5a6" />
+                : collectionResults.map(collection => (
                     <Poster 
                         key={collection.id}
                         id={collection.id}
@@ -58,6 +74,10 @@ export default withRouter(({ location, movieResults, tvResults, collectionResult
                     />
                 ))}
             </Section>
+            <Pagination pages={collectionTotalPages} 
+                        toLink={`/search/collection_result?keyword=${searchTerm}&page=`}
+                        activePage={activePage}
+                        onClick={searchByPage} />
         </div>
     )}
     </>

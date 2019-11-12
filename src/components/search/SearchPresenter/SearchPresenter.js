@@ -12,7 +12,7 @@ import SearchResults from "components/search/SearchResults";
 
 const cx = classNames.bind(styles);
 
-const SearchPresenter = ({ movieResults, tvResults, collectionResults, searchTerm, loading, handleSubmit, updateTerm }) => 
+const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionResults, collectionTotalPages, collectionTotalResults, searchTerm, activePage, loading, handleSubmit, updateTerm, searchByPage }) => 
     <div className={cx('search-container')}>
         <Helmet>
             <title>Search | REMOVIE</title>
@@ -31,8 +31,17 @@ const SearchPresenter = ({ movieResults, tvResults, collectionResults, searchTer
             <>  
                 {(movieResults && tvResults && collectionResults) &&
                 <>
-                    <SearchTab movieResults={movieResults} tvResults={tvResults} collectionResults={collectionResults} searchTerm={searchTerm}/> 
-                    <SearchResults movieResults={movieResults} tvResults={tvResults} collectionResults={collectionResults} searchTerm={searchTerm}/>
+                    <SearchTab movieTotalResults={movieTotalResults} 
+                               tvTotalResults={tvTotalResults}
+                               collectionTotalResults={collectionTotalResults}
+                               searchTerm={searchTerm}
+                    /> 
+                    <SearchResults movieResults={movieResults} movieTotalPages={movieTotalPages} 
+                                   tvResults={tvResults} tvTotalPages={tvTotalPages}
+                                   collectionResults={collectionResults} collectionTotalPages={collectionTotalPages}
+                                   searchTerm={searchTerm} searchByPage={searchByPage}
+                                   activePage={activePage}
+                    />
                 </>
 
                 }
@@ -42,8 +51,14 @@ const SearchPresenter = ({ movieResults, tvResults, collectionResults, searchTer
 
 SearchPresenter.propTypes = {
     movieResults: PropTypes.array,
+    movieTotalPages: PropTypes.number,
+    movieTotalResults: PropTypes.number,
     tvResults: PropTypes.array,
+    tvTotalPages: PropTypes.number,
+    tvTotalResults: PropTypes.number,
     collectionResults: PropTypes.array,
+    collectionTotalPages: PropTypes.number,
+    collectionTotalResults: PropTypes.number,
     loading: PropTypes.bool,
     searchTerm: PropTypes.string,
     handleSubmit: PropTypes.func.isRequired,

@@ -30,10 +30,16 @@ export const getSearchPageCollection = createAction(GET_SEARCH_PAGE_COLLECTION, 
 // initial state
 const initialState = Map({
     movieResults: null,
+    movieTotalPages: 1,
+    movieTotalResults: 1,
     tvResults: null,
+    tvTotalPages: 1,
+    tvTotalResults: 1,
     collectionResults: null,
+    collectionTotalPages: 1,
+    collectionTotalResults: 1,
+    activePage: 1,
     searchTerm: '',
-    total_pages: 1,
     loading: true
 });
 
@@ -49,46 +55,55 @@ export default handleActions({
     ...pender({
         type: GET_SEARCH_MOVIES,
         onSuccess: (state, action) => {
-            const { data: { results: movieResults, total_pages: mtotal_pages }} = action.payload;
+            const { data: { page: activePage, results: movieResults, total_pages: movieTotalPages, total_results: movieTotalResults }} = action.payload;
             return state.set('movieResults', movieResults)
-                        .set('total_pages', mtotal_pages);
+                        .set('movieTotalPages', movieTotalPages)
+                        .set('movieTotalResults', movieTotalResults)
+                        .set('activePage', activePage);
         }
     }),  
     ...pender({
         type: GET_SEARCH_PAGE_MOVIES,
         onSuccess: (state, action) => {
-            const { data: { results: mResults }} = action.payload;
-            return state.set('movieResults', state.get('movieResults').concat(mResults));
+            const { data: { page: activePage, results: mResults }} = action.payload;
+            return state.set('movieResults', mResults)
+                        .set('activePage', activePage);
         }
     }), 
     ...pender({
         type: GET_SEARCH_TV,
         onSuccess: (state, action) => {
-            const { data: { results: tvResults, total_pages: ttotal_pages }} = action.payload;
+            const { data: { page: activePage, results: tvResults, total_pages: tvTotalPages, total_results: tvTotalResults }} = action.payload;
             return state.set('tvResults', tvResults)
-                        .set('total_pages', ttotal_pages);
+                        .set('tvTotalPages', tvTotalPages)
+                        .set('tvTotalResults', tvTotalResults)
+                        .set('activePage', activePage);
         }
-    }),  
+    }),   
     ...pender({
         type: GET_SEARCH_PAGE_TV,
         onSuccess: (state, action) => {
-            const { data: { results: tResults }} = action.payload;
-            return state.set('tvResults', state.get('tvResults').concat(tResults));
+            const { data: { page: activePage, results: tResults }} = action.payload;
+            return state.set('tvResults', tResults)
+                        .set('activePage', activePage);
         }
     }), 
     ...pender({
         type: GET_SEARCH_COLLECTION,
         onSuccess: (state, action) => {
-            const { data: { results: collectionResults, total_pages: ctotal_pages }} = action.payload;
+            const { data: { page: activePage, results: collectionResults, total_pages: collectionTotalPages, total_results: collectionTotalResults }} = action.payload;
             return state.set('collectionResults', collectionResults)
-                        .set('total_pages', ctotal_pages);
+                        .set('collectionTotalPages', collectionTotalPages)
+                        .set('collectionTotalResults', collectionTotalResults)
+                        .set('activePage', activePage);
         }
     }),  
     ...pender({
         type: GET_SEARCH_PAGE_COLLECTION,
         onSuccess: (state, action) => {
-            const { data: { results: cResults }} = action.payload;
-            return state.set('collectionResults', state.get('collectionResults').concat(cResults));
+            const { data: { page: activePage, results: cResults }} = action.payload;
+            return state.set('collectionResults', cResults)
+                        .set('activePage', activePage);
         }
-    }),  
+    }), 
 }, initialState)

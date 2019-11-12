@@ -13,14 +13,15 @@ class App extends Component {
               <Route path="/" exact component={HomePage} />
               <Route path="/login" exact component={LoginPage} />
               <Route path="/account" exact component={AccountPage} />
-              <Route path={`/account/favorite?media_type=:media_type&media_id=:media_id&favorite=:favorite`} exact component={AccountPage} />
-              <Route path={`/account/favorite/tv?media_type=:media_type&media_id=:media_id&favorite=:favorite`} exact component={AccountPage} />
               <Route path="/account/favorite" exact component={AccountPage} />
               <Route path="/account/favorite/tv" exact component={AccountPage} />
               <Route path="/account/rating" exact component={AccountPage} />
               <Route path="/account/rating/tv" exact component={AccountPage} />
               <Route path="/movie" exact component={MoviePage} />
               <Route path="/tv" exact component={TVPage} />
+              <Route path={`/search/movie_result?keyword=:searchValue&page=:page`} exact component={SearchPage} />
+              <Route path={`/search/tv_result?keyword=:searchValue&page=:page`} exact component={SearchPage} />
+              <Route path={`/search/collection_result?keyword=:searchValue&page=:page`} exact component={SearchPage} />
               <Route path="/search/movie_result?keyword=:searchValue" exact component={SearchPage} />
               <Route path="/search/tv_result?keyword=:searchValue" exact component={SearchPage} />
               <Route path="/search/collection_result?keyword=:searchValue" exact component={SearchPage} />
