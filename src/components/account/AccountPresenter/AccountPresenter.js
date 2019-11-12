@@ -20,7 +20,7 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
    <div className={cx('account-container')}>
         <div className={cx('account-header')}> 
             <div className={cx('account-content')}>
-                <Link to="/account" className={cx('account-avartar')}>K</Link>
+                <Link to="/account" className={cx('account-avartar')}>{accountDetail.username.substring(0,1).toUpperCase()}</Link>
                 <div className={cx('account-about')}>
                     <div className={cx('account-name')}>{accountDetail.username}</div>
                     <div className={cx('account-year')}>Member since August 2019</div>

@@ -39,10 +39,8 @@ class HeaderContainer extends Component {
     
 
     render() {
-        const { username } = this.props;
-
         return(
-           <Header handleLogout={this.handleLogout} username={username} />
+           <Header handleLogout={this.handleLogout} />
         );
     }
 }
