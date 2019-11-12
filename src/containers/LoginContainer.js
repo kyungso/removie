@@ -10,8 +10,8 @@ import LoginPresenter from "components/login/LoginPresenter";
 class LoginContainer extends Component {
 
     async componentDidMount() {
-        console.log("comdiddididi");
         const { LoginActions, logged } = this.props;
+        await LoginActions.initialize();
         if(logged === false) {
             LoginActions.getRequestToken();
         }
