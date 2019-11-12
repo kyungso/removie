@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const Pagination = withRouter(({ pages, toLink, activePage, onClick }) => {
+const Pagination = withRouter(({ pages, toLink, activePage, onClick, scrollTo }) => {
     let indexArr = [];
     for(let i = 1; i <= pages; i++) {
         indexArr.push(i); 
@@ -19,7 +19,7 @@ const Pagination = withRouter(({ pages, toLink, activePage, onClick }) => {
                 {activePage === 1 
                     ? <></> 
                     : <Link to={`${toLink}${activePage-1}`}
-                            onClick={() => { onClick(activePage-1)}}>
+                            onClick={() => { window.scrollTo(scrollTo[0], scrollTo[1]); onClick(activePage-1)}}>
                         &laquo;
                     </Link>
                 }
@@ -27,12 +27,12 @@ const Pagination = withRouter(({ pages, toLink, activePage, onClick }) => {
                     <Link to={`${toLink}${index}`}
                         key={index}
                         className={cx(index === activePage ? "active" : "")}
-                        onClick={() => { onClick(index)}}>{index}</Link>
+                        onClick={() => { window.scrollTo(scrollTo[0], scrollTo[1]); onClick(index)}}>{index}</Link>
                 ))}
                 {activePage === pages 
                     ? <></> 
                     : <Link to={`${toLink}${activePage+1}`}
-                            onClick={() => { onClick(activePage+1)}}>
+                            onClick={() => { window.scrollTo(scrollTo[0], scrollTo[1]); onClick(activePage+1)}}>
                         &raquo;
                     </Link>
                 }

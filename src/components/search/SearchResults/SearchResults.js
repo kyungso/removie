@@ -32,7 +32,9 @@ export default withRouter(({ location, movieResults, movieTotalPages, tvResults,
             <Pagination pages={movieTotalPages} 
                         toLink={`/search/movie_result?keyword=${searchTerm}&page=`} 
                         activePage={activePage}
-                        onClick={searchByPage} />
+                        onClick={searchByPage}
+                        scrollTo={[0,0]}
+             />
         </div>
     )}
 
@@ -55,7 +57,9 @@ export default withRouter(({ location, movieResults, movieTotalPages, tvResults,
             <Pagination pages={tvTotalPages} 
                         toLink={`/search/tv_result?keyword=${searchTerm}&page=`} 
                         activePage={activePage}
-                        onClick={searchByPage} />
+                        onClick={searchByPage} 
+                        scrollTo={[0,0]}
+            />
         </div>
     )}
 
@@ -77,7 +81,9 @@ export default withRouter(({ location, movieResults, movieTotalPages, tvResults,
             <Pagination pages={collectionTotalPages} 
                         toLink={`/search/collection_result?keyword=${searchTerm}&page=`}
                         activePage={activePage}
-                        onClick={searchByPage} />
+                        onClick={searchByPage} 
+                        scrollTo={[0,0]}
+            />
         </div>
     )}
     </>
