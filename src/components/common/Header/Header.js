@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from "prop-types";
+import { Link, withRouter } from 'react-router-dom';
+
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
-import { Link, withRouter } from 'react-router-dom';
-import logo from 'lib/assets/logo.png';
 
+import logo from 'lib/assets/logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
@@ -75,5 +77,9 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
         </header>
     );
 });
+
+Header.propTypes = {
+    handleLogout: PropTypes.func,
+};
 
 export default Header;

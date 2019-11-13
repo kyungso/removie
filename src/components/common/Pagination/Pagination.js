@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from "prop-types";
+import { Link, withRouter } from 'react-router-dom';
+
 import styles from './Pagination.scss';
 import classNames from 'classnames/bind';
-import { Link, withRouter } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -42,5 +44,13 @@ const Pagination = withRouter(({ pages, toLink, activePage, onClick, scrollTo })
     </>
     );
 });
+
+Pagination.propTypes = {
+    pages: PropTypes.number,
+    toLink: PropTypes.string,
+    activePage: PropTypes.number,
+    onClick: PropTypes.func,
+    scrollTo: PropTypes.array,
+};
 
 export default Pagination;

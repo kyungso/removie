@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
+
 import styles from './Message.scss';
 import classNames from 'classnames/bind';
 
