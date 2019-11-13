@@ -45,12 +45,11 @@ const LoginPresenter = ({ username, password, handleSubmit, updateUsername, upda
 LoginPresenter.propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
-    request_token: PropTypes.string,
-    logged: PropTypes.bool,
-    loading: PropTypes.bool,
     handleSubmit: PropTypes.func.isRequired,
     updateUsername: PropTypes.func.isRequired,
-    updatePassword: PropTypes.func.isRequired
+    updatePassword: PropTypes.func.isRequired,
+    enterSubmit: PropTypes.func,
+    loading: PropTypes.bool
 };
 
 export default LoginPresenter;
