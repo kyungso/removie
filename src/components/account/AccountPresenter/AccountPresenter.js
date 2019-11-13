@@ -23,7 +23,7 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
                 <Link to="/account" className={cx('account-avartar')}>{accountDetail.username.substring(0,1).toUpperCase()}</Link>
                 <div className={cx('account-about')}>
                     <div className={cx('account-name')}>{accountDetail.username}</div>
-                    <div className={cx('account-year')}>Member since August 2019</div>
+                    <div className={cx('account-year')}>Member since November 2019</div>
                 </div>
             </div>
         </div>
@@ -55,9 +55,24 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
         </div>
 
         <div className={cx('account-tab-data')}>
-        {pathname === "/account" && <Overview favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} ratedMovies={ratedMovies} ratedTV={ratedTV} genreList={genreList} /> }
-        {(pathname === "/account/favorite" || pathname === "/account/favorite/tv") && <Favorites favoriteMovies={favoriteMovies} favoriteTV={favoriteTV} handleFavoriteBtn={handleFavoriteBtn} /> }
-        {(pathname === "/account/rating" || pathname === "/account/rating/tv") && <Rating ratedMovies={ratedMovies} ratedTV={ratedTV} handleClearRating={handleClearRating} handleRating={handleRating} /> }
+        {pathname === "/account" 
+          && <Overview favoriteMovies={favoriteMovies} 
+                       favoriteTV={favoriteTV} 
+                       ratedMovies={ratedMovies} 
+                       ratedTV={ratedTV} 
+                       genreList={genreList} /> 
+        }
+        {(pathname === "/account/favorite" || pathname === "/account/favorite/tv") 
+          && <Favorites favoriteMovies={favoriteMovies} 
+                        favoriteTV={favoriteTV} 
+                        handleFavoriteBtn={handleFavoriteBtn} /> 
+        }
+        {(pathname === "/account/rating" || pathname === "/account/rating/tv") 
+          && <Rating ratedMovies={ratedMovies} 
+                     ratedTV={ratedTV} 
+                     handleClearRating={handleClearRating} 
+                     handleRating={handleRating} /> 
+        }
         </div>
     </div>
 </>

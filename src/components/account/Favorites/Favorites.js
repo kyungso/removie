@@ -127,7 +127,8 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
 
 Favorites.propTypes = {
     favoriteMovies: PropTypes.array,
-    favoriteTV: PropTypes.array
+    favoriteTV: PropTypes.array,
+    handleFavoriteBtn: PropTypes.func,
 };
 
 export default Favorites;
