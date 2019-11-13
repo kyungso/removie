@@ -6,7 +6,6 @@ import styles from './SearchPresenter.scss';
 import classNames from 'classnames/bind';
 
 import Loader from "components/common/Loader";
-import Message from "components/common/Message";
 import SearchTab from  "components/search/SearchTab";
 import SearchResults from "components/search/SearchResults";
 
@@ -61,8 +60,10 @@ SearchPresenter.propTypes = {
     collectionTotalResults: PropTypes.number,
     loading: PropTypes.bool,
     searchTerm: PropTypes.string,
+    activePage: PropTypes.number,
     handleSubmit: PropTypes.func.isRequired,
-    updateTerm: PropTypes.func.isRequired
+    updateTerm: PropTypes.func.isRequired,
+    searchByPage: PropTypes.func.isRequired,
 };
 
 export default SearchPresenter;

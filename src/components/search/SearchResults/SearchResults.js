@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { withRouter } from 'react-router-dom';
+
 import styles from './SearchResults.scss';
 import classNames from 'classnames/bind';
 
@@ -10,9 +12,9 @@ import Message from "components/common/Message";
 
 const cx = classNames.bind(styles);
 
-export default withRouter(({ location, movieResults, movieTotalPages, tvResults, tvTotalPages, collectionResults, collectionTotalPages, searchTerm, activePage, searchByPage }) => (
+const SearchResults = withRouter(({ location: { pathname }, movieResults, movieTotalPages, tvResults, tvTotalPages, collectionResults, collectionTotalPages, searchTerm, activePage, searchByPage }) => (
     <>
-    {location.pathname === "/search/movie_result" && movieResults && (
+    {pathname === "/search/movie_result" && movieResults && (
         <div className={cx('search-results')}>
             <Section title={'Movie Results'}>
                 {movieResults.length === 0 
@@ -38,7 +40,7 @@ export default withRouter(({ location, movieResults, movieTotalPages, tvResults,
         </div>
     )}
 
-    {location.pathname === "/search/tv_result" && tvResults && (
+    {pathname === "/search/tv_result" && tvResults && (
         <div className={cx('search-results')}>
             <Section title={'TV Show Results'}>
                 {tvResults.length === 0
@@ -63,7 +65,7 @@ export default withRouter(({ location, movieResults, movieTotalPages, tvResults,
         </div>
     )}
 
-    {location.pathname === "/search/collection_result" && collectionResults && (
+    {pathname === "/search/collection_result" && collectionResults && (
         <div className={cx('search-results')}>
             <Section title={'Collection Results'}>
                 {collectionResults.length === 0 
@@ -88,3 +90,17 @@ export default withRouter(({ location, movieResults, movieTotalPages, tvResults,
     )}
     </>
 ));
+
+SearchResults.propTypes = {
+    movieResults: PropTypes.array,
+    movieTotalPages: PropTypes.number, 
+    tvResults: PropTypes.array, 
+    tvTotalPages: PropTypes.number, 
+    collectionResults: PropTypes.array, 
+    collectionTotalPages: PropTypes.number, 
+    searchTerm: PropTypes.string, 
+    activePage: PropTypes.number, 
+    searchByPage: PropTypes.func
+};
+
+export default SearchResults;
