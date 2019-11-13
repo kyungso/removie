@@ -76,51 +76,6 @@ class SearchContainer extends PureComponent {
         const { searchTerm } = this.props;
         this.searchByTerm(searchTerm, page);
     }
-    // updateTerm = (event) => {
-    //     const { SearchActions } = this.props;
-    //     const { value } = event.target; 
-    //     SearchActions.changeInput({value});
-    // }
-
-    // handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const { searchTerm } = this.props;
-    //     if(searchTerm !== "") {
-    //         this.props.history.push(`/search/movie_result?keyword=${searchTerm}`);
-    //         this.originSearchByTerm();
-    //     }
-    // };
-
-    // searchByTerm = async (searchTerm) => {
-    //     const { SearchActions } = this.props;
-
-    //     try {
-    //         await SearchActions.getSearchMovies(searchTerm, 1);
-    //         await SearchActions.getSearchTV(searchTerm, 1);
-    //         await SearchActions.getSearchCollection(searchTerm, 1);
-    //     } catch (e) {
-    //         console.log(e);
-    //     } 
-    // };
-    // originSearchByTerm = () => {
-    //     const { searchTerm } = this.props;
-    //     this.searchByTerm(searchTerm);
-    // }
-    // refreshSearchByTerm = (searchTerm) => {
-    //     this.searchByTerm(searchTerm);
-    // };
-
-    // searchByPage = async (page) => {
-    //     const { SearchActions, searchTerm } = this.props;
-        
-    //     if(this.props.location.pathname === "/search/movie_result") {
-    //         await SearchActions.getSearchPageMovies(searchTerm, page);
-    //     }else if(this.props.location.pathname === "/search/tv_result") {
-    //         await SearchActions.getSearchPageTV(searchTerm, page);
-    //     }else if(this.props.location.pathname === "/search/collection_result") {
-    //         await SearchActions.getSearchPageCollection(searchTerm, page);
-    //     }
-    // }
 
     render() {
         const { movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionTotalPages, collectionTotalResults, collectionResults, searchTerm, activePage, loading } = this.props;
@@ -160,11 +115,8 @@ export default withRouter(connect(
         searchTerm: state.search.get('searchTerm'),
         activePage: state.search.get('activePage'),
         loading: state.pender.pending['search/GET_SEARCH_MOVIES'] 
-              || state.pender.pending['search/GET_SEARCH_PAGE_MOVIES'] 
               || state.pender.pending['search/GET_SEARCH_TV'] 
-              || state.pender.pending['search/GET_SEARCH_PAGE_TV'] 
               || state.pender.pending['search/GET_SEARCH_COLLECTION'] 
-              || state.pender.pending['search/GET_SEARCH_PAGE_COLLECTION'] 
     }),
     (dispatch) => ({
         SearchActions: bindActionCreators(searchActions, dispatch)

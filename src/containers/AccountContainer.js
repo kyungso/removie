@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
-import queryString from 'query-string';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -115,6 +114,8 @@ export default withRouter(connect(
                 || state.pender.pending['account/GET_RATED_MOVIES'] 
                 || state.pender.pending['account/GET_RATED_TV']
                 || state.pender.pending['account/GET_GENRE_LIST']
+                || state.pender.pending['account/DELETE_RATING_MOVIES']
+                || state.pender.pending['account/DELETE_RATING_TV']
     }),
     (dispatch) => ({
         AccountActions: bindActionCreators(accountActions, dispatch)

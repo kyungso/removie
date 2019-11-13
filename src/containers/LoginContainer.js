@@ -77,7 +77,8 @@ export default withRouter(connect(
         password: state.login.get('password'),
         request_token: state.login.get('request_token'),
         logged: state.login.get('logged'),
-        loading: state.pender.pending['login/GET_REQUEST_TOKEN'] || state.pender.pending['login/VALIDATE_WITH_LOGIN'] || state.pender.pending['login/CREATE_SESSION_ID'],
+        loading: state.pender.pending['login/GET_REQUEST_TOKEN'] 
+              || state.pender.pending['login/VALIDATE_WITH_LOGIN']
     }),
     (dispatch) => ({
         LoginActions: bindActionCreators(loginActions, dispatch)

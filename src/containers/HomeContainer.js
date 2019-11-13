@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Helmet from "react-helmet";
-import queryString from 'query-string';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,20 +9,6 @@ import HomePresenter from "components/home/HomePresenter";
 import Loader from "components/common/Loader";
 
 class HomeContainer extends Component {
-
-    constructor(props) {
-        super(props);
-
-        let query = queryString.parse(window.location.search);
-        if(query['approved']) {
-            window.location.href='https://removie.netlify.com/#/';
-        } else if(query['denied']){
-            localStorage.setItem('logged', false);
-            window.location.href='https://removie.netlify.com/#/login';
-            alert('인증이 거부되었습니다. 다시 시도해 주세요.')
-        }
-        // window.location.replace("http://localhost:3000/approved");
-    }
 
     componentDidMount() {
         const { HomeActions } = this.props;
@@ -57,7 +42,9 @@ export default connect(
         movieTrending: state.home.get('movieTrending'),
         tvTrending: state.home.get('tvTrending'),
         topRated: state.home.get('topRated'),
-        loading: state.pender.pending['home/GET_MOVIE_TRENDING'] || state.pender.pending['home/GET_TV_TRENDING'] || state.pender.pending['home/GET_TOPRATED'],
+        loading: state.pender.pending['home/GET_MOVIE_TRENDING'] 
+              || state.pender.pending['home/GET_TV_TRENDING'] 
+              || state.pender.pending['home/GET_TOPRATED'],
     }),
     (dispatch) => ({
         HomeActions: bindActionCreators(homeActions, dispatch)

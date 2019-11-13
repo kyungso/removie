@@ -10,25 +10,11 @@ import Loader from 'components/common/Loader';
 
 class MovieContainer extends Component {
     
-    getMovieNowplaying = () => {
+    componentDidMount() {
         const { MovieActions } = this.props;
         MovieActions.getMovieNowplaying();
-    }
-
-    getMovieUpcoming = () => {
-        const { MovieActions } = this.props;
         MovieActions.getMovieUpcoming();
-    }
-
-    getMoviePopular = () => {
-        const { MovieActions } = this.props;
         MovieActions.getMoviePopular();
-    }
-
-    componentDidMount() {
-        this.getMovieNowplaying();
-        this.getMovieUpcoming();
-        this.getMoviePopular();
     }
 
     render() {
@@ -56,7 +42,9 @@ export default connect(
         nowPlaying: state.movie.get('nowPlaying'),
         upcoming: state.movie.get('upcoming'),
         popular: state.movie.get('popular'),
-        loading: state.pender.pending['movie/GET_MOVIE_NOWPLAYING'] || state.pender.pending['movie/GET_MOVIE_UPCOMING'] || state.pender.pending['movie/GET_MOVIE_POPULAR'],
+        loading: state.pender.pending['movie/GET_MOVIE_NOWPLAYING'] 
+              || state.pender.pending['movie/GET_MOVIE_UPCOMING'] 
+              || state.pender.pending['movie/GET_MOVIE_POPULAR'],
     }),
     (dispatch) => ({
         MovieActions: bindActionCreators(movieActions, dispatch)
