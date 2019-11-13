@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
+
 import styles from './DetailActionBar.scss';
 import classNames from 'classnames/bind';
 
@@ -8,7 +8,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const DetailInActionBar = withRouter(({ location: { pathname } }) => {
+const DetailInActionBar = () => {
     
     return (
     <>
@@ -38,6 +38,6 @@ const DetailInActionBar = withRouter(({ location: { pathname } }) => {
     </div>
     </>
    );
-});
+};
 
 export default DetailInActionBar;

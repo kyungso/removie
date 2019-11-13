@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { withRouter } from 'react-router-dom';
+import PropTypes from "prop-types";
+
 import styles from './DetailActionBar.scss';
 import classNames from 'classnames/bind';
 
@@ -27,7 +28,7 @@ let month = [];
     month[11] = "December";
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 
-const DetailActionBar = withRouter(({ location: { pathname }, account_state, handleFavoriteBtn, handleClearRating, handleRating }) => {
+const DetailActionBar = ({ account_state, handleFavoriteBtn, handleClearRating, handleRating }) => {
 
     let isFavorite = false;
     let rating = 0;
@@ -103,6 +104,13 @@ const DetailActionBar = withRouter(({ location: { pathname }, account_state, han
     </div>
     </>
    );
-});
+};
+
+DetailActionBar.propTypes = {
+    account_state: PropTypes.object,
+    handleFavoriteBtn: PropTypes.func,
+    handleClearRating: PropTypes.func,
+    handleRating: PropTypes.func,
+};
 
 export default DetailActionBar;

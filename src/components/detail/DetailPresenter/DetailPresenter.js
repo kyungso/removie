@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Helmet from "react-helmet";  // public/index.html 변경
+import Helmet from "react-helmet"; 
 
 import styles from './DetailPresenter.scss';
 import classNames from 'classnames/bind';
@@ -84,11 +84,12 @@ const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavorit
 
 DetailPresenter.propTypes = {
     result: PropTypes.object,
-    movie_state: PropTypes.object,
-    tv_state: PropTypes.object,
+    account_state: PropTypes.object,
     imdb_id: PropTypes.object,
     videos: PropTypes.object,
     handleFavoriteBtn: PropTypes.func,
+    handleClearRating: PropTypes.func,
+    handleRating: PropTypes.func,
 };
 
 export default DetailPresenter;
