@@ -10,22 +10,15 @@ const INITIALIZE = 'search/INITIALIZE';
 const CHANGE_INPUT = 'search/CHANGE_INPUT';
 
 const GET_SEARCH_MOVIES = 'search/GET_SEARCH_MOVIES';
-const GET_SEARCH_PAGE_MOVIES = 'search/GET_SEARCH_PAGE_MOVIES';
 const GET_SEARCH_TV = 'search/GET_SEARCH_TV';
-const GET_SEARCH_PAGE_TV = 'search/GET_SEARCH_PAGE_TV';
 const GET_SEARCH_COLLECTION = 'search/GET_SEARCH_COLLECTION';
-const GET_SEARCH_PAGE_COLLECTION = 'search/GET_SEARCH_PAGE_COLLECTION';
-
 // action creators
 export const initialize = createAction(INITIALIZE);
 export const changeInput = createAction(CHANGE_INPUT);
 
 export const getSearchMovies = createAction(GET_SEARCH_MOVIES, moviesApi.search);
-export const getSearchPageMovies = createAction(GET_SEARCH_PAGE_MOVIES, moviesApi.search);
 export const getSearchTV = createAction(GET_SEARCH_TV, tvApi.search);
-export const getSearchPageTV = createAction(GET_SEARCH_PAGE_TV, tvApi.search);
 export const getSearchCollection = createAction(GET_SEARCH_COLLECTION, collectionApi.search);
-export const getSearchPageCollection = createAction(GET_SEARCH_PAGE_COLLECTION, collectionApi.search);
 
 // initial state
 const initialState = Map({
@@ -63,14 +56,6 @@ export default handleActions({
         }
     }),  
     ...pender({
-        type: GET_SEARCH_PAGE_MOVIES,
-        onSuccess: (state, action) => {
-            const { data: { page: activePage, results: mResults }} = action.payload;
-            return state.set('movieResults', mResults)
-                        .set('activePage', activePage);
-        }
-    }), 
-    ...pender({
         type: GET_SEARCH_TV,
         onSuccess: (state, action) => {
             const { data: { page: activePage, results: tvResults, total_pages: tvTotalPages, total_results: tvTotalResults }} = action.payload;
@@ -81,14 +66,6 @@ export default handleActions({
         }
     }),   
     ...pender({
-        type: GET_SEARCH_PAGE_TV,
-        onSuccess: (state, action) => {
-            const { data: { page: activePage, results: tResults }} = action.payload;
-            return state.set('tvResults', tResults)
-                        .set('activePage', activePage);
-        }
-    }), 
-    ...pender({
         type: GET_SEARCH_COLLECTION,
         onSuccess: (state, action) => {
             const { data: { page: activePage, results: collectionResults, total_pages: collectionTotalPages, total_results: collectionTotalResults }} = action.payload;
@@ -98,12 +75,4 @@ export default handleActions({
                         .set('activePage', activePage);
         }
     }),  
-    ...pender({
-        type: GET_SEARCH_PAGE_COLLECTION,
-        onSuccess: (state, action) => {
-            const { data: { page: activePage, results: cResults }} = action.payload;
-            return state.set('collectionResults', cResults)
-                        .set('activePage', activePage);
-        }
-    }), 
 }, initialState)
