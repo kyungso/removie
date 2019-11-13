@@ -103,4 +103,9 @@ body a:focus {
     min-height: calc(100vh - 24rem);
     background-color: black;
     padding: 0px 150px;
+    overflow: auto;
+    
+    &::-webkit-scrollbar {
+        display: none !important;
+    }
 }
