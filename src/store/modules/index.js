@@ -5,7 +5,7 @@ import home, { homeSaga } from './home';
 // import login from './login';
 // import account from './account';
 import movie, { movieSaga } from './movie';
-// import tv from './tv';
+import tv, { tvSaga } from './tv';
 // import collection from './collection';
 // import detail from './detail';
 // import search from './search';
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
     // login,
     // account,
     movie,
-    // tv,
+    tv,
     // collection,
     // detail,
     // search,
@@ -24,7 +24,11 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([homeSaga(), movieSaga()]);
+  yield all([
+    homeSaga(), 
+    movieSaga(),
+    tvSaga()
+  ]);
 }
 
 export default rootReducer;

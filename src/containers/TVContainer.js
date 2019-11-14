@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import * as tvActions from 'store/modules/tv';
 
 import TVPresenter from "components/tv/TVPresenter";
-import Loader from 'components/common/Loader';
 
 class TVContainer extends Component {
     
@@ -18,19 +17,17 @@ class TVContainer extends Component {
     }
 
     render() {
-        const { topRated, popular, airingToday, loading } = this.props;
+        const { topRated, popular, airingToday } = this.props;
         return (
             <>
             <Helmet>
                 <title>TV Shows | REMOVIE</title>
             </Helmet>
-            {loading 
-                ? (<Loader />) 
-                : <TVPresenter 
-                    topRated={topRated}
-                    popular={popular}
-                    airingToday={airingToday}
-                  />
+            <TVPresenter 
+                topRated={topRated}
+                popular={popular}
+                airingToday={airingToday}
+            />
             }
             </>
         );
@@ -39,12 +36,9 @@ class TVContainer extends Component {
 
 export default connect(
     (state) => ({
-        topRated: state.tv.get('topRated'),
-        popular: state.tv.get('popular'),
-        airingToday: state.tv.get('airingToday'),
-        loading: state.pender.pending['tv/GET_TV_TOPRATED'] 
-              || state.pender.pending['tv/GET_TV_POPULAR'] 
-              || state.pender.pending['tv/GET_TV_AIRINGTODAY'],
+        topRated: state.tv.topRated,
+        popular: state.tv.popular,
+        airingToday: state.tv.airingToday
     }),
     (dispatch) => ({
         TVActions: bindActionCreators(tvActions, dispatch)

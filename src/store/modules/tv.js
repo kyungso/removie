@@ -1,50 +1,54 @@
 import { createAction, handleActions }from 'redux-actions';
-
-import { Map } from 'immutable';
-import { pender } from 'redux-pender';
+import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from 'store/createRequestSaga';
 
 import { tvApi } from 'lib/api';
 
 // action types
-const GET_TV_TOPRATED = 'tv/GET_TV_TOPRATED';
-const GET_TV_POPULAR = 'tv/GET_TV_POPULAR';
-const GET_TV_AIRINGTODAY = 'tv/GET_TV_AIRINGTODAY';
+const [GET_TV_TOPRATED, GET_TV_TOPRATED_SUCCESS, GET_TV_TOPRATED_FAILURE] = createRequestActionTypes(
+    'tv/GET_TV_TOPRATED'
+);
+const [GET_TV_POPULAR, GET_TV_POPULAR_SUCCESS, GET_TV_POPULAR_FAILURE] = createRequestActionTypes(
+    'tv/GET_TV_POPULAR'
+);
+const [GET_TV_AIRINGTODAY, GET_TV_AIRINGTODAY_SUCCESS, GET_TV_AIRINGTODAY_FAILURE] = createRequestActionTypes(
+    'tv/GET_TV_AIRINGTODAY'
+);
 
 // action creators
-export const getTvToprated = createAction(GET_TV_TOPRATED, tvApi.topRated);
-export const getTvPopular = createAction(GET_TV_POPULAR, tvApi.popular);
-export const getTvAiringtoday = createAction(GET_TV_AIRINGTODAY, tvApi.airingToday);
+export const getTvToprated = createAction(GET_TV_TOPRATED);
+export const getTvPopular = createAction(GET_TV_POPULAR);
+export const getTvAiringtoday = createAction(GET_TV_AIRINGTODAY);
+
+// create saga
+const getMovieNowplayingSaga = createRequestSaga(GET_TV_TOPRATED, tvApi.topRated);
+const getMovieUpcomingSaga = createRequestSaga(GET_TV_POPULAR, tvApi.popular);
+const getMoviePopularSaga = createRequestSaga(GET_TV_AIRINGTODAY, tvApi.airingToday);
+export function* tvSaga() {
+    yield takeLatest(GET_TV_TOPRATED, getMovieNowplayingSaga);
+    yield takeLatest(GET_TV_POPULAR, getMovieUpcomingSaga);
+    yield takeLatest(GET_TV_AIRINGTODAY, getMoviePopularSaga);
+}
 
 // initial state
-const initialState = Map({
+const initialState = {
     topRated: null,
     popular: null,
-    airingToday: null,
-    loading: true
-});
+    airingToday: null
+};
 
 // reducer
 export default handleActions({
-    ...pender({
-        type: GET_TV_TOPRATED,
-        onSuccess: (state, action) => {
-            const { data: { results: topRated }} = action.payload; 
-            return state.set('topRated', topRated)
-        }
+    [GET_TV_TOPRATED_SUCCESS]: (state, { payload: { results: topRated }}) => ({
+        ...state,
+        topRated: topRated
     }),
-    ...pender({
-        type: GET_TV_POPULAR,
-        onSuccess: (state, action) => {
-            const { data: { results: popular }} = action.payload; 
-            return state.set('popular', popular)
-        }
+    [GET_TV_POPULAR_SUCCESS]: (state, { payload: { results: popular }}) => ({
+        ...state,
+        popular: popular
     }),
-    ...pender({
-        type: GET_TV_AIRINGTODAY,
-        onSuccess: (state, action) => {
-            const { data: { results: airingToday }} = action.payload; 
-            return state.set('airingToday', airingToday)
-        }
-    }),
-
+    [GET_TV_AIRINGTODAY_SUCCESS]: (state, { payload: { results: airingToday }}) => ({
+        ...state,
+        airingToday: airingToday
+    })
 }, initialState)
