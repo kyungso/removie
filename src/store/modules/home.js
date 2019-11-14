@@ -1,50 +1,57 @@
 import { createAction, handleActions }from 'redux-actions';
-
-import { Map } from 'immutable';
-import { pender } from 'redux-pender';
+import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from 'store/createRequestSaga';
 
 import { moviesApi, tvApi } from 'lib/api';
 
 // action types
-const GET_MOVIE_TRENDING = 'home/GET_MOVIE_TRENDING';
-const GET_TV_TRENDING = 'home/GET_TV_TRENDING';
-const GET_TOPRATED = 'home/GET_TOPRATED';
+const [GET_MOVIE_TRENDING, GET_MOVIE_TRENDING_SUCCESS, GET_MOVIE_TRENDING_FAILURE] = createRequestActionTypes(
+        'home/GET_MOVIE_TRENDING'
+);
+const [GET_TV_TRENDING, GET_TV_TRENDING_SUCCESS, GET_TV_TRENDING_FAILURE] = createRequestActionTypes(
+        'home/GET_TV_TRENDING'
+);
+const [GET_TOPRATED, GET_TOPRATED_SUCCESS, GET_TOPRATED_FAILURE] = createRequestActionTypes(
+        'home/GET_TOPRATED'
+);
 
 // action creators
-export const getMovieTrending = createAction(GET_MOVIE_TRENDING, moviesApi.trending);
-export const getTvTrending = createAction(GET_TV_TRENDING, tvApi.trending);
-export const getTopRated = createAction(GET_TOPRATED, moviesApi.topRated);
+export const getMovieTrending = createAction(GET_MOVIE_TRENDING);
+export const getTvTrending = createAction(GET_TV_TRENDING);
+export const getTopRated = createAction(GET_TOPRATED);
+
+// create saga
+const getMovieTrendingSaga = createRequestSaga(GET_MOVIE_TRENDING, moviesApi.trending);
+const getTvTrendingSaga = createRequestSaga(GET_TV_TRENDING, tvApi.trending);
+const getTopRatedSaga = createRequestSaga(GET_TOPRATED, moviesApi.topRated);
+export function* homeSaga() {
+    yield takeLatest(GET_MOVIE_TRENDING, getMovieTrendingSaga);
+    yield takeLatest(GET_TV_TRENDING, getTvTrendingSaga);
+    yield takeLatest(GET_TOPRATED, getTopRatedSaga);
+}
 
 // initial state
-const initialState = Map({
+const initialState = {
     movieTrending: null,
     tvTrending: null,
     topRated: null,
     loading: true
-});
+};
 
 // reducer
-export default handleActions({
-    ...pender({
-        type: GET_MOVIE_TRENDING,
-        onSuccess: (state, action) => {
-            const { data: { results: movieTrending }} = action.payload; 
-            return state.set('movieTrending', movieTrending)
-        }
+const home = handleActions({
+    [GET_MOVIE_TRENDING_SUCCESS] : (state, { payload: { results: movieTrending }}) => ({
+        ...state,
+        movieTrending: movieTrending
     }),
-    ...pender({
-        type: GET_TV_TRENDING,
-        onSuccess: (state, action) => {
-            const { data: { results: tvTrending }} = action.payload; 
-            return state.set('tvTrending', tvTrending)
-        }
+    [GET_TV_TRENDING_SUCCESS] : (state, { payload: { results: tvTrending }}) => ({
+        ...state,
+        tvTrending: tvTrending
     }),
-    ...pender({
-        type: GET_TOPRATED,
-        onSuccess: (state, action) => {
-            const { data: { results: topRated }} = action.payload; 
-            return state.set('topRated', topRated)
-        }
-    }),
+    [GET_TOPRATED_SUCCESS] : (state, { payload: { results: topRated }}) => ({
+        ...state,
+        topRated: topRated
+    })
+}, initialState);
 
-}, initialState)
+export default home;

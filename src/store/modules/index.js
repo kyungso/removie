@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 
-// import home, { homeSaga } from './home';
+import home, { homeSaga } from './home';
 // import login from './login';
 // import account from './account';
 import movie, { movieSaga } from './movie';
@@ -12,7 +12,7 @@ import movie, { movieSaga } from './movie';
 import loading from './loading';
 
 const rootReducer = combineReducers({
-    // home,
+    home,
     // login,
     // account,
     movie,
@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([movieSaga()]);
+  yield all([homeSaga(), movieSaga()]);
 }
 
 export default rootReducer;
