@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as movieActions from 'store/modules/movie';
+import * as loadingActions from 'store/modules/loading';
 
 import MoviePresenter from "components/movie/MoviePresenter";
 import Loader from 'components/common/Loader';
@@ -24,14 +25,11 @@ class MovieContainer extends Component {
             <Helmet>
                 <title>Movies | REMOVIE</title>
             </Helmet>
-            {loading 
-                ? (<Loader />) 
-                : <MoviePresenter 
-                    nowPlaying={nowPlaying}
-                    upcoming={upcoming}
-                    popular={popular}
-                  />
-            }
+            <MoviePresenter 
+                nowPlaying={nowPlaying}
+                upcoming={upcoming}
+                popular={popular}
+            />
             </>
         );
     }
@@ -39,14 +37,12 @@ class MovieContainer extends Component {
 
 export default connect(
     (state) => ({
-        nowPlaying: state.movie.get('nowPlaying'),
-        upcoming: state.movie.get('upcoming'),
-        popular: state.movie.get('popular'),
-        loading: state.pender.pending['movie/GET_MOVIE_NOWPLAYING'] 
-              || state.pender.pending['movie/GET_MOVIE_UPCOMING'] 
-              || state.pender.pending['movie/GET_MOVIE_POPULAR'],
+        nowPlaying: state.movie.nowPlaying,
+        upcoming: state.movie.upcoming,
+        popular: state.movie.popular
     }),
     (dispatch) => ({
-        MovieActions: bindActionCreators(movieActions, dispatch)
+        MovieActions: bindActionCreators(movieActions, dispatch),
+        LoadingActions: bindActionCreators(loadingActions, dispatch)
     })
 )(MovieContainer);
