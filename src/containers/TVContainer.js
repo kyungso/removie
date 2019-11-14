@@ -28,7 +28,6 @@ class TVContainer extends Component {
                 popular={popular}
                 airingToday={airingToday}
             />
-            }
             </>
         );
     }

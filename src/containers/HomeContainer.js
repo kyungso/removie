@@ -28,7 +28,6 @@ class HomeContainer extends Component {
                 tvTrending={tvTrending}
                 topRated={topRated}
             />
-            }
             </>
         );
     }

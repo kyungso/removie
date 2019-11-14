@@ -47,11 +47,9 @@ class HeaderContainer extends Component {
 
 export default withRouter(connect(
     (state) => ({
-        username: state.login.get('username'),
-        session_id: state.login.get('session_id'),
-        logged: state.login.get('logged'),
-        loading: state.pender.pending['login/CREATE_SESSION_ID']
-              || state.pender.pending['login/DELETE_SESSION_ID'] 
+        username: state.login.username,
+        session_id: state.login.session_id,
+        logged: state.login.logged
     }),
     (dispatch) => ({
         LoginActions: bindActionCreators(loginActions, dispatch)

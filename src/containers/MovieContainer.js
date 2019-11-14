@@ -4,10 +4,8 @@ import Helmet from "react-helmet";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as movieActions from 'store/modules/movie';
-import * as loadingActions from 'store/modules/loading';
 
 import MoviePresenter from "components/movie/MoviePresenter";
-import Loader from 'components/common/Loader';
 
 class MovieContainer extends Component {
     
@@ -19,7 +17,7 @@ class MovieContainer extends Component {
     }
 
     render() {
-        const { nowPlaying, upcoming, popular, loading } = this.props;
+        const { nowPlaying, upcoming, popular } = this.props;
         return (
             <>
             <Helmet>
@@ -42,7 +40,6 @@ export default connect(
         popular: state.movie.popular
     }),
     (dispatch) => ({
-        MovieActions: bindActionCreators(movieActions, dispatch),
-        LoadingActions: bindActionCreators(loadingActions, dispatch)
+        MovieActions: bindActionCreators(movieActions, dispatch)
     })
 )(MovieContainer);
