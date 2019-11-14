@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const LoginPresenter = ({ username, password, handleSubmit, updateUsername, updatePassword, enterSubmit }) => (
+const LoginPresenter = ({ username, password, handleSubmit, updateField, enterSubmit }) => (
     <div className={cx('login-container')}>
         <Helmet>
             <title>Login | REMOVIE</title>
@@ -20,7 +20,7 @@ const LoginPresenter = ({ username, password, handleSubmit, updateUsername, upda
                 className={cx('login-username')} 
                 placeholder="Username"
                 value={username}
-                onChange={updateUsername}
+                onChange={(e) => updateField({ key: 'username', value: e.target.value })}
                 autoComplete="username"
             />
              <input
@@ -28,7 +28,7 @@ const LoginPresenter = ({ username, password, handleSubmit, updateUsername, upda
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={updatePassword}
+                onChange={(e) => updateField({ key: 'password', value: e.target.value })}
                 onKeyUp={enterSubmit}
                 autoComplete="current-password"
             />
@@ -46,10 +46,8 @@ LoginPresenter.propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
     handleSubmit: PropTypes.func.isRequired,
-    updateUsername: PropTypes.func.isRequired,
-    updatePassword: PropTypes.func.isRequired,
-    enterSubmit: PropTypes.func,
-    loading: PropTypes.bool
+    updateField: PropTypes.func.isRequired,
+    enterSubmit: PropTypes.func
 };
 
 export default LoginPresenter;
