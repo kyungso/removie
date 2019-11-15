@@ -48,8 +48,7 @@ const initialState = {
     collectionTotalPages: 0,
     collectionTotalResults: 0,
     activePage: 1,
-    searchTerm: '',
-    loading: true
+    searchTerm: ''
 };
 
 // reducer

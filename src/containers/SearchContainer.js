@@ -34,9 +34,15 @@ class SearchContainer extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        let { location: { pathname } } = this.props;
+        let { location: { pathname }, searchTerm, SearchActions } = this.props;
         if(pathname !== prevProps.location.pathname) {
-            this.originSearchByTerm();
+            if(pathname === "/search/movie_result") {
+                SearchActions.getSearchMovies({searchTerm}, 1);
+            } else if(pathname === "/search/tv_result") {
+                SearchActions.getSearchTV({searchTerm}, 1);
+            } else if(pathname === "/search/collection_result") {
+                SearchActions.getSearchCollection({searchTerm}, 1);
+            }
         }
     }
 
@@ -56,12 +62,22 @@ class SearchContainer extends PureComponent {
     };
 
     searchByTerm = (searchTerm, page) => {
-        const { SearchActions } = this.props;
+        const { location: { pathname }, SearchActions } = this.props;
 
         try {
-            SearchActions.getSearchMovies({searchTerm, page});
-            SearchActions.getSearchTV({searchTerm, page});
-            SearchActions.getSearchCollection({searchTerm, page});
+            if(page === 1) {
+                SearchActions.getSearchMovies({searchTerm, page});
+                SearchActions.getSearchTV({searchTerm, page});
+                SearchActions.getSearchCollection({searchTerm, page});
+            }else {
+                if(pathname === "/search/movie_result") {
+                    SearchActions.getSearchMovies({searchTerm, page});
+                } else if(pathname === "/search/tv_result") {
+                    SearchActions.getSearchTV({searchTerm, page});
+                } else if(pathname === "/search/collection_result") {
+                    SearchActions.getSearchCollection({searchTerm, page});
+                }
+            }
         } catch (e) {
             console.log(e);
         } 
@@ -73,7 +89,7 @@ class SearchContainer extends PureComponent {
     refreshSearchByTerm = (searchTerm, page) => {
         this.searchByTerm(searchTerm, page);
     };
-    searchByPage = async (page) => {
+    searchByPage = (page) => {
         const { searchTerm } = this.props;
         this.searchByTerm(searchTerm, page);
     }
