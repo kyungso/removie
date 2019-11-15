@@ -21,7 +21,7 @@ export const moviesApi = {
                 append_to_response: "videos"
             }
         }),
-    movieAccountState: (id, session_id) => api.get(`movie/${id}/account_states`, {
+    movieAccountState: ({id, session_id}) => api.get(`movie/${id}/account_states`, {
         params: {
             session_id: session_id
         }
@@ -30,11 +30,11 @@ export const moviesApi = {
         api.get(`movie/${id}/external_ids`),
     movieVideos: id =>
         api.get(`movie/${id}/videos`),
-    search: (term, i) => 
+    search: ({searchTerm, page}) => 
         api.get("search/movie", {
             params: {
-                query: decodeURIComponent(term),
-                page: i            
+                query: searchTerm,
+                page: page            
             }
         })
 };
@@ -50,7 +50,7 @@ export const tvApi = {
                 append_to_response: "videos"
             }
         }),
-    showAccountState: (id, session_id) => api.get(`tv/${id}/account_states`, {
+    showAccountState: ({id, session_id}) => api.get(`tv/${id}/account_states`, {
         params: {
             session_id: session_id
         }
@@ -59,11 +59,11 @@ export const tvApi = {
         api.get(`tv/${id}/external_ids`),
     showVideos: id =>
         api.get(`tv/${id}/videos`),
-    search: (term, i) =>
+    search: ({searchTerm, page}) =>
         api.get("search/tv", {
             params: {
-                query: decodeURIComponent(term),
-                page: i
+                query: searchTerm,
+                page: page
             }
         })
 };
@@ -71,11 +71,11 @@ export const tvApi = {
 export const collectionApi = {
     collectionDetail: id => 
         api.get(`collection/${id}`),
-    search: (term, i) =>
+    search: ({searchTerm, page}) =>
         api.get("search/collection", {
             params: {
-                query: decodeURIComponent(term),
-                page: i
+                query: searchTerm,
+                page: page
             }
         })
 

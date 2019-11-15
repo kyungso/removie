@@ -9,18 +9,6 @@ import AccountPresenter from "components/account/AccountPresenter";
 
 class AccountContainer extends Component {
 
-    componentDidMount() {
-        const { AccountActions } = this.props;
-        let session_id = localStorage.getItem('session_id');
-        try {
-            if(session_id) {
-                AccountActions.getAccountDetail(session_id);
-            }
-        } catch(e) {
-            console.log(e);
-        }
-    }
-
     componentDidUpdate(prevProps) {
         const { AccountActions, accountDetail } = this.props;
 

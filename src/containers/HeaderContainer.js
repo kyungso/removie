@@ -4,33 +4,39 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from 'store/modules/login';
+import * as accountActions from 'store/modules/account';
 
 import Header from "components/common/Header";
 
 class HeaderContainer extends Component {
 
     componentDidUpdate(prevProps) {
+        let logged = localStorage.getItem('logged')
+        let token = localStorage.getItem('token');
+        let session_id = localStorage.getItem('session_id');
+        const { LoginActions, AccountActions } = this.props;
+
         if(this.props.logged !== prevProps.logged) {
-            const { LoginActions } = this.props;
-            let logged = localStorage.getItem('logged')
-            let token = localStorage.getItem('token');
-            let sessionId = localStorage.getItem('session_id');
             try {
-                if(logged === 'true' && !sessionId) {
+                if(logged === 'true' && !session_id) {
                     LoginActions.createSessionId(token);
                 }
             } catch(e) {
                 console.log(e);
             }
         }
+
+        if(session_id) {
+            AccountActions.getAccountDetail(session_id);
+        }
     }
 
-    handleLogout = async () => {
+    handleLogout = () => {
         const { LoginActions } = this.props;
         try {
-            let sessionId = localStorage.getItem('session_id');
-            await LoginActions.deleteSessionId(sessionId);
-            await LoginActions.initialize();
+            let session_id = localStorage.getItem('session_id');
+            LoginActions.deleteSessionId(session_id);
+            LoginActions.initialize();
             window.location.href = '#/';
         } catch(e) {
             console.log(e);
@@ -52,6 +58,7 @@ export default withRouter(connect(
         logged: state.login.logged
     }),
     (dispatch) => ({
-        LoginActions: bindActionCreators(loginActions, dispatch)
+        LoginActions: bindActionCreators(loginActions, dispatch),
+        AccountActions: bindActionCreators(accountActions, dispatch)
     })
 )(HeaderContainer));
