@@ -88,7 +88,6 @@ AccountPresenter.propTypes = {
     handleFavoriteBtn: PropTypes.func,
     handleClearRating: PropTypes.func,
     handleRating: PropTypes.func,
-    loading: PropTypes.bool,
 };
 
 export default AccountPresenter;
