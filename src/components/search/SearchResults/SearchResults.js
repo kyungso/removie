@@ -80,12 +80,12 @@ const SearchResults = withRouter(({ location: { pathname }, movieResults, movieT
                     />
                 ))}
             </Section>
-            <Pagination pages={collectionTotalPages} 
+            {collectionResults.length > 0 && <Pagination pages={collectionTotalPages} 
                         toLink={`/search/collection_result?keyword=${searchTerm}&page=`}
                         activePage={activePage}
                         onClick={searchByPage} 
                         scrollTo={[0,0]}
-            />
+            />}
         </div>
     )}
     </>

@@ -34,7 +34,8 @@ class SearchContainer extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.location.pathname !== prevProps.location.pathname) {
+        let { location: { pathname } } = this.props;
+        if(pathname !== prevProps.location.pathname) {
             this.originSearchByTerm();
         }
     }
@@ -54,13 +55,13 @@ class SearchContainer extends PureComponent {
         }
     };
 
-    searchByTerm = async (searchTerm, page) => {
+    searchByTerm = (searchTerm, page) => {
         const { SearchActions } = this.props;
 
         try {
-            await SearchActions.getSearchMovies(searchTerm, page);
-            await SearchActions.getSearchTV(searchTerm, page);
-            await SearchActions.getSearchCollection(searchTerm, page);
+            SearchActions.getSearchMovies({searchTerm, page});
+            SearchActions.getSearchTV({searchTerm, page});
+            SearchActions.getSearchCollection({searchTerm, page});
         } catch (e) {
             console.log(e);
         } 
@@ -78,7 +79,7 @@ class SearchContainer extends PureComponent {
     }
 
     render() {
-        const { movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionTotalPages, collectionTotalResults, collectionResults, searchTerm, activePage, loading } = this.props;
+        const { movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionTotalPages, collectionTotalResults, collectionResults, searchTerm, activePage } = this.props;
         return(
             <SearchPresenter 
                 movieResults={movieResults}
@@ -92,7 +93,6 @@ class SearchContainer extends PureComponent {
                 collectionTotalResults={collectionTotalResults}
                 searchTerm={searchTerm}
                 activePage={activePage}
-                loading={loading}
                 handleSubmit={this.handleSubmit}
                 updateTerm={this.updateTerm}
                 searchByPage={this.searchByPage}
@@ -103,20 +103,17 @@ class SearchContainer extends PureComponent {
 
 export default withRouter(connect(
     (state) => ({
-        movieResults: state.search.get('movieResults'),
-        movieTotalPages: state.search.get('movieTotalPages'),
-        movieTotalResults: state.search.get('movieTotalResults'),
-        tvResults: state.search.get('tvResults'),
-        tvTotalPages: state.search.get('tvTotalPages'),
-        tvTotalResults: state.search.get('tvTotalResults'),
-        collectionResults: state.search.get('collectionResults'),
-        collectionTotalPages: state.search.get('collectionTotalPages'),
-        collectionTotalResults: state.search.get('collectionTotalResults'),
-        searchTerm: state.search.get('searchTerm'),
-        activePage: state.search.get('activePage'),
-        loading: state.pender.pending['search/GET_SEARCH_MOVIES'] 
-              || state.pender.pending['search/GET_SEARCH_TV'] 
-              || state.pender.pending['search/GET_SEARCH_COLLECTION'] 
+        movieResults: state.search.movieResults,
+        movieTotalPages: state.search.movieTotalPages,
+        movieTotalResults: state.search.movieTotalResults,
+        tvResults: state.search.tvResults,
+        tvTotalPages: state.search.tvTotalPages,
+        tvTotalResults: state.search.tvTotalResults,
+        collectionResults: state.search.collectionResults,
+        collectionTotalPages: state.search.collectionTotalPages,
+        collectionTotalResults: state.search.collectionTotalResults,
+        searchTerm: state.search.searchTerm,
+        activePage: state.search.activePage
     }),
     (dispatch) => ({
         SearchActions: bindActionCreators(searchActions, dispatch)

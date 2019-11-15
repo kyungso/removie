@@ -42,10 +42,10 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
                         >TV</Link>
                     </li>
                     <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/search" ? `3px solid #3498db` : `3px solid transparent`) }}
+                        style={{ borderBottom: (pathname.includes("/search") ? `3px solid #3498db` : `3px solid transparent`) }}
                     >
                         <Link to="/search" className={cx('nav_link')}
-                            style={{ color: (pathname === "/search" ? `#ffffff` : `#7d7d7d`) }}
+                            style={{ color: (pathname.includes("/search") ? `#ffffff` : `#7d7d7d`) }}
                         >Search</Link>
                     </li>
                 </ul>

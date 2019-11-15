@@ -8,7 +8,7 @@ import movie, { movieSaga } from './movie';
 import tv, { tvSaga } from './tv';
 // import collection from './collection';
 // import detail from './detail';
-// import search from './search';
+import search, { searchSaga } from './search';
 import loading from './loading';
 
 const rootReducer = combineReducers({
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
     tv,
     // collection,
     // detail,
-    // search,
+    search,
     loading
 });
 
@@ -29,7 +29,8 @@ export function* rootSaga() {
     loginSaga(),
     accountSaga(),
     movieSaga(),
-    tvSaga()
+    tvSaga(),
+    searchSaga()
   ]);
 }
 
