@@ -1,30 +1,34 @@
 import { createAction, handleActions }from 'redux-actions';
-
-import { Map } from 'immutable';
-import { pender } from 'redux-pender';
+import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from 'store/createRequestSaga';
 
 import { collectionApi } from 'lib/api';
 
 // action types
-const GET_COLLECTION_LIST = 'collection/GET_COLLECTION_LIST';
+const [GET_COLLECTION_LIST, GET_COLLECTION_LIST_SUCCESS, GET_COLLECTION_LIST_FAILURE] = createRequestActionTypes(
+    'movie/GET_COLLECTION_LIST'
+);
 
 // action creators
-export const getCollectionList = createAction(GET_COLLECTION_LIST, collectionApi.collectionDetail);
+export const getCollectionList = createAction(GET_COLLECTION_LIST);
+
+// create saga
+const getCollectionListSaga = createRequestSaga(GET_COLLECTION_LIST, collectionApi.collectionDetail);
+export function* collectionSaga() {
+    yield takeLatest(GET_COLLECTION_LIST, getCollectionListSaga);
+}
 
 // initial state
-const initialState = Map({
-    result: null,
-    loading: true
-});
+const initialState = {
+    result: null
+};
 
 // reducer
-export default handleActions({
-    ...pender({
-        type: GET_COLLECTION_LIST,
-        onSuccess: (state, action) => {
-            const { data: result } = action.payload; 
-            return state.set('result', result)
-        }
-    }),
+const collection = handleActions({
+    [GET_COLLECTION_LIST_SUCCESS]: (state, { payload: result }) => ({
+        ...state,
+        result: result
+    })
+}, initialState);
 
-}, initialState)
+export default collection;

@@ -9,7 +9,7 @@ import CollectionPresenter from "components/collection/CollectionPresenter";
 
 class CollectionContainer extends Component {
 
-    async componentDidMount() {
+    componentDidMount() {
         const { 
             match: { params: { id } },
             history: { push }
@@ -26,17 +26,12 @@ class CollectionContainer extends Component {
             console.log(e);
         }
     }
+
     render() {
-        const { result, loading } = this.props;
+        const { result } = this.props;
         return (
             <>
-            {
-                result &&
-            <CollectionPresenter 
-                result={result}
-                loading={loading}
-            />
-            }
+            {result && <CollectionPresenter result={result} />}
             </>
         );
     }
@@ -44,8 +39,7 @@ class CollectionContainer extends Component {
 
 export default withRouter(connect(
     (state) => ({
-        result: state.collection.get('result'),
-        loading: state.pender.pending['collection/GET_COLLECTION_LIST']
+        result: state.collection.result
     }), 
     (dispatch) => ({
         CollectionActions: bindActionCreators(collectionActions, dispatch)
