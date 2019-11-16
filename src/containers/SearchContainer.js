@@ -30,7 +30,8 @@ class SearchContainer extends PureComponent {
                 this.refreshSearchByTerm(value, 1);
             }
         }
-        
+
+        document.documentElement.scrollTop = 0;
     }
 
     componentDidUpdate(prevProps) {

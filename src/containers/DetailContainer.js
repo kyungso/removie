@@ -9,7 +9,7 @@ import DetailPresenter from "components/detail/DetailPresenter";
 
 class DetailContainer extends Component {
 
-    async componentDidMount() {
+    componentDidMount() {
 
         const {
             location: { pathname },
@@ -42,6 +42,7 @@ class DetailContainer extends Component {
                     DetailActions.getTvAccountState({id: parsedId, session_id});
                 }
             }
+            document.documentElement.scrollTop = 0;
 
         } catch (e){
            console.log(e);

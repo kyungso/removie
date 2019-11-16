@@ -14,6 +14,7 @@ class MovieContainer extends Component {
         MovieActions.getMovieNowplaying();
         MovieActions.getMovieUpcoming();
         MovieActions.getMoviePopular();
+        document.documentElement.scrollTop = 0;
     }
 
     render() {

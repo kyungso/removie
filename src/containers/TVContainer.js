@@ -14,6 +14,7 @@ class TVContainer extends Component {
         TVActions.getTvToprated();
         TVActions.getTvPopular();
         TVActions.getTvAiringtoday();
+        document.documentElement.scrollTop = 0;
     }
 
     render() {
