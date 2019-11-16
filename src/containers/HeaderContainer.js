@@ -32,11 +32,13 @@ class HeaderContainer extends Component {
     }
 
     handleLogout = () => {
-        const { LoginActions } = this.props;
+        const { LoginActions, AccountActions } = this.props;
         try {
             let session_id = localStorage.getItem('session_id');
             LoginActions.deleteSessionId(session_id);
             LoginActions.initialize();
+            AccountActions.initialize();
+            localStorage.clear();
             window.location.href = '#/';
         } catch(e) {
             console.log(e);

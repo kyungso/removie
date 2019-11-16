@@ -6,46 +6,48 @@ import { accountApi } from 'lib/api';
 
 // action types
 // - account
-const [GET_ACCOUNT_DETAILS, GET_ACCOUNT_DETAILS_SUCCESS, GET_ACCOUNT_DETAILS_FAILURE] = createRequestActionTypes(
+const INITIALIZE = 'account/INITIALIZE';
+const [GET_ACCOUNT_DETAILS, GET_ACCOUNT_DETAILS_SUCCESS] = createRequestActionTypes(
     'account/GET_ACCOUNT_DETAILS'
 );
 
 // - favorite
-const [GET_FAVORITE_MOVIES, GET_FAVORITE_MOVIES_SUCCESS, GET_FAVORITE_MOVIES_FAILURE] = createRequestActionTypes(
+const [GET_FAVORITE_MOVIES, GET_FAVORITE_MOVIES_SUCCESS] = createRequestActionTypes(
     'account/GET_FAVORITE_MOVIES'
 );
-const [GET_FAVORITE_TV, GET_FAVORITE_TV_SUCCESS, GET_FAVORITE_TV_FAILURE] = createRequestActionTypes(
+const [GET_FAVORITE_TV, GET_FAVORITE_TV_SUCCESS] = createRequestActionTypes(
     'account/GET_FAVORITE_TV'
 );
-const [MARK_AS_FAVORITE, MARK_AS_FAVORITE_SUCCESS, MARK_AS_FAVORITE_FAILURE] = createRequestActionTypes(
+const [MARK_AS_FAVORITE, MARK_AS_FAVORITE_SUCCESS] = createRequestActionTypes(
     'account/MARK_AS_FAVORITE'
 );
 
 // - rating
-const [GET_GENRE_LIST, GET_GENRE_LIST_SUCCESS, GET_GENRE_LIST_FAILURE] = createRequestActionTypes(
+const [GET_GENRE_LIST, GET_GENRE_LIST_SUCCESS] = createRequestActionTypes(
     'account/GET_GENRE_LIST'
 );
-const [GET_RATED_MOVIES, GET_RATED_MOVIES_SUCCESS, GET_RATED_MOVIES_FAILURE] = createRequestActionTypes(
+const [GET_RATED_MOVIES, GET_RATED_MOVIES_SUCCESS] = createRequestActionTypes(
     'account/GET_RATED_MOVIES'
 );
-const [GET_RATED_TV, GET_RATED_TV_SUCCESS, GET_RATED_TV_FAILURE] = createRequestActionTypes(
+const [GET_RATED_TV, GET_RATED_TV_SUCCESS] = createRequestActionTypes(
     'account/GET_RATED_TV'
 );
 
-const [DELETE_RATING_MOVIES, DELETE_RATING_MOVIES_SUCCESS, DELETE_RATING_MOVIES_FAILURE] = createRequestActionTypes(
+const [DELETE_RATING_MOVIES, DELETE_RATING_MOVIES_SUCCESS] = createRequestActionTypes(
     'account/DELETE_RATING_MOVIES'
 );
-const [DELETE_RATING_TV, DELETE_RATING_TV_SUCCESS, DELETE_RATING_TV_FAILURE] = createRequestActionTypes(
+const [DELETE_RATING_TV, DELETE_RATING_TV_SUCCESS] = createRequestActionTypes(
     'account/DELETE_RATING_TV'
 );
-const [POST_RATING_MOVIES, POST_RATING_MOVIES_SUCCESS, POST_RATING_MOVIES_FAILURE] = createRequestActionTypes(
+const [POST_RATING_MOVIES, POST_RATING_MOVIES_SUCCESS] = createRequestActionTypes(
     'account/POST_RATING_MOVIES'
 );
-const [POST_RATING_TV, POST_RATING_TV_SUCCESS, POST_RATING_TV_FAILURE] = createRequestActionTypes(
+const [POST_RATING_TV, POST_RATING_TV_SUCCESS] = createRequestActionTypes(
     'account/POST_RATING_TV'
 );
 
 // action creators
+export const initialize = createAction(INITIALIZE);
 export const getAccountDetail = createAction(GET_ACCOUNT_DETAILS);
 
 export const getFavoriteMovies = createAction(GET_FAVORITE_MOVIES);
@@ -100,6 +102,7 @@ const initialState = {
 
 // reducer
 const account =  handleActions({
+    [INITIALIZE]: state => initialState,
     [GET_ACCOUNT_DETAILS_SUCCESS]: (state, { payload: accountDetail }) => {
         localStorage.setItem('account_id', accountDetail.id);
         return {...state, accountDetail: accountDetail };

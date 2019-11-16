@@ -74,10 +74,7 @@ const login = handleActions({
         window.location.href = '#/';
         return {...state, session_id: session_id };
     },
-    [DELETE_SESSION_ID_SUCCESS]: state => {
-        localStorage.clear();
-        return initialState;
-    },
+    [DELETE_SESSION_ID_SUCCESS]: state => initialState,
 }, initialState);
 
 export default login;
