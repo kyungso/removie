@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import styles from './DetailActionBar.scss';
@@ -49,23 +49,12 @@ const DetailActionBar = ({ account_state, handleFavoriteBtn, handleClearRating, 
         rating = account_state.rated.value;
         isRating = 'yellow';
     }
-
-    const favoriteBtn = useRef(null);
-    const ratingBtn = useRef(null);
-
-    const onFavoriteToggle = () => {
-        if(favoriteBtn.current.style.color === 'rgb(255, 255, 255)') {
-            favoriteBtn.current.style.color = 'rgb(239, 71, 182)';
-        } else if(favoriteBtn.current.style.color === 'rgb(239, 71, 182)') {
-            favoriteBtn.current.style.color = 'rgb(255, 255, 255)';
-        }
-    }
     
     return (
     <>
     <div className={cx('actionBar')}>
-        <span className={cx('favoriteIcon')} onClick={() => { handleFavoriteBtn(account_state.id, !account_state.favorite); onFavoriteToggle();} } >
-            <span className={cx('glyphicon glyphicon-heart')} ref={favoriteBtn}
+        <span className={cx('favoriteIcon')} onClick={() => handleFavoriteBtn(account_state.id, !account_state.favorite)} >
+            <span className={cx('glyphicon glyphicon-heart')}
                   style={{ color: `${isFavorite}` }} > 
             </span>
         </span>
@@ -96,7 +85,7 @@ const DetailActionBar = ({ account_state, handleFavoriteBtn, handleClearRating, 
                     </div>
                 </Tooltip>
                 }>
-                <span className={cx('glyphicon glyphicon-star')} ref={ratingBtn}
+                <span className={cx('glyphicon glyphicon-star')}
                       style={{ color: `${isRating}` }}>
                 </span>
             </OverlayTrigger>

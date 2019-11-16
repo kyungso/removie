@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 import styles from './DetailPresenter.scss';
 import classNames from 'classnames/bind';
 
+import Loader from "components/common/Loader";
 import DetailTab from "components/detail/DetailTab";
 import DetailActionBar from "components/detail/DetailActionBar";
 import DetailInActionBar from 'components/detail/DetailActionBar/DetailInActionBar';
@@ -12,10 +13,13 @@ import Video from "components/detail/Video";
 
 const cx = classNames.bind(styles);
 
-const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavoriteBtn, handleClearRating, handleRating }) => {
+const DetailPresenter = ({ result, account_state, imdb_id, videos, loading, handleFavoriteBtn, handleClearRating, handleRating }) => {
     return (
     <>
-    <div className={cx('detail-container')}>
+    {loading 
+      ? <Loader/>
+      : result && imdb_id && videos &&
+      <div className={cx('detail-container')}>
         <Helmet>
             <title>
                 {result.title ? result.title : result.name}{" "}
@@ -78,6 +82,7 @@ const DetailPresenter = ({ result, account_state, imdb_id, videos, handleFavorit
             </div>
         </div>
     </div>
+    }
     </>
     );
 }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,24 +8,17 @@ import LoginPresenter from "components/login/LoginPresenter";
 
 class LoginContainer extends Component {
 
-    async componentDidMount() {
+    componentDidMount() {
         const { LoginActions, logged } = this.props;
-        await LoginActions.initialize();
-        if(logged === false) {
+        LoginActions.initialize();
+        if(!logged) {
             LoginActions.getRequestToken();
         }
     }
 
-    updateUsername = (event) => {
+    updateField = ({ key, value }) => {
         const { LoginActions } = this.props;
-        const { value } = event.target; 
-        LoginActions.changeUsername({value});
-    }
-
-    updatePassword = (event) => {
-        const { LoginActions } = this.props;
-        const { value } = event.target; 
-        LoginActions.changePassword({value});
+        LoginActions.changeField({ key, value });
     }
 
     enterSubmit = (event) => {
@@ -55,32 +47,28 @@ class LoginContainer extends Component {
     };
 
     render() {
-        const { username, password, loading } = this.props;
-        
+        const { username, password } = this.props;
+
         return(
             <LoginPresenter 
                 username={username}
                 password={password}
-                loading={loading}
                 handleSubmit={this.handleSubmit}
-                updateUsername={this.updateUsername}
-                updatePassword={this.updatePassword}
+                updateField={this.updateField}
                 enterSubmit={this.enterSubmit}
             />
         );
     }
 }
 
-export default withRouter(connect(
+export default connect(
     (state) => ({
-        username: state.login.get('username'),
-        password: state.login.get('password'),
-        request_token: state.login.get('request_token'),
-        logged: state.login.get('logged'),
-        loading: state.pender.pending['login/GET_REQUEST_TOKEN'] 
-              || state.pender.pending['login/VALIDATE_WITH_LOGIN']
+        username: state.login.username,
+        password: state.login.password,
+        request_token: state.login.request_token,
+        logged: state.login.logged
     }),
     (dispatch) => ({
         LoginActions: bindActionCreators(loginActions, dispatch)
     })
-)(LoginContainer));
+)(LoginContainer);

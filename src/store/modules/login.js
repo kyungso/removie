@@ -1,86 +1,80 @@
 import { createAction, handleActions }from 'redux-actions';
-
-import { Map } from 'immutable';
-import { pender } from 'redux-pender';
+import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from 'store/createRequestSaga';
 
 import { loginApi } from 'lib/api';
 
 // action types
 const INITIALIZE = 'login/INITIALIZE';
-const CHANGE_USERNAME = 'login/CHANGE_USERNAME';
-const CHANGE_PASSWORD = 'login/CHANGE_PASSWORD';
-const GET_REQUEST_TOKEN = 'login/GET_REQUEST_TOKEN';
-const VALIDATE_WITH_LOGIN = 'login/VALIDATE_WITH_LOGIN';
-const CREATE_SESSION_ID = 'login/CREATE_SESSION_ID';
-const DELETE_SESSION_ID = 'login/DELETE_SESSION_ID';
+const CHANGE_FIELD = 'login/CHANGE_FIELD';
+const [GET_REQUEST_TOKEN, GET_REQUEST_TOKEN_SUCCESS] = createRequestActionTypes(
+    'login/GET_REQUEST_TOKEN'
+);
+const [VALIDATE_WITH_LOGIN, VALIDATE_WITH_LOGIN_SUCCESS, VALIDATE_WITH_LOGIN_FAILURE] = createRequestActionTypes(
+    'login/VALIDATE_WITH_LOGIN'
+);
+const [CREATE_SESSION_ID, CREATE_SESSION_ID_SUCCESS] = createRequestActionTypes(
+    'login/CREATE_SESSION_ID'
+);
+const [DELETE_SESSION_ID, DELETE_SESSION_ID_SUCCESS] = createRequestActionTypes(
+    'login/DELETE_SESSION_ID'
+);
 
 // action creators
 export const initialize = createAction(INITIALIZE);
-export const changeUsername = createAction(CHANGE_USERNAME);
-export const changePassword = createAction(CHANGE_PASSWORD);
-export const getRequestToken = createAction(GET_REQUEST_TOKEN, loginApi.createRequetToken);
-export const validateWithLogin = createAction(VALIDATE_WITH_LOGIN, loginApi.validateWithLogin);
-export const createSessionId = createAction(CREATE_SESSION_ID, loginApi.createSessionId);
-export const deleteSessionId = createAction(DELETE_SESSION_ID, loginApi.deleteSessionId);
+export const changeField = createAction(CHANGE_FIELD, ({ key, value }) => ({ key, value }));
+export const getRequestToken = createAction(GET_REQUEST_TOKEN);
+export const validateWithLogin = createAction(VALIDATE_WITH_LOGIN);
+export const createSessionId = createAction(CREATE_SESSION_ID);
+export const deleteSessionId = createAction(DELETE_SESSION_ID);
+
+// create saga
+const getRequestTokenSaga = createRequestSaga(GET_REQUEST_TOKEN, loginApi.createRequetToken);
+const validateWithLoginSaga = createRequestSaga(VALIDATE_WITH_LOGIN, loginApi.validateWithLogin);
+const createSessionIdSaga = createRequestSaga(CREATE_SESSION_ID, loginApi.createSessionId);
+const deleteSessionIdSaga = createRequestSaga(DELETE_SESSION_ID, loginApi.deleteSessionId);
+export function* loginSaga() {
+    yield takeLatest(GET_REQUEST_TOKEN, getRequestTokenSaga);
+    yield takeLatest(VALIDATE_WITH_LOGIN, validateWithLoginSaga);
+    yield takeLatest(CREATE_SESSION_ID, createSessionIdSaga);
+    yield takeLatest(DELETE_SESSION_ID, deleteSessionIdSaga);
+}
 
 // initial state
-const initialState = Map({
+const initialState = {
     request_token: null,
     session_id: null,
     username: '',
     password: '',
-    logged: false,
-    loading: true
-});
+    logged: false
+};
 
 // reducer
-export default handleActions({
-    [INITIALIZE]: (state, action) => initialState,
-    [CHANGE_USERNAME]: (state, action) => {
-        const { value } = action.payload;
-        return state.set('username', value);
+const login = handleActions({
+    [INITIALIZE]: state => initialState,
+    [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({
+        ...state,
+        [key]: value
+    }),
+    [GET_REQUEST_TOKEN_SUCCESS]: (state, { payload: { request_token } }) => {
+        localStorage.setItem('logged', false);
+        localStorage.setItem('token', request_token);
+        return {...state, request_token: request_token };
     },
-    [CHANGE_PASSWORD]: (state, action) => {
-        const { value } = action.payload;
-        return state.set('password', value);
+    [VALIDATE_WITH_LOGIN_SUCCESS]: (state, { payload: { success }}) => {
+        localStorage.setItem('logged', success);
+        return {...state, logged: success };
     },
-    ...pender({
-        type: GET_REQUEST_TOKEN,
-        onSuccess: (state, action) => {
-            const { request_token } = action.payload.data;
-            localStorage.setItem('logged', false);
-            localStorage.setItem('token', request_token);
-            return state.set('request_token', request_token);
-        }
-    }),
-    ...pender({
-        type: VALIDATE_WITH_LOGIN,
-        onSuccess: (state, action) => {
-            const { success } = action.payload.data;
-            localStorage.setItem('logged', success);
-            return state.set('logged', success);
-        },
-        onFailure: (state, action) => { // 오류가 발생할 때
-            state.set('username', '');
-            state.set('password', '');
-            localStorage.setItem('logged', false);
-            state.set('logged', false);
-            return alert('다시 로그인해주세요');
-        }
-    }),
-    ...pender({
-        type: CREATE_SESSION_ID,
-        onSuccess: (state, action) => {
-            const { session_id } = action.payload.data;
-            localStorage.setItem('session_id', session_id);
-            window.location.href = '#/';
-            return state.set('session_id', session_id);
-        },
-    }),
-    ...pender({
-        type: DELETE_SESSION_ID,
-        onSuccess: (state, action) => {
-            return localStorage.clear();
-        },
-    })
-}, initialState)
+    [VALIDATE_WITH_LOGIN_FAILURE]: state => {
+        alert('다시 로그인해주세요');
+        return {...state, username: '', password: '', logged: false };
+    },
+    [CREATE_SESSION_ID_SUCCESS]: (state, { payload: { session_id }}) => {
+        localStorage.setItem('session_id', session_id);
+        window.location.href = '#/';
+        return {...state, session_id: session_id };
+    },
+    [DELETE_SESSION_ID_SUCCESS]: state => initialState,
+}, initialState);
+
+export default login;

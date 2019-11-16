@@ -1,7 +1,6 @@
 import { createAction, handleActions }from 'redux-actions';
-
-import { Map } from 'immutable';
-import { pender } from 'redux-pender';
+import { takeLatest } from 'redux-saga/effects';
+import createRequestSaga, { createRequestActionTypes } from 'store/createRequestSaga';
 
 import { moviesApi, tvApi, collectionApi } from 'lib/api';
 
@@ -9,70 +8,83 @@ import { moviesApi, tvApi, collectionApi } from 'lib/api';
 const INITIALIZE = 'search/INITIALIZE';
 const CHANGE_INPUT = 'search/CHANGE_INPUT';
 
-const GET_SEARCH_MOVIES = 'search/GET_SEARCH_MOVIES';
-const GET_SEARCH_TV = 'search/GET_SEARCH_TV';
-const GET_SEARCH_COLLECTION = 'search/GET_SEARCH_COLLECTION';
+const [GET_SEARCH_MOVIES, GET_SEARCH_MOVIES_SUCCESS, GET_SEARCH_MOVIES_FAILURE] = createRequestActionTypes(
+    'search/GET_SEARCH_MOVIES'
+);
+const [GET_SEARCH_TV, GET_SEARCH_TV_SUCCESS, GET_SEARCH_TV_FAILURE] = createRequestActionTypes(
+    'search/GET_SEARCH_TV'
+);
+const [GET_SEARCH_COLLECTION, GET_SEARCH_COLLECTION_SUCCESS, GET_SEARCH_COLLECTION_FAILURE] = createRequestActionTypes(
+    'search/GET_SEARCH_COLLECTION'
+);
+
 // action creators
 export const initialize = createAction(INITIALIZE);
-export const changeInput = createAction(CHANGE_INPUT);
+export const changeInput = createAction(CHANGE_INPUT, ({ value }) => ({ value }));
 
-export const getSearchMovies = createAction(GET_SEARCH_MOVIES, moviesApi.search);
-export const getSearchTV = createAction(GET_SEARCH_TV, tvApi.search);
-export const getSearchCollection = createAction(GET_SEARCH_COLLECTION, collectionApi.search);
+export const getSearchMovies = createAction(GET_SEARCH_MOVIES);
+export const getSearchTV = createAction(GET_SEARCH_TV);
+export const getSearchCollection = createAction(GET_SEARCH_COLLECTION);
+
+// create saga
+const getSearchMoviesSaga = createRequestSaga(GET_SEARCH_MOVIES, moviesApi.search);
+const getSearchTVSaga = createRequestSaga(GET_SEARCH_TV, tvApi.search);
+const getSearchCollectionSaga = createRequestSaga(GET_SEARCH_COLLECTION, collectionApi.search);
+export function* searchSaga() {
+    yield takeLatest(GET_SEARCH_MOVIES, getSearchMoviesSaga);
+    yield takeLatest(GET_SEARCH_TV, getSearchTVSaga);
+    yield takeLatest(GET_SEARCH_COLLECTION, getSearchCollectionSaga);
+}
 
 // initial state
-const initialState = Map({
+const initialState = {
     movieResults: null,
-    movieTotalPages: 1,
-    movieTotalResults: 1,
+    movieTotalPages: 0,
+    movieTotalResults: 0,
     tvResults: null,
-    tvTotalPages: 1,
-    tvTotalResults: 1,
+    tvTotalPages: 0,
+    tvTotalResults: 0,
     collectionResults: null,
-    collectionTotalPages: 1,
-    collectionTotalResults: 1,
+    collectionTotalPages: 0,
+    collectionTotalResults: 0,
     activePage: 1,
-    searchTerm: '',
-    loading: true
-});
+    searchTerm: ''
+};
 
 // reducer
-export default handleActions({
-    [INITIALIZE]: (state, action) => {
-        return state.set('searchTerm', '');
+const search = handleActions({
+    [INITIALIZE]: state => initialState,
+    [CHANGE_INPUT]: (state, { payload: { value }}) => ({
+        ...state,
+        searchTerm: value
+    }),
+    [GET_SEARCH_MOVIES_SUCCESS]: (state, { payload }) => {
+        const { page: activePage, results: movieResults, total_pages: movieTotalPages, total_results: movieTotalResults } = payload;
+        return {...state,
+                movieResults: movieResults,
+                movieTotalPages: movieTotalPages,
+                movieTotalResults: movieTotalResults,
+                activePage: activePage
+        };
     },
-    [CHANGE_INPUT]: (state, action) => {
-        const { value } = action.payload;
-        return state.set('searchTerm', value);
-    },
-    ...pender({
-        type: GET_SEARCH_MOVIES,
-        onSuccess: (state, action) => {
-            const { data: { page: activePage, results: movieResults, total_pages: movieTotalPages, total_results: movieTotalResults }} = action.payload;
-            return state.set('movieResults', movieResults)
-                        .set('movieTotalPages', movieTotalPages)
-                        .set('movieTotalResults', movieTotalResults)
-                        .set('activePage', activePage);
-        }
-    }),  
-    ...pender({
-        type: GET_SEARCH_TV,
-        onSuccess: (state, action) => {
-            const { data: { page: activePage, results: tvResults, total_pages: tvTotalPages, total_results: tvTotalResults }} = action.payload;
-            return state.set('tvResults', tvResults)
-                        .set('tvTotalPages', tvTotalPages)
-                        .set('tvTotalResults', tvTotalResults)
-                        .set('activePage', activePage);
-        }
-    }),   
-    ...pender({
-        type: GET_SEARCH_COLLECTION,
-        onSuccess: (state, action) => {
-            const { data: { page: activePage, results: collectionResults, total_pages: collectionTotalPages, total_results: collectionTotalResults }} = action.payload;
-            return state.set('collectionResults', collectionResults)
-                        .set('collectionTotalPages', collectionTotalPages)
-                        .set('collectionTotalResults', collectionTotalResults)
-                        .set('activePage', activePage);
-        }
-    }),  
-}, initialState)
+    [GET_SEARCH_TV_SUCCESS]: (state, { payload }) => {
+        const { page: activePage, results: tvResults, total_pages: tvTotalPages, total_results: tvTotalResults } = payload;
+        return {...state,
+            tvResults: tvResults,
+            tvTotalPages: tvTotalPages,
+            tvTotalResults: tvTotalResults,
+            activePage: activePage
+        };
+    },   
+    [GET_SEARCH_COLLECTION_SUCCESS]: (state, { payload }) => {
+        const { page: activePage, results: collectionResults, total_pages: collectionTotalPages, total_results: collectionTotalResults } = payload;
+        return {...state,
+            collectionResults: collectionResults,
+            collectionTotalPages: collectionTotalPages,
+            collectionTotalResults: collectionTotalResults,
+            activePage: activePage
+        };
+    }
+}, initialState);
+
+export default search;

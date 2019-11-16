@@ -4,16 +4,18 @@ import PropTypes from "prop-types";
 import styles from './HomePresenter.scss';
 import classNames from 'classnames/bind';
 
+import Loader from 'components/common/Loader';
 import Section from "components/section/SectionTemplate";
 import Poster from "components/common/Poster";
 import Carousel from "components/carousel/HomeCarousel";
 
 const cx = classNames.bind(styles);
   
-const HomePresenter = ({ movieTrending, tvTrending, topRated }) => (
+const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
     <>
-        <div className={cx('home-container')}>
-            <Carousel topRated={topRated} />
+    {loading ? <Loader />
+        : <div className={cx('home-container')}>
+            {topRated && topRated.length > 0 && <Carousel topRated={topRated} />}
             {movieTrending && movieTrending.length > 0 && (
                 <Section title="Trending Movies" isHome={true}>
                     {movieTrending.map(movie => (
@@ -45,6 +47,7 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated }) => (
                 </Section>
             )}
         </div>
+    }
     </>
 );
 
