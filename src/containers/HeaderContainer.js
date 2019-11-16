@@ -14,7 +14,7 @@ class HeaderContainer extends Component {
         let logged = localStorage.getItem('logged')
         let token = localStorage.getItem('token');
         let session_id = localStorage.getItem('session_id');
-        const { LoginActions, AccountActions } = this.props;
+        const { LoginActions } = this.props;
 
         if(this.props.logged !== prevProps.logged) {
             try {
@@ -24,10 +24,6 @@ class HeaderContainer extends Component {
             } catch(e) {
                 console.log(e);
             }
-        }
-
-        if(session_id) {
-            AccountActions.getAccountDetail(session_id);
         }
     }
 
@@ -57,7 +53,8 @@ export default withRouter(connect(
     (state) => ({
         username: state.login.username,
         session_id: state.login.session_id,
-        logged: state.login.logged
+        logged: state.login.logged,
+        accountDetail: state.account.accountDetail
     }),
     (dispatch) => ({
         LoginActions: bindActionCreators(loginActions, dispatch),
