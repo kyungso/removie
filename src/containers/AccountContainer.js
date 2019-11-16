@@ -9,6 +9,18 @@ import AccountPresenter from "components/account/AccountPresenter";
 
 class AccountContainer extends Component {
 
+    componentDidMount() {
+        const { AccountActions } = this.props;
+        let sessionId = localStorage.getItem('session_id');
+        try {
+            if(sessionId) {
+                AccountActions.getAccountDetail(sessionId);
+            }
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
     componentDidUpdate(prevProps) {
         const { AccountActions, accountDetail } = this.props;
 
@@ -65,10 +77,8 @@ class AccountContainer extends Component {
     }
 
     render() {
-        const { accountDetail, favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList } = this.props;
+        const { accountDetail, favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList, loading } = this.props;
         return(
-           <>
-            {accountDetail && favoriteMovies && favoriteTV && ratedMovies && ratedTV && genreList &&
             <AccountPresenter
                 accountDetail={accountDetail}
                 favoriteMovies={favoriteMovies}
@@ -76,12 +86,11 @@ class AccountContainer extends Component {
                 ratedMovies={ratedMovies}
                 ratedTV={ratedTV}
                 genreList={genreList}
+                loading={loading}
                 handleFavoriteBtn={this.handleFavoriteBtn}
                 handleClearRating={this.handleClearRating}
                 handleRating={this.handleRating}
             />
-            }
-           </>
         );
     }
 }
@@ -94,6 +103,12 @@ export default withRouter(connect(
         ratedMovies: state.account.ratedMovies,
         ratedTV: state.account.ratedTV,
         genreList: state.account.genreList,
+        loading: state.loading['account/GET_ACCOUNT_DETAILS']
+              || state.loading['account/GET_FAVORITE_MOVIES']
+              || state.loading['account/GET_FAVORITE_TV']
+              || state.loading['account/GET_RATED_MOVIES']
+              || state.loading['account/GET_RATED_TV']
+              || state.loading['account/GET_GENRE_LIST']
     }),
     (dispatch) => ({
         AccountActions: bindActionCreators(accountActions, dispatch)
