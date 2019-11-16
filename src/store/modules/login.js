@@ -7,16 +7,16 @@ import { loginApi } from 'lib/api';
 // action types
 const INITIALIZE = 'login/INITIALIZE';
 const CHANGE_FIELD = 'login/CHANGE_FIELD';
-const [GET_REQUEST_TOKEN, GET_REQUEST_TOKEN_SUCCESS, GET_REQUEST_TOKEN_FAILURE] = createRequestActionTypes(
+const [GET_REQUEST_TOKEN, GET_REQUEST_TOKEN_SUCCESS] = createRequestActionTypes(
     'login/GET_REQUEST_TOKEN'
 );
 const [VALIDATE_WITH_LOGIN, VALIDATE_WITH_LOGIN_SUCCESS, VALIDATE_WITH_LOGIN_FAILURE] = createRequestActionTypes(
     'login/VALIDATE_WITH_LOGIN'
 );
-const [CREATE_SESSION_ID, CREATE_SESSION_ID_SUCCESS, CREATE_SESSION_ID_FAILURE] = createRequestActionTypes(
+const [CREATE_SESSION_ID, CREATE_SESSION_ID_SUCCESS] = createRequestActionTypes(
     'login/CREATE_SESSION_ID'
 );
-const [DELETE_SESSION_ID, DELETE_SESSION_ID_SUCCESS, DELETE_SESSION_ID_FAILURE] = createRequestActionTypes(
+const [DELETE_SESSION_ID, DELETE_SESSION_ID_SUCCESS] = createRequestActionTypes(
     'login/DELETE_SESSION_ID'
 );
 
