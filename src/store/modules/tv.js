@@ -5,13 +5,13 @@ import createRequestSaga, { createRequestActionTypes } from 'store/createRequest
 import { tvApi } from 'lib/api';
 
 // action types
-const [GET_TV_TOPRATED, GET_TV_TOPRATED_SUCCESS, GET_TV_TOPRATED_FAILURE] = createRequestActionTypes(
+const [GET_TV_TOPRATED, GET_TV_TOPRATED_SUCCESS] = createRequestActionTypes(
     'tv/GET_TV_TOPRATED'
 );
-const [GET_TV_POPULAR, GET_TV_POPULAR_SUCCESS, GET_TV_POPULAR_FAILURE] = createRequestActionTypes(
+const [GET_TV_POPULAR, GET_TV_POPULAR_SUCCESS] = createRequestActionTypes(
     'tv/GET_TV_POPULAR'
 );
-const [GET_TV_AIRINGTODAY, GET_TV_AIRINGTODAY_SUCCESS, GET_TV_AIRINGTODAY_FAILURE] = createRequestActionTypes(
+const [GET_TV_AIRINGTODAY, GET_TV_AIRINGTODAY_SUCCESS] = createRequestActionTypes(
     'tv/GET_TV_AIRINGTODAY'
 );
 

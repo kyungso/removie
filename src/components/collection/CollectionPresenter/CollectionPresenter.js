@@ -5,12 +5,17 @@ import Helmet from "react-helmet";
 import styles from './CollectionPresenter.scss';
 import classNames from 'classnames/bind';
 
+import Loader from "components/common/Loader";
 import Poster from "components/common/Poster";
 
 const cx = classNames.bind(styles);
 
-const CollectionPresenter = ({ result }) => (
-    <div className={cx('collection-container')}>
+const CollectionPresenter = ({ result, loading }) => (
+    <>
+    {loading
+     ? <Loader />
+     : result &&
+     <div className={cx('collection-container')}>
         <Helmet>
             <title>Collections | REMOVIE</title>
         </Helmet> 
@@ -42,6 +47,8 @@ const CollectionPresenter = ({ result }) => (
             </div>
         </div>
     </div>
+    }
+    </>
 );
 
 CollectionPresenter.propTypes = {

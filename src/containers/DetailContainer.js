@@ -82,11 +82,10 @@ class DetailContainer extends Component {
     }
 
     render() {
-        const { result, account_state, imdb_id, videos } = this.props;
+        const { result, account_state, imdb_id, videos, loading } = this.props;
         
         return (
             <>
-            {result && imdb_id && videos &&
                 <DetailPresenter 
                     result={result} 
                     account_state={account_state}
@@ -95,8 +94,8 @@ class DetailContainer extends Component {
                     handleFavoriteBtn={this.handleFavoriteBtn}
                     handleClearRating={this.handleClearRating}
                     handleRating={this.handleRating}
+                    loading={loading}
                 />
-            }
             </>
         );
     }
@@ -107,7 +106,16 @@ export default withRouter(connect(
         result: state.detail.result,
         account_state: state.detail.account_state,
         imdb_id: state.detail.imdb_id,
-        videos: state.detail.videos
+        videos: state.detail.videos,
+        loading: state.loading['detail/GET_MOVIE_DETAIL']
+              || state.loading['detail/GET_MOVIE_IMDB_ID']
+              || state.loading['detail/GET_MOVIE_VIDEOS']
+              || state.loading['detail/GET_TV_DETAIL']
+              || state.loading['detail/GET_TV_IMDB_ID']
+              || state.loading['detail/GET_TV_VIDEOS']
+              || state.loading['detail/GET_MOVIE_ACCOUNT_STATE']
+              || state.loading['detail/GET_TV_ACCOUNT_STATE']
+               
     }),
     (dispatch) => ({
         DetailActions: bindActionCreators(detailActions, dispatch)

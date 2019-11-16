@@ -17,7 +17,7 @@ class TVContainer extends Component {
     }
 
     render() {
-        const { topRated, popular, airingToday } = this.props;
+        const { topRated, popular, airingToday, loading } = this.props;
         return (
             <>
             <Helmet>
@@ -27,6 +27,7 @@ class TVContainer extends Component {
                 topRated={topRated}
                 popular={popular}
                 airingToday={airingToday}
+                loading={loading}
             />
             </>
         );
@@ -37,7 +38,10 @@ export default connect(
     (state) => ({
         topRated: state.tv.topRated,
         popular: state.tv.popular,
-        airingToday: state.tv.airingToday
+        airingToday: state.tv.airingToday,
+        loading: state.loading['tv/GET_TV_TOPRATED']
+              || state.loading['tv/GET_TV_POPULAR']
+              || state.loading['tv/GET_TV_AIRINGTODAY']
     }),
     (dispatch) => ({
         TVActions: bindActionCreators(tvActions, dispatch)

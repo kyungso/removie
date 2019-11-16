@@ -5,8 +5,8 @@ import createRequestSaga, { createRequestActionTypes } from 'store/createRequest
 import { collectionApi } from 'lib/api';
 
 // action types
-const [GET_COLLECTION_LIST, GET_COLLECTION_LIST_SUCCESS, GET_COLLECTION_LIST_FAILURE] = createRequestActionTypes(
-    'movie/GET_COLLECTION_LIST'
+const [GET_COLLECTION_LIST, GET_COLLECTION_LIST_SUCCESS] = createRequestActionTypes(
+    'collection/GET_COLLECTION_LIST'
 );
 
 // action creators

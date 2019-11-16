@@ -17,7 +17,7 @@ class MovieContainer extends Component {
     }
 
     render() {
-        const { nowPlaying, upcoming, popular } = this.props;
+        const { nowPlaying, upcoming, popular, loading } = this.props;
         return (
             <>
             <Helmet>
@@ -27,6 +27,7 @@ class MovieContainer extends Component {
                 nowPlaying={nowPlaying}
                 upcoming={upcoming}
                 popular={popular}
+                loading={loading}
             />
             </>
         );
@@ -37,7 +38,10 @@ export default connect(
     (state) => ({
         nowPlaying: state.movie.nowPlaying,
         upcoming: state.movie.upcoming,
-        popular: state.movie.popular
+        popular: state.movie.popular,
+        loading: state.loading['movie/GET_MOVIE_NOWPLAYING']
+              || state.loading['movie/GET_MOVIE_UPCOMING']
+              || state.loading['movie/GET_MOVIE_POPULAR']
     }),
     (dispatch) => ({
         MovieActions: bindActionCreators(movieActions, dispatch)

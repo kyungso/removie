@@ -5,13 +5,13 @@ import createRequestSaga, { createRequestActionTypes } from 'store/createRequest
 import { moviesApi, tvApi } from 'lib/api';
 
 // action types
-const [GET_MOVIE_TRENDING, GET_MOVIE_TRENDING_SUCCESS, GET_MOVIE_TRENDING_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_TRENDING, GET_MOVIE_TRENDING_SUCCESS] = createRequestActionTypes(
         'home/GET_MOVIE_TRENDING'
 );
-const [GET_TV_TRENDING, GET_TV_TRENDING_SUCCESS, GET_TV_TRENDING_FAILURE] = createRequestActionTypes(
+const [GET_TV_TRENDING, GET_TV_TRENDING_SUCCESS] = createRequestActionTypes(
         'home/GET_TV_TRENDING'
 );
-const [GET_TOPRATED, GET_TOPRATED_SUCCESS, GET_TOPRATED_FAILURE] = createRequestActionTypes(
+const [GET_TOPRATED, GET_TOPRATED_SUCCESS] = createRequestActionTypes(
         'home/GET_TOPRATED'
 );
 
@@ -34,8 +34,7 @@ export function* homeSaga() {
 const initialState = {
     movieTrending: null,
     tvTrending: null,
-    topRated: null,
-    loading: true
+    topRated: null
 };
 
 // reducer

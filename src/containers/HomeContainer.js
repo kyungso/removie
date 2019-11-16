@@ -17,7 +17,7 @@ class HomeContainer extends Component {
     }
 
     render() {
-        const { movieTrending, tvTrending, topRated } = this.props;
+        const { movieTrending, tvTrending, topRated, loading } = this.props;
         return (
             <>
             <Helmet>
@@ -27,6 +27,7 @@ class HomeContainer extends Component {
                 movieTrending={movieTrending}
                 tvTrending={tvTrending}
                 topRated={topRated}
+                loading={loading}
             />
             </>
         );
@@ -38,6 +39,9 @@ export default connect(
         movieTrending: state.home.movieTrending,
         tvTrending: state.home.tvTrending,
         topRated: state.home.topRated,
+        loading: state.loading['home/GET_MOVIE_TRENDING']
+              || state.loading['home/GET_TV_TRENDING']
+              || state.loading['home/GET_TOPRATED']
     }),
     (dispatch) => ({
         HomeActions: bindActionCreators(homeActions, dispatch)

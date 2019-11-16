@@ -28,18 +28,20 @@ class CollectionContainer extends Component {
     }
 
     render() {
-        const { result } = this.props;
+        const { result, loading } = this.props;
         return (
-            <>
-            {result && <CollectionPresenter result={result} />}
-            </>
+            <CollectionPresenter 
+                result={result} 
+                loading={loading}
+            />
         );
     }
 }
 
 export default withRouter(connect(
     (state) => ({
-        result: state.collection.result
+        result: state.collection.result,
+        loading: state.loading['collection/GET_COLLECTION_LIST']
     }), 
     (dispatch) => ({
         CollectionActions: bindActionCreators(collectionActions, dispatch)

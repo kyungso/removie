@@ -5,13 +5,13 @@ import createRequestSaga, { createRequestActionTypes } from 'store/createRequest
 import { moviesApi } from 'lib/api';
 
 // action types
-const [GET_MOVIE_NOWPLAYING, GET_MOVIE_NOWPLAYING_SUCCESS, GET_MOVIE_NOWPLAYING_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_NOWPLAYING, GET_MOVIE_NOWPLAYING_SUCCESS] = createRequestActionTypes(
     'movie/GET_MOVIE_NOWPLAYING'
 );
-const [GET_MOVIE_UPCOMING, GET_MOVIE_UPCOMING_SUCCESS, GET_MOVIE_UPCOMING_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_UPCOMING, GET_MOVIE_UPCOMING_SUCCESS] = createRequestActionTypes(
     'movie/GET_MOVIE_UPCOMING'
 );
-const [GET_MOVIE_POPULAR, GET_MOVIE_POPULAR_SUCCESS, GET_MOVIE_POPULAR_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_POPULAR, GET_MOVIE_POPULAR_SUCCESS] = createRequestActionTypes(
     'movie/GET_MOVIE_POPULAR'
 );
 
@@ -34,7 +34,7 @@ export function* movieSaga() {
 const initialState = {
     nowPlaying: null,
     upcoming: null,
-    popular: null,
+    popular: null
 };
 
 // reducer

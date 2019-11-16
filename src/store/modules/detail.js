@@ -5,45 +5,45 @@ import createRequestSaga, { createRequestActionTypes } from 'store/createRequest
 import { moviesApi, tvApi, accountApi } from 'lib/api';
 
 // action types
-const [GET_MOVIE_DETAIL, GET_MOVIE_DETAIL_SUCCESS, GET_MOVIE_DETAIL_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_DETAIL, GET_MOVIE_DETAIL_SUCCESS] = createRequestActionTypes(
     'detail/GET_MOVIE_DETAIL'
 );
-const [GET_MOVIE_ACCOUNT_STATE, GET_MOVIE_ACCOUNT_STATE_SUCCESS, GET_MOVIE_ACCOUNT_STATE_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_ACCOUNT_STATE, GET_MOVIE_ACCOUNT_STATE_SUCCESS] = createRequestActionTypes(
     'detail/GET_MOVIE_ACCOUNT_STATE'
 );
-const [GET_MOVIE_IMDB_ID, GET_MOVIE_IMDB_ID_SUCCESS, GET_MOVIE_IMDB_ID_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_IMDB_ID, GET_MOVIE_IMDB_ID_SUCCESS] = createRequestActionTypes(
     'detail/GET_MOVIE_IMDB_ID'
 );
-const [GET_MOVIE_VIDEOS, GET_MOVIE_VIDEOS_SUCCESS, GET_MOVIE_VIDEOS_FAILURE] = createRequestActionTypes(
+const [GET_MOVIE_VIDEOS, GET_MOVIE_VIDEOS_SUCCESS] = createRequestActionTypes(
     'detail/GET_MOVIE_VIDEOS'
 );
 
-const [GET_TV_DETAIL, GET_TV_DETAIL_SUCCESS, GET_TV_DETAIL_FAILURE] = createRequestActionTypes(
+const [GET_TV_DETAIL, GET_TV_DETAIL_SUCCESS] = createRequestActionTypes(
     'detail/GET_TV_DETAIL'
 );
-const [GET_TV_ACCOUNT_STATE, GET_TV_ACCOUNT_STATE_SUCCESS, GET_TV_ACCOUNT_STATE_FAILURE] = createRequestActionTypes(
+const [GET_TV_ACCOUNT_STATE, GET_TV_ACCOUNT_STATE_SUCCESS] = createRequestActionTypes(
     'detail/GET_TV_ACCOUNT_STATE'
 );
-const [GET_TV_IMDB_ID, GET_TV_IMDB_ID_SUCCESS, GET_TV_IMDB_ID_FAILURE] = createRequestActionTypes(
+const [GET_TV_IMDB_ID, GET_TV_IMDB_ID_SUCCESS] = createRequestActionTypes(
     'detail/GET_TV_IMDB_ID'
 );
-const [GET_TV_VIDEOS, GET_TV_VIDEOS_SUCCESS, GET_TV_VIDEOS_FAILURE] = createRequestActionTypes(
+const [GET_TV_VIDEOS, GET_TV_VIDEOS_SUCCESS] = createRequestActionTypes(
     'detail/GET_TV_VIDEOS'
 );
 
-const [MARK_AS_FAVORITE, MARK_AS_FAVORITE_SUCCESS, MARK_AS_FAVORITE_FAILURE] = createRequestActionTypes(
+const [MARK_AS_FAVORITE, MARK_AS_FAVORITE_SUCCESS] = createRequestActionTypes(
     'detail/MARK_AS_FAVORITE'
 );
-const [DELETE_RATING_MOVIES, DELETE_RATING_MOVIES_SUCCESS, DELETE_RATING_MOVIES_FAILURE] = createRequestActionTypes(
+const [DELETE_RATING_MOVIES, DELETE_RATING_MOVIES_SUCCESS] = createRequestActionTypes(
     'detail/DELETE_RATING_MOVIES'
 );
-const [DELETE_RATING_TV, DELETE_RATING_TV_SUCCESS, DELETE_RATING_TV_FAILURE] = createRequestActionTypes(
+const [DELETE_RATING_TV, DELETE_RATING_TV_SUCCESS] = createRequestActionTypes(
     'detail/DELETE_RATING_TV'
 );
-const [POST_RATING_MOVIES, POST_RATING_MOVIES_SUCCESS, POST_RATING_MOVIES_FAILURE] = createRequestActionTypes(
+const [POST_RATING_MOVIES, POST_RATING_MOVIES_SUCCESS] = createRequestActionTypes(
     'detail/POST_RATING_MOVIES'
 );
-const [POST_RATING_TV, POST_RATING_TV_SUCCESS, POST_RATING_TV_FAILURE] = createRequestActionTypes(
+const [POST_RATING_TV, POST_RATING_TV_SUCCESS] = createRequestActionTypes(
     'detail/POST_RATING_TV'
 );
 
