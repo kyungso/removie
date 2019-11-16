@@ -21,7 +21,7 @@ export const moviesApi = {
                 append_to_response: "videos"
             }
         }),
-    movieAccountState: (id, session_id) => api.get(`movie/${id}/account_states`, {
+    movieAccountState: ({id, session_id}) => api.get(`movie/${id}/account_states`, {
         params: {
             session_id: session_id
         }
@@ -30,11 +30,11 @@ export const moviesApi = {
         api.get(`movie/${id}/external_ids`),
     movieVideos: id =>
         api.get(`movie/${id}/videos`),
-    search: (term, i) => 
+    search: ({searchTerm, page}) => 
         api.get("search/movie", {
             params: {
-                query: decodeURIComponent(term),
-                page: i            
+                query: searchTerm,
+                page: page            
             }
         })
 };
@@ -50,7 +50,7 @@ export const tvApi = {
                 append_to_response: "videos"
             }
         }),
-    showAccountState: (id, session_id) => api.get(`tv/${id}/account_states`, {
+    showAccountState: ({id, session_id}) => api.get(`tv/${id}/account_states`, {
         params: {
             session_id: session_id
         }
@@ -59,11 +59,11 @@ export const tvApi = {
         api.get(`tv/${id}/external_ids`),
     showVideos: id =>
         api.get(`tv/${id}/videos`),
-    search: (term, i) =>
+    search: ({searchTerm, page}) =>
         api.get("search/tv", {
             params: {
-                query: decodeURIComponent(term),
-                page: i
+                query: searchTerm,
+                page: page
             }
         })
 };
@@ -71,11 +71,11 @@ export const tvApi = {
 export const collectionApi = {
     collectionDetail: id => 
         api.get(`collection/${id}`),
-    search: (term, i) =>
+    search: ({searchTerm, page}) =>
         api.get("search/collection", {
             params: {
-                query: decodeURIComponent(term),
-                page: i
+                query: searchTerm,
+                page: page
             }
         })
 
@@ -94,18 +94,18 @@ export const accountApi = {
             session_id: session_id
         }
     }),
-    getFavoriteMovies: (account_id, session_id) => api.get(`account/${account_id}/favorite/movies`, {
+    getFavoriteMovies: ({account_id, session_id}) => api.get(`account/${account_id}/favorite/movies`, {
         params: {
             session_id: session_id
         }
     }),
-    getFavoriteTV: (account_id, session_id) => api.get(`account/${account_id}/favorite/tv`, {
+    getFavoriteTV: ({account_id, session_id}) => api.get(`account/${account_id}/favorite/tv`, {
         params: {
             session_id: session_id
         }
     }),
     getGenreList: () => api.get("genre/movie/list"),
-    markAsFavorite: (account_id, session_id, {media_type, media_id, favorite}) => {
+    markAsFavorite: async({account_id, session_id, media_type, media_id, favorite}) => 
         api.post(`account/${account_id}/favorite`, {
             media_type: media_type,
             media_id: parseInt(media_id),
@@ -115,48 +115,43 @@ export const accountApi = {
             params: {
                 session_id: session_id
             },
-        })
-    },
-    getRatedMovies: (account_id, session_id) => api.get(`account/${account_id}/rated/movies`, {
+    }),
+    getRatedMovies: ({account_id, session_id}) => api.get(`account/${account_id}/rated/movies`, {
         params: {
             session_id: session_id
         }
     }),
-    getRatedTV: (account_id, session_id) => api.get(`account/${account_id}/rated/tv`, {
+    getRatedTV: ({account_id, session_id}) => api.get(`account/${account_id}/rated/tv`, {
         params: {
             session_id: session_id
         }
     }),
-    deleteRatingMovies: (movie_id, session_id) => api.delete(`movie/${movie_id}/rating`, {
+    deleteRatingMovies: ({id, session_id}) => api.delete(`movie/${id}/rating`, {
         headers: { 'content-type': 'application/json;charset=utf-8'},
         params: {
             session_id: session_id
         }
     }),
-    deleteRatingTV: (tv_id, session_id) => api.delete(`tv/${tv_id}/rating`, {
+    deleteRatingTV: ({id, session_id}) => api.delete(`tv/${id}/rating`, {
         headers: { 'content-type': 'application/json;charset=utf-8'},
         params: {
             session_id: session_id
         }
     }),
-    postRatingMovies: (movie_id, rate, session_id) => { 
-        api.post(`movie/${movie_id}/rating`, {
+    postRatingMovies: ({id, rate, session_id}) => api.post(`movie/${id}/rating`, {
             value: rate
         },{
             headers: { 'content-type': 'application/json;charset=utf-8'},
             params: {
                 session_id: session_id
             }
-        })
-    },
-    postRatingTV: (tv_id, rate, session_id) => {
-        api.post(`tv/${tv_id}/rating`, {
+    }),
+    postRatingTV: ({id, rate, session_id}) => api.post(`tv/${id}/rating`, {
             value: rate
         },{
             headers: { 'content-type': 'application/json;charset=utf-8'},
             params: {
                 session_id: session_id
             }
-        })
-    }
+    })
 }

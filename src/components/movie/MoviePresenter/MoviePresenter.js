@@ -4,14 +4,17 @@ import PropTypes from "prop-types";
 import styles from './MoviePresenter.scss';
 import classNames from 'classnames/bind';
 
+import Loader from "components/common/Loader";
 import Section from "components/section/SectionTemplate";
 import Poster from "components/common/Poster";
 
 const cx = classNames.bind(styles);
 
-const MoviePresenter = ({ nowPlaying, upcoming, popular }) => (
+const MoviePresenter = ({ nowPlaying, upcoming, popular, loading }) => (
     <>
-        <div className={cx('movie-container')}>
+    {loading 
+        ? <Loader />
+        : <div className={cx('movie-container')}>
             {nowPlaying && nowPlaying.length > 0 && (
                 <Section title="Now Playing">
                     {nowPlaying.map(movie => (
@@ -60,6 +63,7 @@ const MoviePresenter = ({ nowPlaying, upcoming, popular }) => (
                 </Section>
             )}
         </div>
+    }
     </>
 );
 

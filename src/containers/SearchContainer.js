@@ -30,12 +30,20 @@ class SearchContainer extends PureComponent {
                 this.refreshSearchByTerm(value, 1);
             }
         }
-        
+
+        document.documentElement.scrollTop = 0;
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.location.pathname !== prevProps.location.pathname) {
-            this.originSearchByTerm();
+        let { location: { pathname }, searchTerm, SearchActions } = this.props;
+        if(pathname !== prevProps.location.pathname) {
+            if(pathname === "/search/movie_result") {
+                SearchActions.getSearchMovies({searchTerm}, 1);
+            } else if(pathname === "/search/tv_result") {
+                SearchActions.getSearchTV({searchTerm}, 1);
+            } else if(pathname === "/search/collection_result") {
+                SearchActions.getSearchCollection({searchTerm}, 1);
+            }
         }
     }
 
@@ -54,13 +62,23 @@ class SearchContainer extends PureComponent {
         }
     };
 
-    searchByTerm = async (searchTerm, page) => {
-        const { SearchActions } = this.props;
+    searchByTerm = (searchTerm, page) => {
+        const { location: { pathname }, SearchActions } = this.props;
 
         try {
-            await SearchActions.getSearchMovies(searchTerm, page);
-            await SearchActions.getSearchTV(searchTerm, page);
-            await SearchActions.getSearchCollection(searchTerm, page);
+            if(page === 1) {
+                SearchActions.getSearchMovies({searchTerm, page});
+                SearchActions.getSearchTV({searchTerm, page});
+                SearchActions.getSearchCollection({searchTerm, page});
+            }else {
+                if(pathname === "/search/movie_result") {
+                    SearchActions.getSearchMovies({searchTerm, page});
+                } else if(pathname === "/search/tv_result") {
+                    SearchActions.getSearchTV({searchTerm, page});
+                } else if(pathname === "/search/collection_result") {
+                    SearchActions.getSearchCollection({searchTerm, page});
+                }
+            }
         } catch (e) {
             console.log(e);
         } 
@@ -72,13 +90,13 @@ class SearchContainer extends PureComponent {
     refreshSearchByTerm = (searchTerm, page) => {
         this.searchByTerm(searchTerm, page);
     };
-    searchByPage = async (page) => {
+    searchByPage = (page) => {
         const { searchTerm } = this.props;
         this.searchByTerm(searchTerm, page);
     }
 
     render() {
-        const { movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionTotalPages, collectionTotalResults, collectionResults, searchTerm, activePage, loading } = this.props;
+        const { movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionTotalPages, collectionTotalResults, collectionResults, searchTerm, activePage } = this.props;
         return(
             <SearchPresenter 
                 movieResults={movieResults}
@@ -92,7 +110,6 @@ class SearchContainer extends PureComponent {
                 collectionTotalResults={collectionTotalResults}
                 searchTerm={searchTerm}
                 activePage={activePage}
-                loading={loading}
                 handleSubmit={this.handleSubmit}
                 updateTerm={this.updateTerm}
                 searchByPage={this.searchByPage}
@@ -103,20 +120,17 @@ class SearchContainer extends PureComponent {
 
 export default withRouter(connect(
     (state) => ({
-        movieResults: state.search.get('movieResults'),
-        movieTotalPages: state.search.get('movieTotalPages'),
-        movieTotalResults: state.search.get('movieTotalResults'),
-        tvResults: state.search.get('tvResults'),
-        tvTotalPages: state.search.get('tvTotalPages'),
-        tvTotalResults: state.search.get('tvTotalResults'),
-        collectionResults: state.search.get('collectionResults'),
-        collectionTotalPages: state.search.get('collectionTotalPages'),
-        collectionTotalResults: state.search.get('collectionTotalResults'),
-        searchTerm: state.search.get('searchTerm'),
-        activePage: state.search.get('activePage'),
-        loading: state.pender.pending['search/GET_SEARCH_MOVIES'] 
-              || state.pender.pending['search/GET_SEARCH_TV'] 
-              || state.pender.pending['search/GET_SEARCH_COLLECTION'] 
+        movieResults: state.search.movieResults,
+        movieTotalPages: state.search.movieTotalPages,
+        movieTotalResults: state.search.movieTotalResults,
+        tvResults: state.search.tvResults,
+        tvTotalPages: state.search.tvTotalPages,
+        tvTotalResults: state.search.tvTotalResults,
+        collectionResults: state.search.collectionResults,
+        collectionTotalPages: state.search.collectionTotalPages,
+        collectionTotalResults: state.search.collectionTotalResults,
+        searchTerm: state.search.searchTerm,
+        activePage: state.search.activePage
     }),
     (dispatch) => ({
         SearchActions: bindActionCreators(searchActions, dispatch)

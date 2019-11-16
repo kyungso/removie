@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from 'react-router-dom';
 
@@ -10,19 +10,6 @@ import Poster from 'components/common/Poster';
 const cx = classNames.bind(styles);
 
 const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favoriteTV, handleFavoriteBtn }) => {    
-
-    const favoriteBtnMovie = Array.from({length: favoriteMovies.length}, a => useRef(null));
-    const favoriteBtnTV = Array.from({length: favoriteTV.length}, a => useRef(null));
-    const onFavoriteToggle = (index) => {
-        if(pathname === "/account/favorite") {
-            favoriteBtnMovie[index].current.style.backgroundColor = '#959595';
-            favoriteBtnMovie[index].current.style.border = '#959595';
-        } else if(pathname === "/account/favorite/tv") {
-            favoriteBtnTV[index].current.style.backgroundColor = '#959595';
-            favoriteBtnTV[index].current.style.border = '#959595';
-        }
-    }
-
     return (
         <>
         <div className={cx('favorite-container')}>
@@ -52,7 +39,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
 
             <div className={cx('favorite-content')}>
             {pathname === "/account/favorite" && 
-                favoriteMovies.map((movie, index) => (
+                favoriteMovies.map((movie) => (
                     <div className={cx('favorite-items')} key={movie.id}>
                         <Poster
                             key={movie.id}
@@ -74,8 +61,8 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                             <div className={cx('actionBar')}>
                                 <ul>
                                     <li>
-                                        <div className={cx('favoriteButton')} onClick={() => { onFavoriteToggle(index); handleFavoriteBtn(movie.id)}} >
-                                            <span className={cx('glyphicon glyphicon-heart')} ref={favoriteBtnMovie[index]}></span>
+                                        <div className={cx('favoriteButton')} onClick={() => handleFavoriteBtn(movie.id)} >
+                                            <span className={cx('glyphicon glyphicon-heart')}></span>
                                              Favorite
                                         </div>
                                     </li>
@@ -86,7 +73,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                 ))
             }
             {pathname === "/account/favorite/tv" && 
-                favoriteTV.map((show, index) => (
+                favoriteTV.map((show) => (
                     <div className={cx('favorite-items')} key={show.id}>
                         <Poster
                             key={show.id}
@@ -108,8 +95,8 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                             <div className={cx('actionBar')}>
                                 <ul>
                                     <li>
-                                        <div className={cx('favoriteButton')} onClick={() => { onFavoriteToggle(index); handleFavoriteBtn(show.id)}} >
-                                            <span className={cx('glyphicon glyphicon-heart')} ref={favoriteBtnTV[index]}></span>
+                                        <div className={cx('favoriteButton')} onClick={() => handleFavoriteBtn(show.id)} >
+                                            <span className={cx('glyphicon glyphicon-heart')}></span>
                                              Favorite
                                         </div>
                                     </li>

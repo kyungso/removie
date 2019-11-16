@@ -1,9 +1,39 @@
-export { default as home } from './home';
-export { default as login } from './login';
-export { default as account } from './account';
-export { default as movie } from './movie';
-export { default as tv } from './tv';
-export { default as collection } from './collection';
-export { default as detail } from './detail';
-export { default as search } from './search';
-export { penderReducer as pender } from 'redux-pender';
+import { combineReducers } from 'redux';
+import { all } from 'redux-saga/effects';
+
+import home, { homeSaga } from './home';
+import login, { loginSaga } from './login';
+import account, { accountSaga } from './account';
+import movie, { movieSaga } from './movie';
+import tv, { tvSaga } from './tv';
+import collection, { collectionSaga } from './collection';
+import detail, { detailSaga } from './detail';
+import search, { searchSaga } from './search';
+import loading from './loading';
+
+const rootReducer = combineReducers({
+    home,
+    login,
+    account,
+    movie,
+    tv,
+    collection,
+    detail,
+    search,
+    loading
+});
+
+export function* rootSaga() {
+  yield all([
+    homeSaga(), 
+    loginSaga(),
+    accountSaga(),
+    movieSaga(),
+    tvSaga(),
+    collectionSaga(),
+    detailSaga(),
+    searchSaga()
+  ]);
+}
+
+export default rootReducer;

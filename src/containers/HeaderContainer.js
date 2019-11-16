@@ -4,19 +4,21 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from 'store/modules/login';
+import * as accountActions from 'store/modules/account';
 
 import Header from "components/common/Header";
 
 class HeaderContainer extends Component {
 
     componentDidUpdate(prevProps) {
+        let logged = localStorage.getItem('logged')
+        let token = localStorage.getItem('token');
+        let session_id = localStorage.getItem('session_id');
+        const { LoginActions } = this.props;
+
         if(this.props.logged !== prevProps.logged) {
-            const { LoginActions } = this.props;
-            let logged = localStorage.getItem('logged')
-            let token = localStorage.getItem('token');
-            let sessionId = localStorage.getItem('session_id');
             try {
-                if(logged === 'true' && !sessionId) {
+                if(logged === 'true' && !session_id) {
                     LoginActions.createSessionId(token);
                 }
             } catch(e) {
@@ -25,12 +27,14 @@ class HeaderContainer extends Component {
         }
     }
 
-    handleLogout = async () => {
-        const { LoginActions } = this.props;
+    handleLogout = () => {
+        const { LoginActions, AccountActions } = this.props;
         try {
-            let sessionId = localStorage.getItem('session_id');
-            await LoginActions.deleteSessionId(sessionId);
-            await LoginActions.initialize();
+            let session_id = localStorage.getItem('session_id');
+            LoginActions.deleteSessionId(session_id);
+            LoginActions.initialize();
+            AccountActions.initialize();
+            localStorage.clear();
             window.location.href = '#/';
         } catch(e) {
             console.log(e);
@@ -47,13 +51,13 @@ class HeaderContainer extends Component {
 
 export default withRouter(connect(
     (state) => ({
-        username: state.login.get('username'),
-        session_id: state.login.get('session_id'),
-        logged: state.login.get('logged'),
-        loading: state.pender.pending['login/CREATE_SESSION_ID']
-              || state.pender.pending['login/DELETE_SESSION_ID'] 
+        username: state.login.username,
+        session_id: state.login.session_id,
+        logged: state.login.logged,
+        accountDetail: state.account.accountDetail
     }),
     (dispatch) => ({
-        LoginActions: bindActionCreators(loginActions, dispatch)
+        LoginActions: bindActionCreators(loginActions, dispatch),
+        AccountActions: bindActionCreators(accountActions, dispatch)
     })
 )(HeaderContainer));

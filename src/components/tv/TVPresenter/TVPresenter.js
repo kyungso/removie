@@ -4,14 +4,17 @@ import PropTypes from "prop-types";
 import styles from './TVPresenter.scss';
 import classNames from 'classnames/bind';
 
+import Loader from "components/common/Loader";
 import Section from "components/section/SectionTemplate";
 import Poster from "components/common/Poster";
 
 const cx = classNames.bind(styles);
 
-const TVPresenter = ({ topRated, popular, airingToday }) => (
+const TVPresenter = ({ topRated, popular, airingToday, loading }) => (
     <>
-        <div className={cx('tv-container')}>
+    { loading  
+        ? <Loader />
+        : <div className={cx('tv-container')}>
             {topRated && topRated.length > 0 && (
                 <Section title="Top Rated Shows">
                     {topRated.map(show => (
@@ -57,6 +60,7 @@ const TVPresenter = ({ topRated, popular, airingToday }) => (
                 </Section>
             )}
         </div>
+    }
     </>
 );
 

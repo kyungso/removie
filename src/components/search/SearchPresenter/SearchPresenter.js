@@ -5,13 +5,12 @@ import Helmet from "react-helmet";
 import styles from './SearchPresenter.scss';
 import classNames from 'classnames/bind';
 
-import Loader from "components/common/Loader";
 import SearchTab from  "components/search/SearchTab";
 import SearchResults from "components/search/SearchResults";
 
 const cx = classNames.bind(styles);
 
-const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionResults, collectionTotalPages, collectionTotalResults, searchTerm, activePage, loading, handleSubmit, updateTerm, searchByPage }) => 
+const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionResults, collectionTotalPages, collectionTotalResults, searchTerm, activePage, handleSubmit, updateTerm, searchByPage }) => 
     <div className={cx('search-container')}>
         <Helmet>
             <title>Search | REMOVIE</title>
@@ -24,28 +23,24 @@ const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvR
                 onChange={updateTerm}
             />
         </form>
-        {loading ? (
-            <Loader />
-        ) : (
-            <>  
-                {(movieResults && tvResults && collectionResults) &&
-                <>
-                    <SearchTab movieTotalResults={movieTotalResults} 
-                               tvTotalResults={tvTotalResults}
-                               collectionTotalResults={collectionTotalResults}
-                               searchTerm={searchTerm}
-                    /> 
-                    <SearchResults movieResults={movieResults} movieTotalPages={movieTotalPages} 
-                                   tvResults={tvResults} tvTotalPages={tvTotalPages}
-                                   collectionResults={collectionResults} collectionTotalPages={collectionTotalPages}
-                                   searchTerm={searchTerm} searchByPage={searchByPage}
-                                   activePage={activePage}
-                    />
-                </>
-
-                }
+        <>  
+            {(movieResults && tvResults && collectionResults) &&
+            <>
+                <SearchTab movieTotalResults={movieTotalResults} 
+                           tvTotalResults={tvTotalResults}
+                           collectionTotalResults={collectionTotalResults}
+                           searchTerm={searchTerm}
+                /> 
+                <SearchResults movieResults={movieResults} movieTotalPages={movieTotalPages} 
+                               tvResults={tvResults} tvTotalPages={tvTotalPages}
+                               collectionResults={collectionResults} collectionTotalPages={collectionTotalPages}
+                               searchTerm={searchTerm} searchByPage={searchByPage}
+                               activePage={activePage}
+                />
             </>
-        )}
+
+            }
+        </>
     </div>
 
 SearchPresenter.propTypes = {
@@ -58,7 +53,6 @@ SearchPresenter.propTypes = {
     collectionResults: PropTypes.array,
     collectionTotalPages: PropTypes.number,
     collectionTotalResults: PropTypes.number,
-    loading: PropTypes.bool,
     searchTerm: PropTypes.string,
     activePage: PropTypes.number,
     handleSubmit: PropTypes.func.isRequired,
