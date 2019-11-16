@@ -14,6 +14,7 @@ class HomeContainer extends Component {
         HomeActions.getMovieTrending();
         HomeActions.getTvTrending();
         HomeActions.getTopRated();
+        document.documentElement.scrollTop = 0;
     }
 
     render() {
