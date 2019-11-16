@@ -1,39 +1,70 @@
 # REMOVIE
 
-Learning React and ES6 by building a Movie Discovery App.
+Enjoying a variety of movie, tv series, collection
+
+- react / redux / redux-saga / Sass + CSS Module / axios
+
+## API Verbs
+
+using **['The Movie Database(TMDb) API v3'](https://www.themoviedb.org/documentation/api?language=en-US)** for Data
+
+<br>
 
 ## Screens
 
 - [x] Home
-- [x] Movies
+- [x] Login
+- [x] Account
+- [x] Movie
 - [x] TV
-- [x] Search
-- [x] Detail
 - [x] Collection
-- [] Account
+- [x] Detail
+- [x] Search
 
-## API Verbs
+<br>
 
-calling **'The Movie Database(TMDb) API v3'** for Data
+## Main Function
 
+#### Home
 
-## Code Challenges
+- using Carousel [(react-slick)](https://github.com/akiran/react-slick)
 
-- [x] IMDB Link (Detail)
-- [x] Tabs inside of Movie / Show Details (Production Company, Countries, Youtube Videos)
-- [x] Tabs inside of Search page (Movie, TV show, Collection result)
-- [x] maintain state after a page refresh (Search)
-- [x] /collection Route
-- [x] Home Screen (Get the daily trending items)
-- [x] Carousel (react-slick) in Home
-- [x] login using session
-- [x] account button using dropdown of bootstrap
-- [x] Tabs inside of Account page (Overview, Favorites, Ratings)
-- [x] chart (react-chartjs-2) in Overview
-- [x] favorite button to mark a favorite movie or TV show in Favorites (Post request)
-- [] rating button to rate a movie (Post request)
-- [] consider using Windows OS (Scrollbar)
+<br>
+
+#### Login
+
+- get session-id by login using TMDB id, password 
+- get account data using session-id 
+
+<br>
+
+#### Account
+
+- Tabs inside of this page [ Overview / Favorites / Ratings ] 
+- using chart [(react-chartjs-2)](https://github.com/jerairrest/react-chartjs-2) for overview of rated movies, tv shows
+- favorite button to cancel favorite movie list or tv show list
+- rating button to rate movies or tv shows
+
+<br>
+
+#### Detail
+
+- IMDB(Internet Movie Database) Link 
+- favorite button to mark or cancel movies and tv shows
+- rating button to rate movies and tv shows
+- Tabs inside of this page [ Overview / Production Companies / Production Countries ]
+- add related Youtube Videos
+
+<br>
+
+#### Search
+
+- result Tabs inside of this page [ Movies / TV shows / Collections ]
+- Pagination for results
+- maintain state after a page refresh
+
+<br>
 
 # Preview:
 
-Try it on [netlify](https://peaceful-noyce-3ec9f1.netlify.com/#/)
+Try it on [https://removie.netlify.com/](https://removie.netlify.com/)
