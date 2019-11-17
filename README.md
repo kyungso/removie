@@ -4,6 +4,8 @@ Enjoying a variety of movie, tv series, collection
 
 - react / redux / redux-saga / Sass + CSS Module / axios
 
+<br>
+
 ## API Verbs
 
 using **['The Movie Database(TMDb) API v3'](https://www.themoviedb.org/documentation/api?language=en-US)** for Data
