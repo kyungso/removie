@@ -8,13 +8,13 @@ import { moviesApi, tvApi, collectionApi } from 'lib/api';
 const INITIALIZE = 'search/INITIALIZE';
 const CHANGE_INPUT = 'search/CHANGE_INPUT';
 
-const [GET_SEARCH_MOVIES, GET_SEARCH_MOVIES_SUCCESS, GET_SEARCH_MOVIES_FAILURE] = createRequestActionTypes(
+const [GET_SEARCH_MOVIES, GET_SEARCH_MOVIES_SUCCESS] = createRequestActionTypes(
     'search/GET_SEARCH_MOVIES'
 );
-const [GET_SEARCH_TV, GET_SEARCH_TV_SUCCESS, GET_SEARCH_TV_FAILURE] = createRequestActionTypes(
+const [GET_SEARCH_TV, GET_SEARCH_TV_SUCCESS] = createRequestActionTypes(
     'search/GET_SEARCH_TV'
 );
-const [GET_SEARCH_COLLECTION, GET_SEARCH_COLLECTION_SUCCESS, GET_SEARCH_COLLECTION_FAILURE] = createRequestActionTypes(
+const [GET_SEARCH_COLLECTION, GET_SEARCH_COLLECTION_SUCCESS] = createRequestActionTypes(
     'search/GET_SEARCH_COLLECTION'
 );
 
