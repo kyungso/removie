@@ -28,7 +28,7 @@ let month = [];
     month[11] = "December";
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 
-const DetailActionBar = ({ account_state, handleFavoriteBtn, handleClearRating, handleRating }) => {
+const DetailActionBar = ({ account_state, vote_average, handleFavoriteBtn, handleClearRating, handleRating }) => {
 
     let isFavorite = false;
     let rating = 0;
@@ -89,6 +89,12 @@ const DetailActionBar = ({ account_state, handleFavoriteBtn, handleClearRating, 
                       style={{ color: `${isRating}` }}>
                 </span>
             </OverlayTrigger>
+        </span>
+        <span className={cx('rating_average')}>
+            <span role="img" aria-label="rating">
+                평점 ⭐️
+            </span>{" "}
+            {vote_average} / 10
         </span>
     </div>
     </>

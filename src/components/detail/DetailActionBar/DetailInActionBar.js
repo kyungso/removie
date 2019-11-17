@@ -8,7 +8,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const DetailInActionBar = () => {
+const DetailInActionBar = ({ vote_average }) => {
     
     return (
     <>
@@ -34,6 +34,12 @@ const DetailInActionBar = () => {
                 }>
                 <span className={cx('glyphicon glyphicon-star')}></span>
             </OverlayTrigger>
+        </span>
+        <span className={cx('rating_average')}>
+            <span role="img" aria-label="rating">
+                평점 ⭐️
+            </span>{" "}
+            {vote_average} / 10
         </span>
     </div>
     </>

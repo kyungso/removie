@@ -66,11 +66,14 @@ const DetailPresenter = ({ result, account_state, imdb_id, videos, loading, hand
                     { account_state ?
                     <DetailActionBar 
                         account_state={account_state} 
+                        vote_average={result.vote_average}
                         handleFavoriteBtn={handleFavoriteBtn} 
                         handleClearRating={handleClearRating}
                         handleRating={handleRating} 
                     />
-                    : <DetailInActionBar />
+                    : <DetailInActionBar 
+                        vote_average={result.vote_average}
+                      />
                     }
                 </div>
                 <div className={cx('detailItem-container', 'detailTab-wrapper')}>

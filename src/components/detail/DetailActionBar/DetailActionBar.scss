@@ -9,6 +9,12 @@ body a:hover {
 .actionBar {
     display: flex;
     justify-content: flex-start;
+
+    .rating_average {
+        display: flex;
+        font-size: 15px;
+        margin-top: 8px;
+    }
 }
 
 // favorite button
