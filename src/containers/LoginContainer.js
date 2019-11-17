@@ -35,24 +35,25 @@ class LoginContainer extends Component {
         }
     };
 
-    validateWithLogin = async () => {
+    validateWithLogin = () => {
         const { username, password, LoginActions } = this.props;
         try {	
             localStorage.setItem('username', username);
             let request_token = localStorage.getItem('token');
-            await LoginActions.validateWithLogin({username, password, request_token});	
+            LoginActions.validateWithLogin({username, password, request_token});	
         } catch (e) { 	
             console.log(e);	
         }	
     };
 
     render() {
-        const { username, password } = this.props;
+        const { username, password, inputFocus } = this.props;
 
         return(
             <LoginPresenter 
                 username={username}
                 password={password}
+                inputFocus={inputFocus}
                 handleSubmit={this.handleSubmit}
                 updateField={this.updateField}
                 enterSubmit={this.enterSubmit}
@@ -66,7 +67,8 @@ export default connect(
         username: state.login.username,
         password: state.login.password,
         request_token: state.login.request_token,
-        logged: state.login.logged
+        logged: state.login.logged,
+        inputFocus: state.login.inputFocus
     }),
     (dispatch) => ({
         LoginActions: bindActionCreators(loginActions, dispatch)

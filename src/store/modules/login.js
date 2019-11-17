@@ -46,7 +46,8 @@ const initialState = {
     session_id: null,
     username: '',
     password: '',
-    logged: false
+    logged: false,
+    inputFocus: false
 };
 
 // reducer
@@ -67,7 +68,7 @@ const login = handleActions({
     },
     [VALIDATE_WITH_LOGIN_FAILURE]: state => {
         alert('다시 로그인해주세요');
-        return {...state, username: '', password: '', logged: false };
+        return {...state, username: '', password: '', logged: false, inputFocus: true };
     },
     [CREATE_SESSION_ID_SUCCESS]: (state, { payload: { session_id }}) => {
         localStorage.setItem('session_id', session_id);
