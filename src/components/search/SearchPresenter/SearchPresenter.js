@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 
@@ -10,8 +10,15 @@ import SearchResults from "components/search/SearchResults";
 
 const cx = classNames.bind(styles);
 
-const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionResults, collectionTotalPages, collectionTotalResults, searchTerm, activePage, handleSubmit, updateTerm, searchByPage }) => 
-    <div className={cx('search-container')}>
+const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvResults, tvTotalPages, tvTotalResults, collectionResults, collectionTotalPages, collectionTotalResults, searchTerm, activePage, handleSubmit, updateTerm, searchByPage }) => { 
+    const searchRef = useRef(null);
+  
+    useEffect(() => {
+        searchRef.current.focus();
+    },[]);
+
+    return (
+     <div className={cx('search-container')}>
         <Helmet>
             <title>Search | REMOVIE</title>
         </Helmet>
@@ -21,6 +28,7 @@ const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvR
                 placeholder="Search Movies or TV Shows..."
                 value={searchTerm}
                 onChange={updateTerm}
+                ref={searchRef}
             />
         </form>
         <>  
@@ -41,7 +49,9 @@ const SearchPresenter = ({ movieResults, movieTotalPages, movieTotalResults, tvR
 
             }
         </>
-    </div>
+     </div>
+    );
+};
 
 SearchPresenter.propTypes = {
     movieResults: PropTypes.array,
