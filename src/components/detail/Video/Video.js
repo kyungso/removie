@@ -11,7 +11,7 @@ const Video = ({ videos }) => (
             {videos.results && videos.results !== null &&
                 videos.results.map(video => 
                 <div className={cx('video')} key={video.key}>
-                    <iframe title={video.key} src={`https://www.youtube.com/embed/${video.key}?showinfo=0&enablejsapi=1&origin=http://localhost:3000`} width='100%' height='100%' ></iframe>
+                    <iframe title={video.key} src={`https://www.youtube.com/embed/${video.key}`} width='100%' height='100%' ></iframe>
                 </div>
             )}
        </div>
