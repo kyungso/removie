@@ -21,7 +21,8 @@ class SearchContainer extends PureComponent {
         // refresh page case
         let query = queryString.parse(location.search);
         let value = query.keyword;
-        
+        console.log(query);
+        console.log(value);
         if(value && value.length > 0) {
             SearchActions.changeInput({value});
             if(query.page) {
@@ -63,7 +64,7 @@ class SearchContainer extends PureComponent {
     };
 
     searchByTerm = (searchTerm, page) => {
-        const { location: { pathname }, SearchActions } = this.props;
+        const { SearchActions } = this.props;
 
         try {
             if(page === 1) {
@@ -71,13 +72,9 @@ class SearchContainer extends PureComponent {
                 SearchActions.getSearchTV({searchTerm, page});
                 SearchActions.getSearchCollection({searchTerm, page});
             }else {
-                if(pathname === "/search/movie_result") {
-                    SearchActions.getSearchMovies({searchTerm, page});
-                } else if(pathname === "/search/tv_result") {
-                    SearchActions.getSearchTV({searchTerm, page});
-                } else if(pathname === "/search/collection_result") {
-                    SearchActions.getSearchCollection({searchTerm, page});
-                }
+                SearchActions.getSearchMovies({searchTerm, page});
+                SearchActions.getSearchTV({searchTerm, page});
+                SearchActions.getSearchCollection({searchTerm, page});
             }
         } catch (e) {
             console.log(e);
