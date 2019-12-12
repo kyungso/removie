@@ -52,7 +52,7 @@ const SearchResults = withRouter(({ location: { pathname }, movieResults, movieT
                         imageUrl={show.poster_path}
                         title={show.name}
                         rating={show.vote_average}
-                        year={show.first_air_date.substring(0, 4)}
+                        year={show.first_air_date ? show.first_air_date.substring(0, 4) : ''}
                     />
                 ))}
             </Section>

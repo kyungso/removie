@@ -21,8 +21,6 @@ class SearchContainer extends PureComponent {
         // refresh page case
         let query = queryString.parse(location.search);
         let value = query.keyword;
-        console.log(query);
-        console.log(value);
         if(value && value.length > 0) {
             SearchActions.changeInput({value});
             if(query.page) {

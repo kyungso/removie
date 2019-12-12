@@ -66,8 +66,10 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
         return null;
       })
 
+      // sort main genre
       arr_Pie = Object.entries(arr_Pie).sort((a,b) => b[1] - a[1]);
 
+      // calculate rest of main genre
       let otherData = 0;
       for(let i = 4; i < arr_Pie.length; i++) {
         otherData = otherData + arr_Pie[i][1];
