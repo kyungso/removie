@@ -49,6 +49,15 @@ class DetailContainer extends Component {
         }
     }
 
+    componentWillUnmount() {
+        const { DetailActions } = this.props;
+        try {
+           DetailActions.unloadDetail();
+        } catch (e){
+           console.log(e);
+        }
+    }
+
     handleFavoriteBtn = (media_id, favorite) => {
         const { location: { pathname }, DetailActions} = this.props;
         let session_id = localStorage.getItem('session_id');

@@ -46,6 +46,7 @@ const [POST_RATING_MOVIES, POST_RATING_MOVIES_SUCCESS] = createRequestActionType
 const [POST_RATING_TV, POST_RATING_TV_SUCCESS] = createRequestActionTypes(
     'detail/POST_RATING_TV'
 );
+const UNLOAD_DETAIL = 'detail/UNLOAD_DETAIL';
 
 // action creators
 export const getMovieDetail = createAction(GET_MOVIE_DETAIL);
@@ -64,6 +65,7 @@ export const deleteRatingTV = createAction(DELETE_RATING_TV);
 export const postRatingMovies = createAction(POST_RATING_MOVIES);
 export const postRatingTV = createAction(POST_RATING_TV);
 
+export const unloadDetail = createAction(UNLOAD_DETAIL);
 
 // create saga
 const getMovieDetailSaga = createRequestSaga(GET_MOVIE_DETAIL, moviesApi.movieDetail);
@@ -160,7 +162,8 @@ const detail =  handleActions({
     [POST_RATING_TV_SUCCESS]: (state, { meta }) => ({
         ...state,
         account_state: {...state.account_state, rated: { value: meta.rate }}
-    })
+    }),
+    [UNLOAD_DETAIL]: () => initialState,
 }, initialState);
 
 export default detail;
