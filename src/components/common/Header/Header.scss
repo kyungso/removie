@@ -77,8 +77,8 @@ body a:hover {
 
 #dropdown-item-button {
     color: #fff;
-    background-color: #ce3462;
-    border-color: #ce3462;
+    background-color: $hotPink;
+    border-color: $hotPink;
     border-radius: 50%;
     font-weight: 600;
     &:focus {

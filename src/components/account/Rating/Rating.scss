@@ -143,8 +143,8 @@ button {
                     justify-content: center;
 
                     &:hover {
-                        background-color: #959595;
-                        border: #959595;
+                        background-color: $gray;
+                        border: $gray;
                     }
                 }
             }
@@ -152,8 +152,8 @@ button {
             .ratingButton {
                 &:hover {
                     .rating_number {
-                        background-color: #959595;
-                        border: #959595;
+                        background-color: $gray;
+                        border: $gray;
                     }
                 }
                 &:focus {
@@ -167,7 +167,7 @@ button {
 
 .rating_tooltip {
     .tooltip-inner {
-        background-color: #959595;
+        background-color: $gray;
         color: white;
         padding: .4rem .6rem;
     }
@@ -180,7 +180,7 @@ button {
 }
 
 .bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
-    border-right-color: #959595 !important;
+    border-right-color: $gray !important;
 }
 
 .rating_stars_wrapper, .clear-rating {
