@@ -8,11 +8,41 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 const Pagination = withRouter(({ pages, toLink, activePage, onClick, scrollTo }) => {
+    let startIndexArr = [];
     let indexArr = [];
-    for(let i = 1; i <= pages; i++) {
-        indexArr.push(i); 
-    }
-    
+    const findPageIndex = totalPage => {
+        for(let j = 0; j < Math.floor(totalPage / 5) + 1; j++) {
+            startIndexArr.push(5 * j + 1);
+        }
+    };
+
+    const IndexCondition = activePage => {
+        if(startIndexArr.length === 1) {
+            partPagination(startIndexArr[0]);
+        }else if(activePage >= startIndexArr[startIndexArr.length-1]) {
+            partPagination(startIndexArr[startIndexArr.length-1]);
+        }
+        for(let k = 0; k < startIndexArr.length - 1; k++){
+            if(startIndexArr[k] <= activePage && activePage < startIndexArr[k+1]) {
+                partPagination(startIndexArr[k]);
+            }
+        }
+    };
+
+    const partPagination = startIndex => {
+        for(let i = startIndex; i < startIndex + 5; i++){
+           if(pages === i) {
+               indexArr.push(i);
+               break;
+           }else {
+            indexArr.push(i);
+           }
+        }
+    };
+
+    findPageIndex(pages);
+    IndexCondition(activePage);
+
     return (
     <>
     { pages > 0 &&
