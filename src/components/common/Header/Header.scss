@@ -14,7 +14,7 @@ body a:hover {
     height: 50px;
     display: flex;
     align-items: center;
-
+    flex-direction: row;
     background-color: rgba(20, 20, 20, 0.8);
     z-index: 10;
     box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
@@ -30,7 +30,7 @@ body a:hover {
 
 .left-content {
     display: flex;
-    width: 60%;
+    height: 100%;
     margin-left: 3%;
     color: #ffffff;
 
@@ -55,8 +55,8 @@ body a:hover {
 .right-content {
     display: flex;
     justify-content: flex-end;
-    width: 40%;
-    margin-right: 10%;
+    position: absolute;
+    right: 120px;
 
     .right-content-list {
         display: flex;
@@ -73,6 +73,107 @@ body a:hover {
         font-size: 15px;
         font-weight: 500;
     }
+}
+
+.right-content-list .custom-search-wrapper {
+    display: flex;
+    align-items: center;
+}
+/* Search bar */
+.icon-search svg {
+    width: 22px;
+}
+.icon-search svg path {
+    fill: #fff;
+}
+#custom-search .search-query {
+    padding: 5px;
+    width: 50px;
+    border: 2px solid transparent;
+    background-color: transparent;
+    color: transparent;
+    font-size: 1.2em;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+    margin-bottom: 0;
+}
+
+#custom-search .search-query::placeholder {
+    color: transparent;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+#custom-search .search-query::-webkit-input-placeholder {
+    color: transparent;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+#custom-search .search-query::-moz-placeholder {
+    color: transparent;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+  #custom-search .search-query:-moz-placeholder {
+    color: transparent;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+#custom-search .search-query:-ms-input-placeholder {
+    color: transparent;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+/* Style when Search is selected */
+#custom-search .search-query:focus {
+/*   border-radius: 50px; */
+    border: 1px solid white;
+    background-color: rgba(0,0,0,.75);
+    width: 268px;
+    height: 32px;
+    color: white;
+}
+    
+    /* Style for placeholder value plus fallbacks */
+#custom-search .search-query:focus::placeholder {
+    color: #cccccc;
+}
+    
+#custom-search .search-query:focus::-webkit-input-placeholder {
+    color: #cccccc;
+}
+    
+#custom-search .search-query:focus::-moz-placeholder {
+    color: transparent;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+    
+#custom-search .search-query:focus::-moz-placeholder {
+    color: transparent;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+}
+    
+#custom-search .search-query:focus:-ms-input-placeholder {
+    color: #cccccc;
+}
+
+/* Style for Button */
+#custom-search button {
+    border: 0;
+    background: none;
+    padding: 0;
+    width: 20px;
+    top: 10px;
+    left: -24px;
+    margin-bottom: 0;
+    border-radius: 3px;
+    outline: none;
+}
+
+#custom-search button span {
+    margin-left: -30px;
 }
 
 #dropdown-item-button {
