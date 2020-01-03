@@ -7,17 +7,19 @@ import classNames from 'classnames/bind';
 import Loader from 'components/common/Loader';
 import Section from "components/section/SectionTemplate";
 import Poster from "components/common/Poster";
-import Carousel from "components/carousel/HomeCarousel";
+import HomeCarousel from "components/carousel/HomeCarousel";
 
 const cx = classNames.bind(styles);
   
 const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
     <>
     {loading ? <Loader />
-        : <div className={cx('home-container')}>
-            {topRated && topRated.length > 0 && <Carousel topRated={topRated} />}
+        : (
+        <>
+        {topRated && topRated.length > 0 && <HomeCarousel topRated={topRated} />}
+        <div className={cx('home-container')}>
             {movieTrending && movieTrending.length > 0 && (
-                <Section title="Trending Movies" isHome={true}>
+                <Section title="오늘의 추천 영화" isHome={true}>
                     {movieTrending.map(movie => (
                         <Poster 
                             key={movie.id}
@@ -33,7 +35,7 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
             )}
 
             {tvTrending && tvTrending.length > 0 && (
-                <Section title="Trending TV Shows" isHome={true}>
+                <Section title="오늘의 추천 TV 프로그램" isHome={true}>
                     {tvTrending.map(show => (
                         <Poster 
                             key={show.id}
@@ -47,6 +49,8 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
                 </Section>
             )}
         </div>
+        </>
+        )
     }
     </>
 );

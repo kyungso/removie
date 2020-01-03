@@ -11,8 +11,8 @@ body a:focus {
 }
 
 .account-container {
-    padding-top: 7px;
-    min-height: calc(100vh - 11rem);
+    padding-top: 65px;
+    min-height: calc(100vh - 11.5rem);
 }
 
 .account-header {
@@ -60,6 +60,7 @@ body a:focus {
         }
         .account-year {
             padding-left: 30px;
+            padding-top: 5px;
             color: #7d7d7d;
             font-size: 14px;
             font-weight: 300;
@@ -79,7 +80,7 @@ body a:focus {
 
     .tab-menu {
         display: flex;
-        color: #AAAAAA;
+        color: #AAAAAA !important;
 
         .tab-menu-items {
             margin: 0 30px;
@@ -90,11 +91,17 @@ body a:focus {
     }
 }
 
-.link {
+.tab-menu-items .link {
     display: flex;
     height: 70px;
     align-items: center;
     justify-content: center;
+    .clicked {
+        color: #ffffff;
+    }
+    .notClicked {
+        color: #aaaaaa !important;
+    }
 }
 
 .account-tab-data {
@@ -102,9 +109,8 @@ body a:focus {
     width: 100%;
     min-height: calc(100vh - 24rem);
     background-color: black;
-    padding: 0px 150px;
+    padding: 0 150px;
     overflow: auto;
-    
     &::-webkit-scrollbar {
         display: none !important;
     }

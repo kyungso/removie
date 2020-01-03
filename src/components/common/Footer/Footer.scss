@@ -12,6 +12,11 @@
     justify-content: center;
     flex-direction: column;  // 위에서 아래로
 
+    .logo {
+        width: 100px;
+        height: 30px;
+        padding-left: 5px;
+    }
     .copyright {
         margin-top: 0.5rem;
         font-weight: 600;

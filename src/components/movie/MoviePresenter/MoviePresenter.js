@@ -16,7 +16,7 @@ const MoviePresenter = ({ nowPlaying, upcoming, popular, loading }) => (
         ? <Loader />
         : <div className={cx('movie-container')}>
             {nowPlaying && nowPlaying.length > 0 && (
-                <Section title="Now Playing">
+                <Section title="현재 상영 영화">
                     {nowPlaying.map(movie => (
                         <Poster 
                             key={movie.id}
@@ -32,7 +32,7 @@ const MoviePresenter = ({ nowPlaying, upcoming, popular, loading }) => (
             )}
                 
             {upcoming && upcoming.length > 0 && (
-                <Section title="Upcoming Movies">
+                <Section title="개봉 예정 영화">
                     {upcoming.map(movie => (
                         <Poster 
                             key={movie.id}
@@ -48,7 +48,7 @@ const MoviePresenter = ({ nowPlaying, upcoming, popular, loading }) => (
             )}
 
             {popular && popular.length > 0 && (
-                <Section title="Popular Movies">
+                <Section title="인기 영화">
                     {popular.map(movie => (
                         <Poster 
                             key={movie.id}

@@ -16,7 +16,7 @@ const TVPresenter = ({ topRated, popular, airingToday, loading }) => (
         ? <Loader />
         : <div className={cx('tv-container')}>
             {topRated && topRated.length > 0 && (
-                <Section title="Top Rated Shows">
+                <Section title="높은 평점의 TV 프로그램">
                     {topRated.map(show => (
                         <Poster 
                             key={show.id}
@@ -31,7 +31,7 @@ const TVPresenter = ({ topRated, popular, airingToday, loading }) => (
             )}
 
             {popular && popular.length > 0 && (
-                <Section title="Popular Shows">
+                <Section title="인기 TV 프로그램">
                     {popular.map(show => (
                         <Poster 
                             key={show.id}
@@ -46,7 +46,7 @@ const TVPresenter = ({ topRated, popular, airingToday, loading }) => (
             )}
 
             {airingToday && airingToday.length > 0 && (
-                <Section title="Airing Today">
+                <Section title="오늘 방영할 TV 프로그램">
                     {airingToday.map(show => (
                         <Poster 
                             key={show.id}
