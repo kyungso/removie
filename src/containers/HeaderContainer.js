@@ -35,7 +35,7 @@ class HeaderContainer extends Component {
             LoginActions.initialize();
             AccountActions.initialize();
             localStorage.clear();
-            window.location.href = '#/';
+            window.location.href = '/';
         } catch(e) {
             console.log(e);
         }

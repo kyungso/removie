@@ -6,15 +6,47 @@ import styles from './Header.scss';
 import classNames from 'classnames/bind';
 
 import logo from 'lib/assets/logo.png';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
 const Header = withRouter(({ location: { pathname }, handleLogout }) => {
+    const [handleScroll, setHandleScroll] = useState("");
     const [searchFocus, setSearchFocus] = useState(false);
+    const homeRef = useRef(null);
+    const movieRef = useRef(null);
+    const tvRef = useRef(null);
+    const loginRef = useRef(null);
     const searchRef = useRef(null);
     let username = localStorage.getItem('username');
+     
+    useEffect(() => {
+        window.addEventListener('scroll', () => setHandleScroll(window.scrollY > 80 ? "black" : ""));
+    },[]);
+
+    useEffect(() => {
+        if(pathname === "/") {
+            homeRef.current.classList.remove("notActive");
+            movieRef.current.classList.add("notActive");
+            tvRef.current.classList.add("notActive");
+            localStorage.getItem('logged') === 'false' && loginRef.current.classList.add("notActive");
+        } else if(pathname === "/movie") {
+            movieRef.current.classList.remove("notActive");
+            homeRef.current.classList.add("notActive");
+            tvRef.current.classList.add("notActive");
+            localStorage.getItem('logged') === 'false' && loginRef.current.classList.add("notActive");
+        } else if(pathname === "/tv") {
+            tvRef.current.classList.remove("notActive");
+            homeRef.current.classList.add("notActive");
+            movieRef.current.classList.add("notActive");
+            localStorage.getItem('logged') === 'false' && loginRef.current.classList.add("notActive");
+        } else if(pathname === "/login") {
+            loginRef.current.classList.remove("notActive");
+            homeRef.current.classList.add("notActive");
+            movieRef.current.classList.add("notActive");
+            tvRef.current.classList.add("notActive");
+        }
+    }, [pathname]);
 
     useEffect(() => {
         if(searchFocus) {
@@ -23,31 +55,25 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
     }, [searchFocus]);
 
     return (
-        <header className={cx('header')}>
+        <header className={cx(['header', handleScroll])}>
             <div className={cx('left-content')}>
                 <ul className={cx('left-content-list')}>
                     <li>
                         <Link to="/"><img src={logo} className={cx('logo')} alt="logo"/></Link>
                     </li>
-                    <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/" ? `3px solid #3498db` : `3px solid transparent`) }}
-                    >
+                    <li className={cx('left-content-items')}>
                         <Link to="/" className={cx('nav_link')} 
-                            style={{ color: (pathname === "/" ? `#ffffff` : `#7d7d7d`) }}
+                            ref={homeRef}
                         >홈</Link>
                     </li>
-                    <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/movie" ? `3px solid #3498db` : `3px solid transparent`) }}
-                    >
-                        <Link to="/movie" className={cx('nav_link')}
-                            style={{ color: (pathname === "/movie" ? `#ffffff` : `#7d7d7d`) }}
+                    <li className={cx('left-content-items')}>
+                        <Link to="/movie" className={cx('nav_link')} 
+                              ref={movieRef}
                         >영화</Link>
                     </li>
-                    <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname === "/tv" ? `3px solid #3498db` : `3px solid transparent`) }}
-                    >
+                    <li className={cx('left-content-items')}>
                         <Link to="/tv" className={cx('nav_link')}
-                            style={{ color: (pathname === "/tv" ? `#ffffff` : `#7d7d7d`) }}
+                              ref={tvRef}
                         >TV 프로그램</Link>
                     </li>
                     {/* <li className={cx('left-content-items')}
@@ -61,7 +87,7 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
             </div>
             <div className={cx('right-content')}>
                 <ul className={cx('right-content-list')}>
-                    <li className={cx('custom-search-wrapper')}>
+                    <li className={cx('right-item')}>
                       <div id="custom-search" onClick={() => setSearchFocus(!searchFocus)}>
                         <input type="text" ref={searchRef} className={cx('search-query')} placeholder="Movies, TV Shows, Collections" />
                         <button type="button">
@@ -74,7 +100,7 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
                     </li>
                 {
                     localStorage.getItem('logged') === 'true' && localStorage.getItem('session_id') !== null
-                    ? (<li>
+                    ? (<li className={cx('right-item')}>
                         <DropdownButton id="dropdown-item-button" title={username.substring(0,1).toUpperCase()}>
                             <Dropdown.Item href="#/account">{username}<p className={cx('subAccount')}>View profile</p></Dropdown.Item>
                             <Dropdown.Divider />
@@ -84,12 +110,10 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
                             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </DropdownButton>
                        </li>)
-                    : (<li className={cx('right-content-items')}
-                        style={{ borderBottom: (pathname === "/login" ? `3px solid #3498db` : `3px solid transparent`) }}
-                    >
+                    : (<li className={cx(['right-content-items','right-item'])}>
                         <Link to="/login" className={cx('nav_link')}
-                            style={{ color: (pathname === "/login" ? `#ffffff` : `#7d7d7d`) }}
-                        >+ Login</Link>
+                              ref={loginRef}
+                        >로그인</Link>
                     </li>)
                 }
                 </ul>
