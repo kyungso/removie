@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import styles from './Rating.scss';
 import classNames from 'classnames/bind';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import Poster from 'components/common/Poster';
@@ -31,6 +31,8 @@ let month = [];
 let currentDate =  month[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear()
 
 const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handleClearRating, handleRating }) => {  
+    const checkRatingMovie = pathname === "/account/rating";
+    const checkRatingTV = pathname === "/account/rating/tv";
 
     return (
     <>
@@ -42,17 +44,15 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                   <div className={cx('rating-tab')}>
                       <ul className={cx('Rtab-menu')} >
                           <li className={cx('Rtab-menu-items')}
-                              style={{ borderBottom: (pathname === "/account/rating" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                              style={{ borderBottom: checkRatingMovie ? `3px solid #ce3462` : `3px solid transparent` }}
                           >
-                              <Link to="/account/rating" className={cx('Rlink')}
-                                  style={{ color: (pathname === "/account/rating" ? `#ffffff` : `#AAAAAA`) }}
+                              <Link to="/account/rating" className={cx(['Rlink', checkRatingMovie ? "" : "notActiveLink"])}
                               >Movies <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {ratedMovies.length}</span></Link>
                           </li>
                           <li className={cx('Rtab-menu-items')}
-                              style={{ borderBottom: (pathname === "/account/rating/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                              style={{ borderBottom: checkRatingTV ? `3px solid #ce3462` : `3px solid transparent` }}
                           >
-                              <Link to="/account/rating/tv" className={cx('Rlink')}
-                                  style={{ color: (pathname === "/account/rating/tv" ? `#ffffff` : `#AAAAAA`) }}
+                              <Link to="/account/rating/tv" className={cx(['Rlink', checkRatingTV ? "" : "notActiveLink"])}
                               >TV <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {ratedTV.length}</span></Link>
                           </li>
                       </ul>
@@ -61,7 +61,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
               </div>
 
             <div className={cx('rating-content')}>
-            {pathname === "/account/rating" && 
+            {checkRatingMovie && 
                 ratedMovies.map(movie => (
                     <div className={cx('rating-items')} key={movie.id}>
                         <Poster
@@ -95,7 +95,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                                                         <p>Rated on {currentDate}</p>
                                                         <div className={cx('rating_stars_wrapper')}>
                                                             <div className={cx('clear-rating')} onClick={() => handleClearRating(movie.id)} >
-                                                                <span className={cx('glyphicon glyphicon-minus-sign')}></span>
+                                                                <span className={cx('fa-minus-circle')}></span>
                                                             </div>
                                                             <div className={cx('rating_stars')}>
                                                                 <StarRating
@@ -125,7 +125,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                     </div>
                 ))
             }
-            {pathname === "/account/rating/tv" && 
+            {checkRatingTV && 
                 ratedTV.map(show => (
                     <div className={cx('rating-items')} key={show.id}>
                         <Poster

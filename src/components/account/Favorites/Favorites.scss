@@ -125,6 +125,9 @@
                 padding-right: 7px;
                 font-size: 15px;
 
+                .fa-heart {
+                    font-family: FontAwesome;
+                }
                 .glyphicon-heart {
                     width: 30px;
                     height: 30px;
@@ -142,7 +145,8 @@
             .favoriteButton {
                 &:hover {
                     .glyphicon-heart::before {
-                        content: "\e014";
+                        content: "\f00d";
+                        font-family: FontAwesome;
                     }
                 }
                 &:active, &:visited {

@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import styles from './DetailActionBar.scss';
 import classNames from 'classnames/bind';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import StarRating from 'components/StarRating';
@@ -54,7 +53,7 @@ const DetailActionBar = ({ account_state, vote_average, handleFavoriteBtn, handl
     <>
     <div className={cx('actionBar')}>
         <span className={cx('favoriteIcon')} onClick={() => handleFavoriteBtn(account_state.id, !account_state.favorite)} >
-            <span className={cx('glyphicon glyphicon-heart')}
+            <span className={cx('fa-heart glyphicon-heart')}
                   style={{ color: `${isFavorite}` }} > 
             </span>
         </span>
@@ -69,7 +68,7 @@ const DetailActionBar = ({ account_state, vote_average, handleFavoriteBtn, handl
                         <p>Rated on {currentDate}</p>
                         <div className={cx('rating_stars_wrapper')}>
                             <div className={cx('clear-rating')} onClick={() => handleClearRating(account_state.id)} >
-                                <span className={cx('glyphicon glyphicon-minus-sign')}></span>
+                                <span className={cx('fa-minus-circle')}></span>
                             </div>
                             <div className={cx('rating_stars')}>
                                 <StarRating
@@ -85,7 +84,7 @@ const DetailActionBar = ({ account_state, vote_average, handleFavoriteBtn, handl
                     </div>
                 </Tooltip>
                 }>
-                <span className={cx('glyphicon glyphicon-star')}
+                <span className={cx('fa-star glyphicon-star')}
                       style={{ color: `${isRating}` }}>
                 </span>
             </OverlayTrigger>

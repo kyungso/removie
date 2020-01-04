@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from "prop-types";
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
@@ -10,43 +10,15 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const Header = withRouter(({ location: { pathname }, handleLogout }) => {
+const Header = ({ pathname, handleLogout }) => {
     const [handleScroll, setHandleScroll] = useState("");
     const [searchFocus, setSearchFocus] = useState(false);
-    const homeRef = useRef(null);
-    const movieRef = useRef(null);
-    const tvRef = useRef(null);
-    const loginRef = useRef(null);
     const searchRef = useRef(null);
     let username = localStorage.getItem('username');
      
     useEffect(() => {
         window.addEventListener('scroll', () => setHandleScroll(window.scrollY > 80 ? "black" : ""));
     },[]);
-
-    useEffect(() => {
-        if(pathname === "/") {
-            homeRef.current.classList.remove("notActive");
-            movieRef.current.classList.add("notActive");
-            tvRef.current.classList.add("notActive");
-            localStorage.getItem('logged') === 'false' && loginRef.current.classList.add("notActive");
-        } else if(pathname === "/movie") {
-            movieRef.current.classList.remove("notActive");
-            homeRef.current.classList.add("notActive");
-            tvRef.current.classList.add("notActive");
-            localStorage.getItem('logged') === 'false' && loginRef.current.classList.add("notActive");
-        } else if(pathname === "/tv") {
-            tvRef.current.classList.remove("notActive");
-            homeRef.current.classList.add("notActive");
-            movieRef.current.classList.add("notActive");
-            localStorage.getItem('logged') === 'false' && loginRef.current.classList.add("notActive");
-        } else if(pathname === "/login") {
-            loginRef.current.classList.remove("notActive");
-            homeRef.current.classList.add("notActive");
-            movieRef.current.classList.add("notActive");
-            tvRef.current.classList.add("notActive");
-        }
-    }, [pathname]);
 
     useEffect(() => {
         if(searchFocus) {
@@ -62,18 +34,15 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
                         <Link to="/"><img src={logo} className={cx('logo')} alt="logo"/></Link>
                     </li>
                     <li className={cx('left-content-items')}>
-                        <Link to="/" className={cx('nav_link')} 
-                            ref={homeRef}
+                        <Link to="/" className={cx(['nav_link', pathname === "/" ? "" : "notActive"])} 
                         >홈</Link>
                     </li>
                     <li className={cx('left-content-items')}>
-                        <Link to="/movie" className={cx('nav_link')} 
-                              ref={movieRef}
+                        <Link to="/movie" className={cx(['nav_link', pathname === "/movie" ? "" : "notActive"])} 
                         >영화</Link>
                     </li>
                     <li className={cx('left-content-items')}>
-                        <Link to="/tv" className={cx('nav_link')}
-                              ref={tvRef}
+                        <Link to="/tv" className={cx(['nav_link', pathname === "/tv" ? "" : "notActive"])}
                         >TV 프로그램</Link>
                     </li>
                     {/* <li className={cx('left-content-items')}
@@ -111,8 +80,7 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
                         </DropdownButton>
                        </li>)
                     : (<li className={cx(['right-content-items','right-item'])}>
-                        <Link to="/login" className={cx('nav_link')}
-                              ref={loginRef}
+                        <Link to="/login" className={cx(['nav_link', pathname === "/login" ? "" : "notActive"])}
                         >로그인</Link>
                     </li>)
                 }
@@ -120,7 +88,7 @@ const Header = withRouter(({ location: { pathname }, handleLogout }) => {
             </div>
         </header>
     );
-});
+};
 
 Header.propTypes = {
     handleLogout: PropTypes.func,

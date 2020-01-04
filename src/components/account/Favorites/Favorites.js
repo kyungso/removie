@@ -10,6 +10,9 @@ import Poster from 'components/common/Poster';
 const cx = classNames.bind(styles);
 
 const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favoriteTV, handleFavoriteBtn }) => {    
+    const checkFavoriteMovie = pathname === "/account/favorite";
+    const checkFavoriteTV = pathname === "/account/favorite/tv";
+
     return (
         <>
         <div className={cx('favorite-container')}>
@@ -19,17 +22,15 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                 <div className={cx('favorite-tab')}>
                     <ul className={cx('tab-menu')} >
                         <li className={cx('tab-menu-items')}
-                            style={{ borderBottom: (pathname === "/account/favorite" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                            style={{ borderBottom: checkFavoriteMovie ? `3px solid #ce3462` : `3px solid transparent` }}
                         >
-                            <Link to="/account/favorite" className={cx('flink')}
-                                style={{ color: (pathname === "/account/favorite" ? `#ffffff` : `#AAAAAA`) }}
+                            <Link to="/account/favorite" className={cx(['flink', checkFavoriteMovie ? "" : "notActiveLink"])}
                             >Movies <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {favoriteMovies.length}</span></Link>
                         </li>
                         <li className={cx('tab-menu-items')}
-                            style={{ borderBottom: (pathname === "/account/favorite/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                            style={{ borderBottom: checkFavoriteTV ? `3px solid #ce3462` : `3px solid transparent` }}
                         >
-                            <Link to="/account/favorite/tv" className={cx('flink')}
-                                style={{ color: (pathname === "/account/favorite/tv" ? `#ffffff` : `#AAAAAA`) }}
+                            <Link to="/account/favorite/tv" className={cx(['flink', checkFavoriteTV ? "" : "notActiveLink"])}
                             >TV <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {favoriteTV.length}</span></Link>
                         </li>
                     </ul>
@@ -38,7 +39,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
             </div>
 
             <div className={cx('favorite-content')}>
-            {pathname === "/account/favorite" && 
+            {checkFavoriteMovie && 
                 favoriteMovies.map((movie) => (
                     <div className={cx('favorite-items')} key={movie.id}>
                         <Poster
@@ -62,7 +63,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                                 <ul>
                                     <li>
                                         <div className={cx('favoriteButton')} onClick={() => handleFavoriteBtn(movie.id)} >
-                                            <span className={cx('glyphicon glyphicon-heart')}></span>
+                                            <span className={cx('fa-heart glyphicon glyphicon-heart')}></span>
                                              Favorite
                                         </div>
                                     </li>
@@ -72,7 +73,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                     </div>
                 ))
             }
-            {pathname === "/account/favorite/tv" && 
+            {checkFavoriteTV && 
                 favoriteTV.map((show) => (
                     <div className={cx('favorite-items')} key={show.id}>
                         <Poster
@@ -96,7 +97,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                                 <ul>
                                     <li>
                                         <div className={cx('favoriteButton')} onClick={() => handleFavoriteBtn(show.id)} >
-                                            <span className={cx('glyphicon glyphicon-heart')}></span>
+                                            <span className={cx('fa-heart glyphicon glyphicon-heart')}></span>
                                              Favorite
                                         </div>
                                     </li>

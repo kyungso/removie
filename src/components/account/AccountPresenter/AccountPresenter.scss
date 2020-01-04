@@ -80,7 +80,6 @@ body a:focus {
 
     .tab-menu {
         display: flex;
-        color: #AAAAAA !important;
 
         .tab-menu-items {
             margin: 0 30px;
@@ -96,14 +95,10 @@ body a:focus {
     height: 70px;
     align-items: center;
     justify-content: center;
-    .clicked {
-        color: #ffffff;
-    }
-    .notClicked {
-        color: #aaaaaa !important;
-    }
 }
-
+.notActiveLink {
+    color: #AAAAAA !important;
+}
 .account-tab-data {
     display: flex;
     width: 100%;

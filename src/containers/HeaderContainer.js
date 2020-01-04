@@ -44,7 +44,7 @@ class HeaderContainer extends Component {
 
     render() {
         return(
-           <Header handleLogout={this.handleLogout} />
+           <Header handleLogout={this.handleLogout} pathname={this.props.location.pathname}/>
         );
     }
 }

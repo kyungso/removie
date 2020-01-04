@@ -1,10 +1,5 @@
 @import 'utils';
 
-body a:hover {
-    color: rgba(255, 255, 255, 0.7) !important;
-    text-decoration: none;
-}
-
 .header {
     color: #e5e5e5;
     position: fixed;
@@ -35,8 +30,7 @@ body a:hover {
         width: 100%;
 
         .logo {
-            padding-left: 20px;
-            padding-right: 10px;
+            padding: 4px 10px 0 20px;
             height: 20px;
             width: 100px;
         }        
@@ -220,13 +214,12 @@ body a:hover {
     text-decoration: none;
     font-weight: 600;
 }
-// .activeStyle {
-//     color: #fff !important;
-//     font-weight: 600;
-// }
 .notActive {
     color: rgba(255,255,255,0.88) !important;
     font-weight: 350;
+    &:hover {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
 }
 
 .subAccount {

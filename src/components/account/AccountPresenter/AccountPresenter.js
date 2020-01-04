@@ -14,6 +14,10 @@ import Rating from 'components/account/Rating';
 const cx = classNames.bind(styles);
 
 const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList, loading, handleFavoriteBtn, handleClearRating, handleRating }) => {
+    const checkOverview = pathname === "/account";
+    const checkFavorite = pathname === "/account/favorite" || pathname === "/account/favorite/tv";
+    const checkRating = pathname === "/account/rating" || pathname === "/account/rating/tv";
+
     return (
     <>
     {loading 
@@ -36,47 +40,44 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
             <div className={cx('account-tab')}>
                 <ul className={cx('tab-menu')} >
                     <li className={cx('tab-menu-items')}
-                        style={{ borderBottom: (pathname === "/account" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                        style={{ borderBottom: checkOverview ? `3px solid #ce3462` : `3px solid transparent` }}
                     >
-                        <Link to="/account" className={cx('link')}
-                            style={{ color: (pathname === "/account" ? `#ffffff` : `#AAAAAA`) }}
+                        <Link to="/account" className={cx(['link', checkOverview ? "" : "notActiveLink"])}
                         >Overview</Link>
                     </li>
                     <li className={cx('tab-menu-items')}
-                        style={{ borderBottom: ((pathname === "/account/favorite"|| pathname === "/account/favorite/tv") ? `3px solid #ce3462` : `3px solid transparent`) }}
+                        style={{ borderBottom: checkFavorite ? `3px solid #ce3462` : `3px solid transparent` }}
                     >
-                        <Link to="/account/favorite" className={cx('link')}
-                            style={{ color: (pathname === "/account/favorite"|| pathname === "/account/favorite/tv" ? `#ffffff` : `#AAAAAA`) }}
+                        <Link to="/account/favorite" className={cx(['link', checkFavorite ? "" : "notActiveLink"])}
                         >Favorites</Link>
                     </li>
                     <li className={cx('tab-menu-items')}
-                        style={{ borderBottom: (pathname === "/account/rating"|| pathname === "/account/rating/tv" ? `3px solid #ce3462` : `3px solid transparent`) }}
+                        style={{ borderBottom: checkRating ? `3px solid #ce3462` : `3px solid transparent` }}
                     >
-                        <Link to="/account/rating" className={cx('link')}
-                            style={{ color: (pathname === "/account/rating"|| pathname === "/account/rating/tv" ? `#ffffff` : `#AAAAAA`) }}
+                        <Link to="/account/rating" className={cx(['link', checkRating ? "" : "notActiveLink"])}
                         >Ratings</Link>
                     </li>
                 </ul>
             </div>
 
             <div className={cx('account-tab-data')}>
-            {pathname === "/account" 
+            {checkOverview 
             && <Overview favoriteMovies={favoriteMovies} 
-                        favoriteTV={favoriteTV} 
-                        ratedMovies={ratedMovies} 
-                        ratedTV={ratedTV} 
-                        genreList={genreList} /> 
+                         favoriteTV={favoriteTV} 
+                         ratedMovies={ratedMovies} 
+                         ratedTV={ratedTV} 
+                         genreList={genreList} /> 
             }
-            {(pathname === "/account/favorite" || pathname === "/account/favorite/tv") 
+            {checkFavorite
             && <Favorites favoriteMovies={favoriteMovies} 
-                            favoriteTV={favoriteTV} 
-                            handleFavoriteBtn={handleFavoriteBtn} /> 
+                          favoriteTV={favoriteTV} 
+                          handleFavoriteBtn={handleFavoriteBtn} /> 
             }
-            {(pathname === "/account/rating" || pathname === "/account/rating/tv") 
+            {checkRating
             && <Rating ratedMovies={ratedMovies} 
-                        ratedTV={ratedTV} 
-                        handleClearRating={handleClearRating} 
-                        handleRating={handleRating} /> 
+                       ratedTV={ratedTV} 
+                       handleClearRating={handleClearRating} 
+                       handleRating={handleRating} /> 
             }
             </div>
         </div>
