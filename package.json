@@ -120,7 +120,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  // "homepage": "https://removie.netlify.com",
   "browserslist": {
     "production": [
       ">0.2%",
