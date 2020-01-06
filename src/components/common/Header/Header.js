@@ -17,7 +17,7 @@ const Header = ({ pathname, handleLogout }) => {
     let username = localStorage.getItem('username');
      
     useEffect(() => {
-        window.addEventListener('scroll', () => setHandleScroll(window.scrollY > 80 ? "black" : ""));
+        window.addEventListener('scroll', () => setHandleScroll(window.scrollY > 70 ? "black" : ""));
     },[]);
 
     useEffect(() => {

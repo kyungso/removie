@@ -21,7 +21,7 @@ const DetailInActionBar = ({ vote_average }) => {
                     <strong>Login</strong> to add this movie
                 </Tooltip>
                 }>
-                <span className={cx('glyphicon glyphicon-heart')}></span>
+                <span className={cx('fa-heart glyphicon-heart')}></span>
             </OverlayTrigger>
         </span>
         <span className={cx('ratingIcon')}>
@@ -32,7 +32,7 @@ const DetailInActionBar = ({ vote_average }) => {
                     <strong>Login</strong> to rate this movie
                 </Tooltip>
                 }>
-                <span className={cx('glyphicon glyphicon-star')}></span>
+                <span className={cx('fa-star glyphicon-star')}></span>
             </OverlayTrigger>
         </span>
         <span className={cx('rating_average')}>
