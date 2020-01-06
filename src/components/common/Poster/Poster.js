@@ -8,14 +8,12 @@ import NoImage from 'lib/assets/noPosterSmall.png';
 
 const cx = classNames.bind(styles);
 
-const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollection = false, isCarousel = false }) => (
+const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollection = false }) => (
     <Link to={isMovie ? `/movie/${id}` : (isCollection ? `/collection/${id}` : `/show/${id}`)}>
         <div className={cx('poster-container')}>
             <div className={cx('posterImage-container')}>
                 <div className={cx('poster-image')} 
-                     style={{ backgroundImage: (imageUrl ? `url(https://image.tmdb.org/t/p/w300${imageUrl})` : `url(${NoImage})`),
-                              backgroundSize: (isCarousel ? 'contain' : 'cover')
-                    }}
+                     style={{ backgroundImage: (imageUrl ? `url(https://image.tmdb.org/t/p/w300${imageUrl})` : `url(${NoImage})`) }}
                 />
                 { !isCollection &&
                 <span className={cx('poster-rating')}>
@@ -25,11 +23,9 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollecti
                     {rating}/10
                 </span> }
             </div>
-            { !isCarousel && 
-                <span className={cx('poster-title')}>
+            <span className={cx('poster-title')}>
                     {title.length > 18 ? `${title.substring(0, 18)}...` : title}
-                </span>
-            }
+            </span>
             { !isCollection && <span className={cx('poster-year')}>{year}</span> }
         </div>
     </Link>
