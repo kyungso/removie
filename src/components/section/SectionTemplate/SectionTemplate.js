@@ -6,18 +6,15 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Section = ({ title, isHome, children }) => (
+const Section = ({ title, children }) => (
     <div className={cx('section-container')}>
-        <span className={cx('section-title')}>{title}</span>
-        {isHome 
-         ? <div className={cx('section-home')}>{children}</div>
-         : <div className={cx('section')}>{children}</div>}
+      <span className={cx('section-title')}>{title}</span>
+      <div className={cx('section')}>{children}</div>
     </div>
 );
 
 Section.propTypes = {
     title: PropTypes.string.isRequired,
-    isHome: PropTypes.bool,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
