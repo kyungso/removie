@@ -7,11 +7,12 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Item = ({ movie, index }) => (
+const Item = ({ media, index, isTV }) => (
   <SliderContext.Consumer>
     {({ onSelectSlide, currentSlide, elementWidth, viewed, handleMouseOver, handleMouseLeave }) => {
-      const isActive = currentSlide && currentSlide.id === movie.id;
-      
+      const isActive = currentSlide && currentSlide.id === media.id;
+      const title = isTV ? media.name : media.title;
+
       const isFirstIndex = (viewed - 5) === index;
       const isLastIndex = (viewed - 1) === index;
       const onMouseOverSlide = () => {
@@ -34,11 +35,11 @@ const Item = ({ movie, index }) => (
           onMouseOver={onMouseOverSlide}
           onMouseLeave={onMouseLeaveSlide}
         >
-          <img src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`} alt="poster" />
+          <img src={`https://image.tmdb.org/t/p/w300${media.backdrop_path}`} alt="poster" />
           <div className={cx('image-title')}>
-            {movie.title.length > 18 ? `${movie.title.substring(0, 18)}...` : movie.title}
+            {title.length > 18 ? `${title.substring(0, 18)}...` : title}
           </div> 
-          <button onClick={() => onSelectSlide(movie)} className={cx('show-details-button')}>
+          <button onClick={() => onSelectSlide(media)} className={cx('show-details-button')}>
             <span>
               <IconArrowDown />
             </span>

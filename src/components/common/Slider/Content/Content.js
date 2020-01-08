@@ -6,20 +6,20 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Content = ({ movie, onClose }) => (
+const Content = ({ media, isTV, onClose }) => (
   <div className={cx("content")}>
     <div className={cx("content__background")}>
       <div className={cx("content__background__shadow")} />
       <div
         className={cx("content__background__image")}
-        style={{ 'backgroundImage': `url(https://image.tmdb.org/t/p/w300${movie.backdrop_path})` }}
+        style={{ 'backgroundImage': `url(https://image.tmdb.org/t/p/w300${media.backdrop_path})` }}
       />
     </div>
     <div className={cx("content__area")}>
       <div className={cx("content__area__container")}>
-        <div className={cx("content__title")}>{movie.title}</div>
+        <div className={cx("content__title")}>{isTV ? media.name : media.title}</div>
         <div className={cx("content__description")}>
-          {movie.overview}
+          {media.overview}
         </div>
       </div>
       <button className={cx("content__close")} onClick={onClose}>

@@ -9,7 +9,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Slider = ({ title, children }) => {
+const Slider = ({ title, children, isTV }) => {
     const [currentSlide, setCurrentSlide] = useState(null);
     const [translateProps, setTranslateProps] = useState(null);
     const {
@@ -24,8 +24,8 @@ const Slider = ({ title, children }) => {
       handleMouseLeave
     } = useSliding(setTranslateProps, React.Children.count(children));
 
-    const handleSelect = movie => {
-      setCurrentSlide(movie);
+    const handleSelect = media => {
+      setCurrentSlide(media);
     };
   
     const handleClose = () => {
@@ -54,7 +54,7 @@ const Slider = ({ title, children }) => {
           {hasNext && <SlideButton onClick={handleNext} type="next" />}
         </div>
        </div>
-        {currentSlide && <Content movie={currentSlide} onClose={handleClose} />}
+        {currentSlide && <Content media={currentSlide} isTV onClose={handleClose} />}
       </SliderContext.Provider>
     );
   };

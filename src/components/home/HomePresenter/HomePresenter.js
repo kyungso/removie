@@ -22,7 +22,15 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
           {movieTrending && movieTrending.length > 0 && (
             <Slider title="오늘의 추천 영화">
               {movieTrending.map((movie, index) => (
-                <Slider.Item movie={movie} key={movie.id} index={index}></Slider.Item>
+                <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
+              ))}
+            </Slider>
+          )}
+
+          {tvTrending && tvTrending.length > 0 && (
+            <Slider title="오늘의 추천 TV 프로그램" isTV>
+              {tvTrending.map((show, index) => (
+                <Slider.Item media={show} key={show.id} index={index} isTV></Slider.Item>
               ))}
             </Slider>
           )}
