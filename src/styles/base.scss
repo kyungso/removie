@@ -37,3 +37,8 @@ a{
     text-decoration: none;
     color: white !important;
 }
+
+.mark, mark {
+  padding: 0 !important;
+  background-color: inherit !important;
+}

@@ -5,9 +5,9 @@ import styles from './HomePresenter.scss';
 import classNames from 'classnames/bind';
 
 import Loader from 'components/common/Loader';
-import Section from "components/section/SectionTemplate";
-import Poster from "components/common/Poster";
 import HomeCarousel from "components/carousel/HomeCarousel";
+
+import Slider from 'components/common/Slider';
 
 const cx = classNames.bind(styles);
   
@@ -17,6 +17,17 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
         : (
         <>
         {topRated && topRated.length > 0 && <HomeCarousel topRated={topRated} />}
+        
+        <div className={cx('home-container')}>
+          {movieTrending && movieTrending.length > 0 && (
+            <Slider title="오늘의 추천 영화">
+              {movieTrending.map((movie, index) => (
+                <Slider.Item movie={movie} key={movie.id} index={index}></Slider.Item>
+              ))}
+            </Slider>
+          )}
+        </div>
+        {/*
         <div className={cx('home-container')}>
             {movieTrending && movieTrending.length > 0 && (
                 <Section title="오늘의 추천 영화" isHome={true}>
@@ -24,7 +35,7 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
                         <Poster 
                             key={movie.id}
                             id={movie.id}
-                            imageUrl={movie.poster_path}
+                            imageUrl={movie.backdrop_path}
                             title={movie.title}
                             rating={movie.vote_average}
                             year={movie.release_date.substring(0, 4)}
@@ -40,7 +51,7 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
                         <Poster 
                             key={show.id}
                             id={show.id}
-                            imageUrl={show.poster_path}
+                            imageUrl={show.backdrop_path}
                             title={show.name}
                             rating={show.vote_average}
                             year={show.first_air_date.substring(0, 4)}
@@ -48,7 +59,7 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
                     ))}
                 </Section>
             )}
-        </div>
+        </div> */}
         </>
         )
     }
