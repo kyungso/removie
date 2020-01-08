@@ -8,7 +8,6 @@
         position: relative;
         &:hover {
             .poster-image {
-                transform: scale(1.3);
                 opacity: 0.3;
             }
             .poster-rating {
@@ -32,15 +31,6 @@
             transition: opacity 0.1s linear;
         }
     }
-
-   
-}
-
-.previous {
-    transform: translateX(-20px);
-}
-.next {
-    transform: translateX(20px);
 }
 
 .poster-title {

@@ -5,7 +5,6 @@ import { Link, withRouter } from 'react-router-dom';
 import styles from './Rating.scss';
 import classNames from 'classnames/bind';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import Poster from 'components/common/Poster';
@@ -79,7 +78,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                                 <span className={cx('releaseDate')}>({movie.release_date ? movie.release_date.substring(5, 7) + ", " + movie.release_date.substring(0, 4) : ''})</span>
                             </div>
                             <div className={cx('mOverview')}>
-                                <p>{movie.overview}</p>
+                                <p>{movie.overview.length > 250 ? `${movie.overview.substring(0, 250)}...` : movie.overview}</p>
                             </div>
                             <div className={cx('actionBar')}>
                                 <ul>
@@ -142,7 +141,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                                 <span className={cx('releaseDate')}>({show.first_air_date ? show.first_air_date.substring(5, 7) + ", " + show.first_air_date.substring(0, 4) : ''})</span>
                             </div>
                             <div className={cx('mOverview')}>
-                                <p>{show.overview}</p>
+                                <p>{show.overview.length > 250 ? `${show.overview.substring(0, 250)}...` : show.overview}</p>
                             </div>
                             <div className={cx('actionBar')}>
                                 <ul>

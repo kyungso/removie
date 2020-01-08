@@ -1,0 +1,47 @@
+@import 'utils';
+
+.slider-title {
+    font-size: 1.4vw;
+    font-weight: 600;
+    padding-left: 4%;
+    position: relative;
+    top: 25px;
+}  
+.slider-wrapper {
+    padding: 40px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider {
+    display: flex;
+    position: relative;
+    
+    .slider-container {
+      display: flex;
+      padding: 0 4%;
+      transition: transform 0.4s cubic-bezier(0.5,0,0.1,1) 0s;
+      z-index: 3;
+      width: 100%;
+    }
+  
+    &:not(&--open) .item:hover .show-details-button {
+      opacity: 1;
+    }
+  
+    &:not(&--open) .item:hover {
+      transform: scale(1.5) !important;
+    }
+  
+    &:not(&--open) .item:hover .image-title {
+      opacity: 0;
+    }
+    
+    &:not(&--open):hover .item {
+      transform: translateX(-25%);
+    }
+  
+    &:not(&--open) .item:hover ~ .item {
+      transform: translateX(25%);
+    }
+}

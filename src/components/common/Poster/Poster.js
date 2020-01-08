@@ -25,7 +25,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false, isCollecti
             </div>
             <span className={cx('poster-title')}>
                     {title.length > 18 ? `${title.substring(0, 18)}...` : title}
-            </span>
+            </span> 
             { !isCollection && <span className={cx('poster-year')}>{year}</span> }
         </div>
     </Link>
