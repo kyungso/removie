@@ -58,7 +58,7 @@ const Header = ({ pathname, handleLogout }) => {
                 <ul className={cx('right-content-list')}>
                     <li className={cx('right-item')}>
                       <div id="custom-search" onClick={() => setSearchFocus(!searchFocus)}>
-                        <input type="text" ref={searchRef} className={cx('search-query')} placeholder="Movies, TV Shows, Collections" />
+                        <input type="text" ref={searchRef} className={cx('search-query')} placeholder="영화, TV 프로그램, 시리즈 검색" />
                         <button type="button">
                           <span className={cx('icon-search')}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93.83 93.83"><path d="M39,3.17a36,36,0,0,0,0,72A35.69,35.69,0,0,0,59.36,68.8L85.64,95.08a6.55,6.55,0,0,0,9.27-9.24L68.63,59.56A36,36,0,0,0,39,3.17Zm0,13.09A22.91,22.91,0,1,1,16.09,39.17,22.81,22.81,0,0,1,39,16.26Z" transform="translate(-3 -3.17)"/></svg>
