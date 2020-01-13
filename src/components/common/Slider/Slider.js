@@ -9,7 +9,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Slider = ({ title, children, isTV }) => {
+const Slider = ({ title, children }) => {
     const [currentSlide, setCurrentSlide] = useState(null);
     const [translateProps, setTranslateProps] = useState(null);
     const {

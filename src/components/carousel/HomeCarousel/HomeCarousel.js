@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { Carousel } from 'react-bootstrap';
 
@@ -11,7 +11,7 @@ const carouselUrl = [
   'https://image.tmdb.org/t/p/original/pLO4qJdQxhAMPaFJu7q8bgme6R3.jpg',
   'https://image.tmdb.org/t/p/original/xnPYcbmTN3l58uU93wcboBXD0oW.jpg',
 ]
-const HomeCarousel = ({ topRated }) => {
+const HomeCarousel = () => {
     return (
       <div className={cx('carousel-container')}>
         <Carousel interval={3000} indicators={false}>
