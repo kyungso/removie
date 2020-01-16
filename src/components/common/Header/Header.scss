@@ -44,7 +44,7 @@
         margin-right: 5px;
         color: #ffffff;
         transition: border-bottom 0.5s ease-in-out;
-        font-size: 15px;
+        font-size: 14px;
     }
 }
 
@@ -60,7 +60,6 @@
     }
 
     .right-content-items {
-        width: 70px;
         text-align: center;
         font-size: 14px;
         font-weight: 350;
@@ -71,102 +70,160 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-/* Search bar */
-.icon-search svg {
-    width: 22px;
-}
-.icon-search svg path {
-    fill: #fff;
-}
-#custom-search .search-query {
-    padding: 5px;
-    width: 50px;
-    border: 2px solid transparent;
-    background-color: transparent;
-    color: transparent;
-    font-size: 1em;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-    margin-bottom: 0;
+    &:not(:first-child) { 
+        margin-left: 23px;
+    }
 }
 
-#custom-search .search-query::placeholder {
-    color: transparent;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
-#custom-search .search-query::-webkit-input-placeholder {
-    color: transparent;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
-#custom-search .search-query::-moz-placeholder {
-    color: transparent;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
-  #custom-search .search-query:-moz-placeholder {
-    color: transparent;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
-#custom-search .search-query:-ms-input-placeholder {
-    color: transparent;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
+.search-nav {
+    float: right;
+    text-align: right;
 
-/* Style when Search is selected */
-#custom-search .search-query:focus {
-    border: 1px solid white;
-    background-color: rgba(0,0,0,.75);
-    width: 268px;
-    height: 36px;
-    color: white;
-}
-    
-    /* Style for placeholder value plus fallbacks */
-#custom-search .search-query:focus::placeholder {
-    color: #cccccc;
-}
-    
-#custom-search .search-query:focus::-webkit-input-placeholder {
-    color: #cccccc;
-}
-    
-#custom-search .search-query:focus::-moz-placeholder {
-    color: transparent;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
-    
-#custom-search .search-query:focus::-moz-placeholder {
-    color: transparent;
-    -webkit-transition: all 0.4s;
-    transition: all 0.4s;
-}
-    
-#custom-search .search-query:focus:-ms-input-placeholder {
-    color: #cccccc;
-}
+    .search-nav-text {
+        display: flex;
+        align-items: center;
+        color: rgba(255,255,255,0.88);
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer;
+        &:hover {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+    }
 
-/* Style for Button */
-#custom-search button {
-    border: 0;
-    background: none;
-    padding: 0;
-    width: 20px;
-    top: 10px;
-    left: -24px;
-    margin-bottom: 0;
-    border-radius: 3px;
-    outline: none;
-}
+    .clickOutside-searchInput {
+        float: right;
+    }
 
-#custom-search button span {
-    margin-left: -30px;
+    .search-inputWrapper {
+        width: 0px;
+        opacity: 0.1;
+        transition: width 0.3s ease, opacity 0.3s ease;
+
+        .search-input {
+            width: 100%;
+
+            form {
+                overflow: hidden;
+                .search-icon {
+                    position: absolute;
+                    top: 25.5px;
+                    left: 10px;
+                    margin: 0;
+                }
+            }
+
+            .search-query {
+                color: rgb(0,0,0);
+                font-size: 13px;
+                font-weight: 350;
+                letter-spacing: -0.4px;
+                line-height: 1.875vw;
+                width: 100%;
+                height: 36px;
+                padding: 6px 30px 6px 36px;
+                border-width: 0px;
+                border-radius: 2px;
+                outline: 0px;
+            }
+        }
+    }
 }
+// /* Search bar */
+// .icon-search svg {
+//     width: 22px;
+// }
+// .icon-search svg path {
+//     fill: #fff;
+// }
+// #custom-search .search-query {
+//     padding: 5px;
+//     width: 50px;
+//     border: 2px solid transparent;
+//     background-color: transparent;
+//     color: transparent;
+//     font-size: 1em;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+//     margin-bottom: 0;
+// }
+
+// #custom-search .search-query::placeholder {
+//     color: transparent;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+// }
+// #custom-search .search-query::-webkit-input-placeholder {
+//     color: transparent;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+// }
+// #custom-search .search-query::-moz-placeholder {
+//     color: transparent;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+// }
+//   #custom-search .search-query:-moz-placeholder {
+//     color: transparent;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+// }
+// #custom-search .search-query:-ms-input-placeholder {
+//     color: transparent;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+// }
+
+// /* Style when Search is selected */
+// #custom-search .search-query:focus {
+//     border: 1px solid white;
+//     background-color: rgba(0,0,0,.75);
+//     width: 268px;
+//     height: 36px;
+//     color: white;
+// }
+    
+//     /* Style for placeholder value plus fallbacks */
+// #custom-search .search-query:focus::placeholder {
+//     color: #cccccc;
+// }
+    
+// #custom-search .search-query:focus::-webkit-input-placeholder {
+//     color: #cccccc;
+// }
+    
+// #custom-search .search-query:focus::-moz-placeholder {
+//     color: transparent;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+// }
+    
+// #custom-search .search-query:focus::-moz-placeholder {
+//     color: transparent;
+//     -webkit-transition: all 0.4s;
+//     transition: all 0.4s;
+// }
+    
+// #custom-search .search-query:focus:-ms-input-placeholder {
+//     color: #cccccc;
+// }
+
+// /* Style for Button */
+// #custom-search button {
+//     border: 0;
+//     background: none;
+//     padding: 0;
+//     width: 20px;
+//     top: 10px;
+//     left: -24px;
+//     margin-bottom: 0;
+//     border-radius: 3px;
+//     outline: none;
+// }
+
+// #custom-search button span {
+//     margin-left: -30px;
+// }
 
 #dropdown-item-button {
     color: #fff;
@@ -229,4 +286,10 @@
 
 .displayNone {
     display: none;
+}
+
+@media (max-width: 900px) {
+    .left-content-items {
+        display: none;
+    }
 }
