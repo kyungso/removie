@@ -11,12 +11,12 @@ import Slider from 'components/common/Slider';
 
 const cx = classNames.bind(styles);
   
-const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
+const HomePresenter = ({ movieTrending, tvTrending, loading }) => (
     <>
     {loading ? <Loader />
         : (
         <>
-        {topRated && topRated.length > 0 && <HomeCarousel topRated={topRated} />}
+        <HomeCarousel />
         
         <div className={cx('home-container')}>
           {movieTrending && movieTrending.length > 0 && (
@@ -35,39 +35,6 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
             </Slider>
           )}
         </div>
-        {/*
-        <div className={cx('home-container')}>
-            {movieTrending && movieTrending.length > 0 && (
-                <Section title="오늘의 추천 영화" isHome={true}>
-                    {movieTrending.map(movie => (
-                        <Poster 
-                            key={movie.id}
-                            id={movie.id}
-                            imageUrl={movie.backdrop_path}
-                            title={movie.title}
-                            rating={movie.vote_average}
-                            year={movie.release_date.substring(0, 4)}
-                            isMovie={true}
-                        />
-                    ))}
-                </Section>
-            )}
-
-            {tvTrending && tvTrending.length > 0 && (
-                <Section title="오늘의 추천 TV 프로그램" isHome={true}>
-                    {tvTrending.map(show => (
-                        <Poster 
-                            key={show.id}
-                            id={show.id}
-                            imageUrl={show.backdrop_path}
-                            title={show.name}
-                            rating={show.vote_average}
-                            year={show.first_air_date.substring(0, 4)}
-                        />
-                    ))}
-                </Section>
-            )}
-        </div> */}
         </>
         )
     }
@@ -76,8 +43,7 @@ const HomePresenter = ({ movieTrending, tvTrending, topRated, loading }) => (
 
 HomePresenter.propTypes = {
     movieTrending: PropTypes.array,
-    tvTrending: PropTypes.array,
-    topRated: PropTypes.array,
+    tvTrending: PropTypes.array
 };
 
 export default HomePresenter;
