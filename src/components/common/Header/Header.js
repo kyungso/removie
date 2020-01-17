@@ -1,30 +1,86 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
 
 import logo from 'lib/assets/logo.png';
+import SearchIcon from 'components/search/SearchIcon';
+import SearchDeleteIcon from 'components/search/SearchDeleteIcon';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const Header = ({ pathname, handleLogout }) => {
+const Header = ({ location, history, handleLogout, initializeSearchTerm, searchTerm, searchUpdateTerm }) => {
     const [handleScroll, setHandleScroll] = useState("");
     const [searchFocus, setSearchFocus] = useState(false);
+    const [query, setQuery] = useState("");
+    const [loginHeader, setLoginHeader] = useState("");
+    const searchContainerRef = useRef(null);
     const searchRef = useRef(null);
+    const deleteSearchRef = useRef(null);
     let username = localStorage.getItem('username');
-     
+
     useEffect(() => {
         window.addEventListener('scroll', () => setHandleScroll(window.scrollY > 70 ? "black" : ""));
     },[]);
 
-    useEffect(() => {
-        if(searchFocus) {
-            searchRef.current.focus();
+    const handleSearchClick = () => {
+       setSearchFocus(!searchFocus);
+    };
+    const handleOutsideClick = useCallback((e) => {
+        if(searchFocus 
+            && !searchContainerRef.current.contains(e.target)
+        ) {
+            if(searchRef.current !== null && !searchRef.current.value) {
+                setSearchFocus(!searchFocus);
+            } 
         }
-    }, [searchFocus]);
+
+        if(deleteSearchRef.current !== null && deleteSearchRef.current.contains(e.target)) {
+            setQuery("");
+            searchRef.current.value = "";
+            history.push('/');
+            initializeSearchTerm();
+            setSearchFocus(true);
+        }
+
+        if(e.target.className === "nav_link") {
+            initializeSearchTerm();
+            setSearchFocus(false);
+        }
+    }, [searchFocus, initializeSearchTerm, history]);
+    useEffect(() => {
+        window.addEventListener('click', handleOutsideClick);
+        return () => window.removeEventListener('click', handleOutsideClick);
+    },[handleOutsideClick]);
+
+    useEffect(() => {
+        setLoginHeader(location.pathname === "/login" ? "displayNone" : "");
+
+        // if(query && location.pathname !== "/search") {
+        //     setSearchFocus(false);
+        // }
+    }, [location.pathname, loginHeader]);
+
+    useEffect(() => {
+        let q = queryString.parse(location.search).keyword; 
+        
+        if(q && q.length > 0) { // for refresh page
+            setSearchFocus(true);
+            setQuery(q);
+            if(searchRef.current !== null && !searchRef.current.value) {
+                searchRef.current.value = q;
+            }
+        } else if(searchFocus) {
+            searchRef.current.focus();
+            setQuery("");
+        } else {
+            initializeSearchTerm();
+        }
+    }, [searchFocus, initializeSearchTerm, location.search]);
 
     return (
         <header className={cx(['header', handleScroll])}>
@@ -33,38 +89,62 @@ const Header = ({ pathname, handleLogout }) => {
                     <li>
                         <Link to="/"><img src={logo} className={cx('logo')} alt="logo"/></Link>
                     </li>
-                    <li className={cx('left-content-items')}>
-                        <Link to="/" className={cx(['nav_link', pathname === "/" ? "" : "notActive"])} 
+                    <li className={cx('left-content-items', loginHeader)}>
+                        <Link to="/" className={cx(['nav_link', location.pathname === "/" ? "" : "notActive"])} 
                         >홈</Link>
                     </li>
-                    <li className={cx('left-content-items')}>
-                        <Link to="/movie" className={cx(['nav_link', pathname === "/movie" ? "" : "notActive"])} 
+                    <li className={cx('left-content-items', loginHeader)}>
+                        <Link to="/movie" className={cx(['nav_link', location.pathname === "/movie" ? "" : "notActive"])} 
                         >영화</Link>
                     </li>
-                    <li className={cx('left-content-items')}>
-                        <Link to="/tv" className={cx(['nav_link', pathname === "/tv" ? "" : "notActive"])}
+                    <li className={cx('left-content-items', loginHeader)}>
+                        <Link to="/tv" className={cx(['nav_link', location.pathname === "/tv" ? "" : "notActive"])}
                         >TV 프로그램</Link>
                     </li>
-                    {/* <li className={cx('left-content-items')}
-                        style={{ borderBottom: (pathname.includes("/search") ? `3px solid #3498db` : `3px solid transparent`) }}
-                    >
-                        <Link to="/search" className={cx('nav_link')}
-                            style={{ color: (pathname.includes("/search") ? `#ffffff` : `#7d7d7d`) }}
-                        >Search</Link>
-                    </li> */}
                 </ul>
             </div>
-            <div className={cx('right-content')}>
+            <div className={cx('right-content', loginHeader)}>
                 <ul className={cx('right-content-list')}>
                     <li className={cx('right-item')}>
-                      <div id="custom-search" onClick={() => setSearchFocus(!searchFocus)}>
-                        <input type="text" ref={searchRef} className={cx('search-query')} placeholder="Movies, TV Shows, Collections" />
-                        <button type="button">
-                          <span className={cx('icon-search')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93.83 93.83"><path d="M39,3.17a36,36,0,0,0,0,72A35.69,35.69,0,0,0,59.36,68.8L85.64,95.08a6.55,6.55,0,0,0,9.27-9.24L68.63,59.56A36,36,0,0,0,39,3.17Zm0,13.09A22.91,22.91,0,1,1,16.09,39.17,22.81,22.81,0,0,1,39,16.26Z" transform="translate(-3 -3.17)"/></svg>
+                      <div className={cx('search-nav')} 
+                           ref={searchContainerRef}
+                           onClick={!searchFocus ? handleSearchClick : undefined}
+                           style={searchFocus ? { width: `230px` } : {}}
+                      >
+                        {!searchFocus && 
+                          <span className={cx('search-nav-text')}>
+                           <SearchIcon color='#FFFFFF'/>
+                           &nbsp;&nbsp;검색
                           </span>
-                        </button>
-                        <input type="submit" value="Submit" style={{ display: 'none' }} />
+                        }
+                        <div className={cx('clickOutside-searchInput')}>
+                         <div className={cx('search-inputWrapper')}
+                              style={searchFocus ? { width: `230px`, opacity: `1`, transition: `width 0.2s ease 0s, opacity 0.2s ease 0s` } : {}}
+                         >
+                          {searchFocus &&
+                           <div className={cx('search-input')}>
+                            <form>
+                              <SearchIcon color='#121212'/>
+                              <input
+                                  ref={searchRef}
+                                  type="text"
+                                  className={cx('search-query')}
+                                  placeholder="영화, TV 프로그램, 시리즈 검색"
+                                  value={searchTerm}
+                                  onChange={searchUpdateTerm}
+                              />
+                              {query !== "" && 
+                                <span className={cx('search-delete-icon')}
+                                      ref={deleteSearchRef}
+                                >
+                                  <SearchDeleteIcon/>
+                                </span>
+                              }
+                            </form>
+                          </div>
+                         }
+                         </div>
+                        </div>
                       </div>
                     </li>
                 {
@@ -80,7 +160,7 @@ const Header = ({ pathname, handleLogout }) => {
                         </DropdownButton>
                        </li>)
                     : (<li className={cx(['right-content-items','right-item'])}>
-                        <Link to="/login" className={cx(['nav_link', pathname === "/login" ? "" : "notActive"])}
+                        <Link to="/login" className={cx(['nav_link', location.pathname === "/login" ? "" : "notActive"])}
                         >로그인</Link>
                     </li>)
                 }
@@ -92,6 +172,9 @@ const Header = ({ pathname, handleLogout }) => {
 
 Header.propTypes = {
     handleLogout: PropTypes.func,
+    initializeSearchTerm: PropTypes.func,
+    searchTerm: PropTypes.string, 
+    searchUpdateTerm: PropTypes.func
 };
 
 export default Header;

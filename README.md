@@ -2,7 +2,7 @@
 
 Enjoying a variety of movie, tv series, collection
 
-- react / redux / redux-saga / Sass + CSS Module / axios
+- react / redux / redux-saga / Sass  / axios
 
 <br>
 
@@ -69,4 +69,6 @@ using **['The Movie Database(TMDb) API v3'](https://www.themoviedb.org/documenta
 
 # Preview:
 
-Try it on [https://removie.netlify.com/](https://removie.netlify.com/)
+Version 1. Try it on [https://removiev1.netlify.com/](https://removiev1.netlify.com/)  
+  
+Version 2. Try it on [https://removie.netlify.com/](https://removie.netlify.com/)  

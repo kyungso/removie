@@ -19,16 +19,8 @@ class App extends Component {
               <Route path="/account/rating/tv" exact component={AccountPage} />
               <Route path="/movie" exact component={MoviePage} />
               <Route path="/tv" exact component={TVPage} />
-              <Route path={`/search/movie_result?keyword=:searchValue&page=:page`} exact component={SearchPage} />
-              <Route path={`/search/tv_result?keyword=:searchValue&page=:page`} exact component={SearchPage} />
-              <Route path={`/search/collection_result?keyword=:searchValue&page=:page`} exact component={SearchPage} />
-              <Route path="/search/movie_result?keyword=:searchValue" exact component={SearchPage} />
-              <Route path="/search/tv_result?keyword=:searchValue" exact component={SearchPage} />
-              <Route path="/search/collection_result?keyword=:searchValue" exact component={SearchPage} />
+              <Route path="/search?keyword=:searchValue" exact component={SearchPage} />
               <Route path="/search" exact component={SearchPage} />
-              <Route path="/search/movie_result" exact component={SearchPage} />
-              <Route path="/search/tv_result" exact component={SearchPage} />
-              <Route path="/search/collection_result" exact component={SearchPage} />
               <Route path="/movie/:id" exact component={DetailPage} />
               <Route path="/movie/:id/companies" exact component={DetailPage} />
               <Route path="/movie/:id/countries" exact component={DetailPage} />

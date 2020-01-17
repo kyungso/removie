@@ -23,36 +23,50 @@ const LoginPresenter = ({ username, password, inputFocus, handleSubmit, updateFi
   return(
     <div className={cx('login-container')}>
         <Helmet>
-            <title>Login | REMOVIE</title>
+            <title>로그인 | REMOVIE</title>
         </Helmet>
-         <h2>Login to your account of TMDB</h2>
-         <p>In order to user this app, you must have your account of TMDB.</p>
-         <p>If you do not have an account, registering for account is free and simple. <a href="https://www.themoviedb.org/account/signup">Click here</a> to get started.</p>
+        <div className={cx('login-wrapper')}>
+         <div>
+           <h2>로그인</h2>
+         </div>
          <form className={cx('login-form')}>
+           <div className={cx('username-wrapper')}>
             <input
                 className={cx('login-username')} 
-                placeholder="Username"
+                placeholder="아이디"
                 value={username}
                 onChange={(e) => updateField({ key: 'username', value: e.target.value })}
                 autoComplete="username"
                 ref={idRef}
             />
+            </div>
+            <div className={cx('password-wrapper')}>
              <input
                 className={cx('login-password')} 
                 type="password"
-                placeholder="Password"
+                placeholder="비밀번호"
                 value={password}
                 onChange={(e) => updateField({ key: 'password', value: e.target.value })}
                 onKeyUp={enterSubmit}
                 autoComplete="current-password"
             />
+           </div>
             <input
                 className={cx('login-button')}
                 type="button"
-                value="Login"
+                value="로그인"
                 onClick={handleSubmit}
             />
         </form>
+        <p>계정이 없으신가요?  <a href="https://www.themoviedb.org/account/signup"> 가입하기</a></p>
+        <input
+                className={cx('login-button')}
+                type="button"
+                value="구글로 로그인"
+                onClick={handleSubmit}
+                style={{ borderColor: `rgb(200,200,200)`, backgroundColor: `rgb(255,255,255)`, color: `black`}}
+        />
+       </div>
     </div>
   );
 };
