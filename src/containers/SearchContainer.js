@@ -13,8 +13,7 @@ class SearchContainer extends PureComponent {
     constructor(props) {
         super(props);
 
-        let { location, SearchActions } = this.props;
-    
+        const { SearchActions, location } = this.props;
         // refresh page case
         let query = queryString.parse(location.search);
         let value = query.keyword;
@@ -47,7 +46,6 @@ class SearchContainer extends PureComponent {
                 collectionResults={collectionResults}
                 searchTerm={searchTerm}
                 handleSubmit={this.handleSubmit}
-                updateTerm={this.updateTerm}
             />
         );
     }

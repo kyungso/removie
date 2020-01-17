@@ -1,7 +1,7 @@
 @import 'utils'; 
 
 .collection-container {
-    min-height: calc(100vh - 11.5rem);
+    min-height: calc(100vh - 8.1rem);
     width: 100%;
     position: relative;
     padding: 85px 50px 50px;
@@ -12,8 +12,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh - 65vh);
-    background-position: center center;
+    height: calc(100vh - 60vh);
     background-size: cover;
     filter: blur(3px);
     opacity: 0.5;
