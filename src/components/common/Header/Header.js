@@ -40,9 +40,16 @@ const Header = ({ location, history, handleLogout, initializeSearchTerm, searchT
         }
 
         if(deleteSearchRef.current !== null && deleteSearchRef.current.contains(e.target)) {
+            setQuery("");
+            searchRef.current.value = "";
             history.push('/');
             initializeSearchTerm();
             setSearchFocus(true);
+        }
+
+        if(e.target.className === "nav_link") {
+            initializeSearchTerm();
+            setSearchFocus(false);
         }
     }, [searchFocus, initializeSearchTerm, history]);
     useEffect(() => {
@@ -53,15 +60,14 @@ const Header = ({ location, history, handleLogout, initializeSearchTerm, searchT
     useEffect(() => {
         setLoginHeader(location.pathname === "/login" ? "displayNone" : "");
 
-        if(location.pathname !== "/search") {
-            setSearchFocus(false);
-            setQuery("");
-        }
-
+        // if(query && location.pathname !== "/search") {
+        //     setSearchFocus(false);
+        // }
     }, [location.pathname, loginHeader]);
 
     useEffect(() => {
         let q = queryString.parse(location.search).keyword; 
+        
         if(q && q.length > 0) { // for refresh page
             setSearchFocus(true);
             setQuery(q);
@@ -70,6 +76,7 @@ const Header = ({ location, history, handleLogout, initializeSearchTerm, searchT
             }
         } else if(searchFocus) {
             searchRef.current.focus();
+            setQuery("");
         } else {
             initializeSearchTerm();
         }
