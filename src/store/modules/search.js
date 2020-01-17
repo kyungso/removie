@@ -39,15 +39,8 @@ export function* searchSaga() {
 // initial state
 const initialState = {
     movieResults: null,
-    movieTotalPages: 0,
-    movieTotalResults: 0,
     tvResults: null,
-    tvTotalPages: 0,
-    tvTotalResults: 0,
     collectionResults: null,
-    collectionTotalPages: 0,
-    collectionTotalResults: 0,
-    activePage: 1,
     searchTerm: ''
 };
 
@@ -59,30 +52,21 @@ const search = handleActions({
         searchTerm: value
     }),
     [GET_SEARCH_MOVIES_SUCCESS]: (state, { payload }) => {
-        const { page: activePage, results: movieResults, total_pages: movieTotalPages, total_results: movieTotalResults } = payload;
+        const { results: movieResults } = payload;
         return {...state,
-                movieResults: movieResults,
-                movieTotalPages: movieTotalPages,
-                movieTotalResults: movieTotalResults,
-                activePage: activePage
+                movieResults: movieResults
         };
     },
     [GET_SEARCH_TV_SUCCESS]: (state, { payload }) => {
-        const { page: activePage, results: tvResults, total_pages: tvTotalPages, total_results: tvTotalResults } = payload;
+        const { results: tvResults } = payload;
         return {...state,
-            tvResults: tvResults,
-            tvTotalPages: tvTotalPages,
-            tvTotalResults: tvTotalResults,
-            activePage: activePage
+            tvResults: tvResults
         };
     },   
     [GET_SEARCH_COLLECTION_SUCCESS]: (state, { payload }) => {
-        const { page: activePage, results: collectionResults, total_pages: collectionTotalPages, total_results: collectionTotalResults } = payload;
+        const { results: collectionResults } = payload;
         return {...state,
-            collectionResults: collectionResults,
-            collectionTotalPages: collectionTotalPages,
-            collectionTotalResults: collectionTotalResults,
-            activePage: activePage
+            collectionResults: collectionResults
         };
     }
 }, initialState);

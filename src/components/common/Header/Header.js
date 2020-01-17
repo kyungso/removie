@@ -1,62 +1,79 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
 
 import logo from 'lib/assets/logo.png';
 import SearchIcon from 'components/search/SearchIcon';
+import SearchDeleteIcon from 'components/search/SearchDeleteIcon';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const Header = ({ pathname, handleLogout, initializeSearchTerm, searchTerm, searchUpdateTerm }) => {
+const Header = ({ location, history, handleLogout, initializeSearchTerm, searchTerm, searchUpdateTerm }) => {
     const [handleScroll, setHandleScroll] = useState("");
     const [searchFocus, setSearchFocus] = useState(false);
+    const [query, setQuery] = useState("");
     const [loginHeader, setLoginHeader] = useState("");
     const searchContainerRef = useRef(null);
     const searchRef = useRef(null);
+    const deleteSearchRef = useRef(null);
     let username = localStorage.getItem('username');
-
-    const handleSearchClick = () => {
-       setSearchFocus(!searchFocus);
-    };
-    useEffect(() => {
-        const handleOutsideClick = (e) => {
-            if(e.target.className === "search-nav-text") {
-                console.log('haha');
-            }
-            console.log("target", e.target);
-            // console.log("??", e.target.className);
-            // console.log("contains?", searchContainerRef.current.contains(e.target));
-            // if(searchFocus && !searchContainerRef.current.contains(e.target)) {
-            //     console.log('오이오잉');
-            //     // setSearchFocus(!searchFocus);
-            // }
-        };
-        window.addEventListener('click', handleOutsideClick);
-    },[searchFocus]);
-
-    useEffect(() => {
-        setLoginHeader(pathname === "/login" ? "displayNone" : "");
-    }, [pathname, loginHeader]);
 
     useEffect(() => {
         window.addEventListener('scroll', () => setHandleScroll(window.scrollY > 70 ? "black" : ""));
     },[]);
 
+    const handleSearchClick = () => {
+       setSearchFocus(!searchFocus);
+    };
+    const handleOutsideClick = useCallback((e) => {
+        if(searchFocus 
+            && !searchContainerRef.current.contains(e.target)
+        ) {
+            if(searchRef.current !== null && !searchRef.current.value) {
+                setSearchFocus(!searchFocus);
+            } 
+        }
+
+        if(deleteSearchRef.current !== null && deleteSearchRef.current.contains(e.target)) {
+            history.push('/');
+            initializeSearchTerm();
+            setSearchFocus(true);
+        }
+    }, [searchFocus, initializeSearchTerm, history]);
     useEffect(() => {
-        if(searchFocus) {
-            console.log('focus');
+        window.addEventListener('click', handleOutsideClick);
+        return () => window.removeEventListener('click', handleOutsideClick);
+    },[handleOutsideClick]);
+
+    useEffect(() => {
+        setLoginHeader(location.pathname === "/login" ? "displayNone" : "");
+
+        if(location.pathname !== "/search") {
+            setSearchFocus(false);
+            setQuery("");
+        }
+
+    }, [location.pathname, loginHeader]);
+
+    useEffect(() => {
+        let q = queryString.parse(location.search).keyword; 
+        if(q && q.length > 0) { // for refresh page
+            setSearchFocus(true);
+            setQuery(q);
+            if(searchRef.current !== null && !searchRef.current.value) {
+                searchRef.current.value = q;
+            }
+        } else if(searchFocus) {
             searchRef.current.focus();
+        } else {
+            initializeSearchTerm();
         }
-        else {
-            console.log("not focus");
-            // initializeSearchTerm();
-            // searchRef.current.value = '';
-        }
-    }, [searchFocus, initializeSearchTerm, searchTerm]);
+    }, [searchFocus, initializeSearchTerm, location.search]);
 
     return (
         <header className={cx(['header', handleScroll])}>
@@ -66,15 +83,15 @@ const Header = ({ pathname, handleLogout, initializeSearchTerm, searchTerm, sear
                         <Link to="/"><img src={logo} className={cx('logo')} alt="logo"/></Link>
                     </li>
                     <li className={cx('left-content-items', loginHeader)}>
-                        <Link to="/" className={cx(['nav_link', pathname === "/" ? "" : "notActive"])} 
+                        <Link to="/" className={cx(['nav_link', location.pathname === "/" ? "" : "notActive"])} 
                         >홈</Link>
                     </li>
                     <li className={cx('left-content-items', loginHeader)}>
-                        <Link to="/movie" className={cx(['nav_link', pathname === "/movie" ? "" : "notActive"])} 
+                        <Link to="/movie" className={cx(['nav_link', location.pathname === "/movie" ? "" : "notActive"])} 
                         >영화</Link>
                     </li>
                     <li className={cx('left-content-items', loginHeader)}>
-                        <Link to="/tv" className={cx(['nav_link', pathname === "/tv" ? "" : "notActive"])}
+                        <Link to="/tv" className={cx(['nav_link', location.pathname === "/tv" ? "" : "notActive"])}
                         >TV 프로그램</Link>
                     </li>
                 </ul>
@@ -84,7 +101,7 @@ const Header = ({ pathname, handleLogout, initializeSearchTerm, searchTerm, sear
                     <li className={cx('right-item')}>
                       <div className={cx('search-nav')} 
                            ref={searchContainerRef}
-                           onClick={handleSearchClick}
+                           onClick={!searchFocus ? handleSearchClick : undefined}
                            style={searchFocus ? { width: `230px` } : {}}
                       >
                         {!searchFocus && 
@@ -109,30 +126,19 @@ const Header = ({ pathname, handleLogout, initializeSearchTerm, searchTerm, sear
                                   value={searchTerm}
                                   onChange={searchUpdateTerm}
                               />
+                              {query !== "" && 
+                                <span className={cx('search-delete-icon')}
+                                      ref={deleteSearchRef}
+                                >
+                                  <SearchDeleteIcon/>
+                                </span>
+                              }
                             </form>
                           </div>
                          }
                          </div>
                         </div>
                       </div>
-                      {/* <div id="custom-search" 
-                           onClick={handleSearchClick}
-                           ref={searchContainerRef}
-                      >
-                        <input 
-                            className={cx('search-query')} 
-                            type="text" 
-                            ref={searchRef} 
-                            placeholder="영화, TV 프로그램, 시리즈 검색" 
-                            value={searchTerm}
-                            onChange={searchUpdateTerm}
-                        />
-                        <button type="button">
-                          <span className={cx('icon-search')}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93.83 93.83"><path d="M39,3.17a36,36,0,0,0,0,72A35.69,35.69,0,0,0,59.36,68.8L85.64,95.08a6.55,6.55,0,0,0,9.27-9.24L68.63,59.56A36,36,0,0,0,39,3.17Zm0,13.09A22.91,22.91,0,1,1,16.09,39.17,22.81,22.81,0,0,1,39,16.26Z" transform="translate(-3 -3.17)"/></svg>
-                          </span>
-                        </button>
-                      </div> */}
                     </li>
                 {
                     localStorage.getItem('logged') === 'true' && localStorage.getItem('session_id') !== null
@@ -147,7 +153,7 @@ const Header = ({ pathname, handleLogout, initializeSearchTerm, searchTerm, sear
                         </DropdownButton>
                        </li>)
                     : (<li className={cx(['right-content-items','right-item'])}>
-                        <Link to="/login" className={cx(['nav_link', pathname === "/login" ? "" : "notActive"])}
+                        <Link to="/login" className={cx(['nav_link', location.pathname === "/login" ? "" : "notActive"])}
                         >로그인</Link>
                     </li>)
                 }
@@ -159,6 +165,9 @@ const Header = ({ pathname, handleLogout, initializeSearchTerm, searchTerm, sear
 
 Header.propTypes = {
     handleLogout: PropTypes.func,
+    initializeSearchTerm: PropTypes.func,
+    searchTerm: PropTypes.string, 
+    searchUpdateTerm: PropTypes.func
 };
 
 export default Header;
