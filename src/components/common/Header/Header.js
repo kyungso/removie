@@ -60,9 +60,6 @@ const Header = ({ location, history, handleLogout, initializeSearchTerm, searchT
     useEffect(() => {
         setLoginHeader(location.pathname === "/login" ? "displayNone" : "");
 
-        // if(query && location.pathname !== "/search") {
-        //     setSearchFocus(false);
-        // }
     }, [location.pathname, loginHeader]);
 
     useEffect(() => {
