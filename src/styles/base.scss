@@ -1,6 +1,6 @@
 /* HTML5 hidden-attribute fix for newer browsers */
 *{
-    box-sizing: inherit;
+    box-sizing: border-box;
     list-style: none;
     margin: 0;
     padding: 0;
