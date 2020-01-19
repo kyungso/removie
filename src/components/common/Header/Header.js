@@ -148,12 +148,12 @@ const Header = ({ location, history, handleLogout, initializeSearchTerm, searchT
                     localStorage.getItem('logged') === 'true' && localStorage.getItem('session_id') !== null
                     ? (<li className={cx('right-item')}>
                         <DropdownButton id="dropdown-item-button" title={username.substring(0,1).toUpperCase()}>
-                            <Dropdown.Item href="#/account">{username}<p className={cx('subAccount')}>View profile</p></Dropdown.Item>
+                            <Dropdown.Item href="#/account">{username}<p className={cx('subAccount')}>프로필 보기</p></Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item href="#/account/favorite">Favorites</Dropdown.Item>
-                            <Dropdown.Item href="#/account/rating">Ratings</Dropdown.Item>
+                            <Dropdown.Item href="#/account/favorite">즐겨찾기</Dropdown.Item>
+                            <Dropdown.Item href="#/account/rating">평가</Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                            <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                         </DropdownButton>
                        </li>)
                     : (<li className={cx(['right-content-items','right-item'])}>

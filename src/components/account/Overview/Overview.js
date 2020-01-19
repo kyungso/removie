@@ -115,18 +115,18 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
     <>
       <div className={cx('overview-container')}>
         <div className={cx('overview-content')}>
-          <h2 className={cx('title')}>Stats</h2>
+          <h2 className={cx('title')}>통계</h2>
             <div className={cx('stat_blocks')}>
               <div className={cx('stat_block')}>
-                <h3>Total Favorites</h3>
+                <h3>총 즐겨찾기 수</h3>
                 <h2 className={cx('color')}>{Total_Favorites}</h2>
               </div>
               <div className={cx('stat_block')}>
-                <h3>Total Ratings</h3>
+                <h3>총 평가 수</h3>
                 <h2 className={cx('color')}>{Total_Ratings}</h2>
               </div>
               <div className={cx('stat_block')}>
-                <h3>Rating Overview</h3>
+                <h3>평점 분포</h3>
                 {Total_Ratings > 0 && 
                 <div className={cx('rating_chart')}>
                  <Bar 
@@ -163,7 +163,7 @@ const Overview = ({ favoriteMovies, favoriteTV, ratedMovies, ratedTV, genreList 
                 {Total_Ratings === 0 && <div style={{ color: `#95a5a6` }}>아직 평가한 작품이 없어요.</div>}
               </div>
               <div className={cx('stat_block')}>
-                <h3>Most Watched Genres</h3>
+                <h3>가장 많이 본 장르</h3>
                 {ratedMovies.length > 0 && 
                  <div className={cx('genre_chart')}>
                   <Pie

@@ -32,7 +32,7 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
                     <Link to="/account" className={cx('account-avartar')}>{accountDetail.username.substring(0,1).toUpperCase()}</Link>
                     <div className={cx('account-about')}>
                         <div className={cx('account-name')}>{accountDetail.username}</div>
-                        <div className={cx('account-year')}>Member since November 2019</div>
+                        <div className={cx('account-year')}>2020년 1월부터 회원</div>
                     </div>
                 </div>
             </div>
@@ -43,19 +43,19 @@ const AccountPresenter = withRouter(({ location: { pathname }, accountDetail, fa
                         style={{ borderBottom: checkOverview ? `3px solid #ce3462` : `3px solid transparent` }}
                     >
                         <Link to="/account" className={cx(['link', checkOverview ? "" : "notActiveLink"])}
-                        >Overview</Link>
+                        >개요</Link>
                     </li>
                     <li className={cx('tab-menu-items')}
                         style={{ borderBottom: checkFavorite ? `3px solid #ce3462` : `3px solid transparent` }}
                     >
                         <Link to="/account/favorite" className={cx(['link', checkFavorite ? "" : "notActiveLink"])}
-                        >Favorites</Link>
+                        >즐겨찾기</Link>
                     </li>
                     <li className={cx('tab-menu-items')}
                         style={{ borderBottom: checkRating ? `3px solid #ce3462` : `3px solid transparent` }}
                     >
                         <Link to="/account/rating" className={cx(['link', checkRating ? "" : "notActiveLink"])}
-                        >Ratings</Link>
+                        >평가</Link>
                     </li>
                 </ul>
             </div>

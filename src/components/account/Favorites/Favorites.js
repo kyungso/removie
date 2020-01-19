@@ -17,7 +17,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
         <>
         <div className={cx('favorite-container')}>
             <div className={cx('favorite-title')}>
-                <h2 className={cx('title')}>My Favorites</h2>
+                <h2 className={cx('title')}>나의 즐겨찾기</h2>
 
                 <div className={cx('favorite-tab')}>
                     <ul className={cx('tab-menu')} >
@@ -25,7 +25,7 @@ const Favorites = withRouter(({ location: { pathname }, favoriteMovies, favorite
                             style={{ borderBottom: checkFavoriteMovie ? `3px solid #ce3462` : `3px solid transparent` }}
                         >
                             <Link to="/account/favorite" className={cx(['flink', checkFavoriteMovie ? "" : "notActiveLink"])}
-                            >Movies <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {favoriteMovies.length}</span></Link>
+                            >영화 <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {favoriteMovies.length}</span></Link>
                         </li>
                         <li className={cx('tab-menu-items')}
                             style={{ borderBottom: checkFavoriteTV ? `3px solid #ce3462` : `3px solid transparent` }}

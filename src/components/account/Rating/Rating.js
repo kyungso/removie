@@ -38,7 +38,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
         <div className={cx('rating-container')}>
         
           <div className={cx('rating-title')}>
-                  <h2 className={cx('Rtitle')}>My Ratings</h2>
+                  <h2 className={cx('Rtitle')}>나의 평점</h2>
 
                   <div className={cx('rating-tab')}>
                       <ul className={cx('Rtab-menu')} >
@@ -46,7 +46,7 @@ const Rating = withRouter(({ location: { pathname }, ratedMovies, ratedTV, handl
                               style={{ borderBottom: checkRatingMovie ? `3px solid #ce3462` : `3px solid transparent` }}
                           >
                               <Link to="/account/rating" className={cx(['Rlink', checkRatingMovie ? "" : "notActiveLink"])}
-                              >Movies <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {ratedMovies.length}</span></Link>
+                              >영화 <span style={{ color: `#ce3462`, marginLeft: `8px` }}> {ratedMovies.length}</span></Link>
                           </li>
                           <li className={cx('Rtab-menu-items')}
                               style={{ borderBottom: checkRatingTV ? `3px solid #ce3462` : `3px solid transparent` }}
