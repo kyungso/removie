@@ -20,7 +20,7 @@ const HomePresenter = ({ movieTrending, tvTrending, loading }) => (
         
         <div className={cx('home-container')}>
           {movieTrending && movieTrending.length > 0 && (
-            <Slider title="오늘의 추천 영화">
+            <Slider title="오늘의 추천 영화" isHome>
               {movieTrending.map((movie, index) => (
                 <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
               ))}
@@ -28,7 +28,7 @@ const HomePresenter = ({ movieTrending, tvTrending, loading }) => (
           )}
 
           {tvTrending && tvTrending.length > 0 && (
-            <Slider title="오늘의 추천 TV 프로그램" isTV>
+            <Slider title="오늘의 추천 TV 프로그램" isHome>
               {tvTrending.map((show, index) => (
                 <Slider.Item media={show} key={show.id} index={index} isTV></Slider.Item>
               ))}
