@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Content = ({ media, isTV, onClose }) => (
+const Content = ({ media, onClose }) => (
   <div className={cx("content")}>
     <div className={cx("content__background")}>
       <div className={cx("content__background__shadow")} />
@@ -17,7 +17,7 @@ const Content = ({ media, isTV, onClose }) => (
     </div>
     <div className={cx("content__area")}>
       <div className={cx("content__area__container")}>
-        <div className={cx("content__title")}>{isTV ? media.name : media.title}</div>
+        <div className={cx("content__title")}>{media.title ? media.title : media.name}</div>
         <div className={cx("content__description")}>
           {media.overview}
         </div>

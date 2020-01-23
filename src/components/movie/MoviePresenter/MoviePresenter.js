@@ -9,38 +9,59 @@ import Slider from "components/common/Slider";
 
 const cx = classNames.bind(styles);
 
-const MoviePresenter = ({ nowPlaying, upcoming, popular, loading }) => (
+const MoviePresenter = ({ nowPlaying, upcoming, popular, loading }) => {
+
+  const calcStartIndex = (movieLength) => {
+    const startIndex = [];
+    for(let i = 0; i < movieLength; i++) {
+        if(i % 5 === 0) {
+            startIndex.push(i);
+        }
+    }
+    return startIndex;
+  };
+  
+  return(
     <>
     {loading 
         ? <Loader />
         : <div className={cx('movie-container')}>
+            {/* 인기있는 영화 */}
             {nowPlaying && nowPlaying.length > 0 && (
-                <Slider title="현재 상영 영화">
-                {nowPlaying.map((movie, index) => (
-                    <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
-              ))}
-                </Slider>
+                calcStartIndex(nowPlaying.length).map(startIdx => (
+                  <Slider key={startIdx}>
+                    {nowPlaying.slice(startIdx, startIdx+5).map((movie, index) => (
+                      <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
+                    ))}
+                  </Slider>
+                ))
             )}
 
+            {/* 개봉 예정 영화 */}
             {upcoming && upcoming.length > 0 && (
-                <Slider title="개봉 예정 영화">
-                {upcoming.map((movie, index) => (
-                    <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
-                ))}
-                </Slider>
+                calcStartIndex(upcoming.length).map(startIdx => (
+                  <Slider key={startIdx}>
+                    {upcoming.slice(startIdx, startIdx+5).map((movie, index) => (
+                      <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
+                    ))}
+                  </Slider>
+                ))
             )}
 
+            {/* 인기 영화 */}
             {popular && popular.length > 0 && (
-                <Slider title="인기 영화">
-                {popular.map((movie, index) => (
-                    <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
-                ))}
-                </Slider>
+                calcStartIndex(popular.length).map(startIdx => (
+                  <Slider key={startIdx}>
+                    {popular.slice(startIdx, startIdx+5).map((movie, index) => (
+                      <Slider.Item media={movie} key={movie.id} index={index}></Slider.Item>
+                    ))}
+                  </Slider>
+                ))
             )}
         </div>
     }
     </>
-);
+  )};
 
 MoviePresenter.propTypes = {
     nowPlaying: PropTypes.array,
