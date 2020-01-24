@@ -4,6 +4,7 @@ import IconArrowDown from '../Icons/IconArrowDown';
 
 import styles from './Item.scss';
 import classNames from 'classnames/bind';
+import { relative } from 'path';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +36,10 @@ const Item = ({ media, index, isTV }) => (
           onMouseOver={onMouseOverSlide}
           onMouseLeave={onMouseLeaveSlide}
         >
-          <img src={`https://image.tmdb.org/t/p/w300${media.backdrop_path}`} alt="poster" />
+          <div className={cx('image')}>
+            <img src={`https://image.tmdb.org/t/p/w300${media.backdrop_path}`} alt="poster"/>
+            <div className={cx('image-content')}>{title}</div>
+          </div>
           <div className={cx('image-title')}>
             {title.length > 18 ? `${title.substring(0, 18)}...` : title}
           </div> 
