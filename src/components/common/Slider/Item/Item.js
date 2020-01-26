@@ -4,7 +4,6 @@ import IconArrowDown from '../Icons/IconArrowDown';
 
 import styles from './Item.scss';
 import classNames from 'classnames/bind';
-import { relative } from 'path';
 
 const cx = classNames.bind(styles);
 

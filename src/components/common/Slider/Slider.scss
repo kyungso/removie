@@ -31,7 +31,7 @@
   
     &:not(&--open) .item:hover {
       transform: scale(1.5) !important;
-      opacity: 0.8; 
+      // opacity: 0.8; 
     }
   
     &:not(&--open) .item:hover .image-title {
@@ -41,8 +41,10 @@
     &:not(&--open) .item:hover .image-content {
       display: block;
       position: absolute;
-      left: 30px;
-      bottom: 30px;
+      left: 10%;
+      bottom: 60%;
+      font-size: 0.9vw;
+      font-weight: 600;
     }
 
     &:not(&--open):hover .item {
