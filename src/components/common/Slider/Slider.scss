@@ -3,7 +3,7 @@
 .slider-title {
     font-size: 1.4vw;
     font-weight: 600;
-    padding-left: 4%;
+    padding-left: 4.5%;
     position: relative;
     top: 25px;
 }  
@@ -20,7 +20,7 @@
     .slider-container {
       display: flex;
       padding: 0 4%;
-      transition: transform 0.4s cubic-bezier(0.5,0,0.1,1) 0s, opacity 300ms ease 100ms;
+      transition: transform 0.4s cubic-bezier(0.5,0,0.1,1) 0s;
       z-index: 3;
       width: 100%;
     }
@@ -31,20 +31,33 @@
   
     &:not(&--open) .item:hover {
       transform: scale(1.5) !important;
-      // opacity: 0.8; 
+
+      .image-backdrop {
+        opacity: 0.8; 
+      }
+      .image-ShadowTop {
+        display: block;
+      }
+      .image-title {
+        opacity: 0;
+      }
     }
   
-    &:not(&--open) .item:hover .image-title {
-      opacity: 0;
-    }
-    
     &:not(&--open) .item:hover .image-content {
       display: block;
       position: absolute;
       left: 10%;
-      bottom: 60%;
-      font-size: 0.9vw;
-      font-weight: 600;
+      bottom: 50%;
+
+      .content-title {
+        font-size: 0.9vw;
+        font-weight: 600;
+        margin-bottom: 3px;
+      }
+      .content-item {
+        font-size: 0.14vw;
+        font-weight: 100;
+      }
     }
 
     &:not(&--open):hover .item {
