@@ -52,6 +52,7 @@ const Item = ({ media, index, isTV }) => (
                 ★ {media.vote_average}
                 {/* {media.runtime ? media.runtime : (media.runtime === 0 ? '' : media.episode_run_time[0])} min */}
               </span>
+              <div className={cx('content-overview')}>{media.overview.length > 80 ? `${media.overview.substring(0, 80)}...` : media.overview}</div>
             </div>
           </div>
           <div className={cx('image-title')}>

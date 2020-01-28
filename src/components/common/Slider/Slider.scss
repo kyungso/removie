@@ -31,7 +31,7 @@
   
     &:not(&--open) .item:hover {
       transform: scale(1.5) !important;
-
+      
       .image-backdrop {
         opacity: 0.8; 
       }
@@ -46,17 +46,26 @@
     &:not(&--open) .item:hover .image-content {
       display: block;
       position: absolute;
-      left: 10%;
-      bottom: 50%;
+      left: 1%;
+      bottom: 5%;
+      transform: scale(0.7);
+    }
 
+    .image-content {
+      transition: transform 300ms ease 100ms;
       .content-title {
-        font-size: 0.9vw;
+        font-size: 1.5vw;
         font-weight: 600;
-        margin-bottom: 3px;
+        margin-bottom: 5px;
       }
       .content-item {
-        font-size: 0.14vw;
+        font-size: 1vw;
         font-weight: 100;
+      }
+      .content-overview {
+        margin-top: 5px;
+        font-size: 1vw;
+        font-weight: 350;
       }
     }
 
