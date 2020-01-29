@@ -45,7 +45,8 @@ const Item = ({ media, index, isTV }) => (
               <span className={cx('content-item')}>
                 {media.release_date
                   ? media.release_date.substring(0,4)
-                  : media.first_air_date.substring(0,4)}
+                  : (media.first_air_date ? media.first_air_date.substring(0,4) : '')
+                }
               </span>
               <span className={cx('content-divider')}>・</span>
               <span className={cx('content-item')}>
