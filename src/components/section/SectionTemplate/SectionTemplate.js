@@ -8,13 +8,13 @@ const cx = classNames.bind(styles);
 
 const Section = ({ title, children }) => (
     <div className={cx('section-container')}>
-      <span className={cx('section-title')}>{title}</span>
+      {title && <span className={cx('section-title')}>{title}</span>}
       <div className={cx('section')}>{children}</div>
     </div>
 );
 
 Section.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node

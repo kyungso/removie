@@ -3,7 +3,7 @@
 .slider-title {
     font-size: 1.4vw;
     font-weight: 600;
-    padding-left: 4%;
+    padding-left: 4.5%;
     position: relative;
     top: 25px;
 }  
@@ -31,12 +31,44 @@
   
     &:not(&--open) .item:hover {
       transform: scale(1.5) !important;
+      
+      .image-backdrop {
+        opacity: 0.8; 
+      }
+      .image-ShadowTop {
+        display: block;
+      }
+      .image-title {
+        opacity: 0;
+      }
     }
   
-    &:not(&--open) .item:hover .image-title {
-      opacity: 0;
+    &:not(&--open) .item:hover .image-content {
+      display: block;
+      position: absolute;
+      left: 1%;
+      bottom: 5%;
+      transform: scale(0.7);
     }
-    
+
+    .image-content {
+      transition: transform 300ms ease 100ms;
+      .content-title {
+        font-size: 1.5vw;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+      .content-item {
+        font-size: 1vw;
+        font-weight: 100;
+      }
+      .content-overview {
+        margin-top: 5px;
+        font-size: 1vw;
+        font-weight: 350;
+      }
+    }
+
     &:not(&--open):hover .item {
       transform: translateX(-25%);
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import SliderContext from '../SliderContext';
 import IconArrowDown from '../Icons/IconArrowDown';
+import NoImage from 'lib/assets/noPosterSmall.png';
 
 import styles from './Item.scss';
 import classNames from 'classnames/bind';
@@ -12,6 +13,8 @@ const Item = ({ media, index, isTV }) => (
     {({ onSelectSlide, currentSlide, elementWidth, viewed, handleMouseOver, handleMouseLeave }) => {
       const isActive = currentSlide && currentSlide.id === media.id;
       const title = isTV ? media.name : media.title;
+      const imgUrl = media.backdrop_path ? media.backdrop_path 
+                     : (media.poster_path ? media.poster_path : NoImage);
 
       const isFirstIndex = (viewed - 5) === index;
       const isLastIndex = (viewed - 1) === index;
@@ -35,7 +38,28 @@ const Item = ({ media, index, isTV }) => (
           onMouseOver={onMouseOverSlide}
           onMouseLeave={onMouseLeaveSlide}
         >
-          <img src={`https://image.tmdb.org/t/p/w300${media.backdrop_path}`} alt="poster" />
+          <div className={cx('image')}>
+            <div className={cx('image-backdrop')} 
+                 style={{ backgroundImage: `url(${imgUrl === NoImage ? NoImage : `https://image.tmdb.org/t/p/w300${imgUrl}`})` }}
+            >
+            </div>
+            <div className={cx('image-ShadowTop')}></div>
+            <div className={cx('image-content')}>
+              <div className={cx('content-title')}>{title}</div>
+              <span className={cx('content-item')}>
+                {media.release_date
+                  ? media.release_date.substring(0,4)
+                  : (media.first_air_date ? media.first_air_date.substring(0,4) : '')
+                }
+              </span>
+              <span className={cx('content-divider')}>・</span>
+              <span className={cx('content-item')}>
+                ★ {media.vote_average}
+                {/* {media.runtime ? media.runtime : (media.runtime === 0 ? '' : media.episode_run_time[0])} min */}
+              </span>
+              <div className={cx('content-overview')}>{media.overview.length > 80 ? `${media.overview.substring(0, 80)}...` : media.overview}</div>
+            </div>
+          </div>
           <div className={cx('image-title')}>
             {title.length > 18 ? `${title.substring(0, 18)}...` : title}
           </div> 

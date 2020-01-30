@@ -9,7 +9,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-const Slider = ({ title, children }) => {
+const Slider = ({ title, children, isHome }) => {
     const [currentSlide, setCurrentSlide] = useState(null);
     const [translateProps, setTranslateProps] = useState(null);
     const {
@@ -45,16 +45,16 @@ const Slider = ({ title, children }) => {
     return (
       <SliderContext.Provider value={contextValue}>
        <div className={cx('slider-section')}>
-        <div className={cx('slider-title')}>{title}</div>
+        {title && <div className={cx('slider-title')}>{title}</div>}
         <div className={cx('slider-wrapper')}>
           <div className={cx('slider', { 'slider--open': currentSlide != null })} >
             <div ref={containerRef} className="slider-container" {...translateProps}>{children}</div>
           </div>
-          {hasPrev && <SlideButton onClick={handlePrev} type="prev" />}
-          {hasNext && <SlideButton onClick={handleNext} type="next" />}
+          {isHome && hasPrev && <SlideButton onClick={handlePrev} type="prev" />}
+          {isHome && hasNext && <SlideButton onClick={handleNext} type="next" />}
         </div>
        </div>
-        {currentSlide && <Content media={currentSlide} isTV onClose={handleClose} />}
+        {currentSlide && <Content media={currentSlide} onClose={handleClose} />}
       </SliderContext.Provider>
     );
   };

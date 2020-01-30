@@ -5,64 +5,63 @@ import styles from './TVPresenter.scss';
 import classNames from 'classnames/bind';
 
 import Loader from "components/common/Loader";
-import Section from "components/section/SectionTemplate";
-import Poster from "components/common/Poster";
+import Slider from "components/common/Slider";
 
 const cx = classNames.bind(styles);
 
-const TVPresenter = ({ topRated, popular, airingToday, loading }) => (
+const TVPresenter = ({ topRated, popular, airingToday, loading }) => {
+
+  const calcStartIndex = (tvLength) => {
+    const startIndex = [];
+      for(let i = 0; i < tvLength; i++) {
+        if(i % 5 === 0) {
+            startIndex.push(i);
+        }
+      }
+    return startIndex;
+  };
+    
+  return (
     <>
     { loading  
         ? <Loader />
         : <div className={cx('tv-container')}>
+            {/* 높은 평점의 TV 프로그램 */}
             {topRated && topRated.length > 0 && (
-                <Section title="높은 평점의 TV 프로그램">
-                    {topRated.map(show => (
-                        <Poster 
-                            key={show.id}
-                            id={show.id}
-                            imageUrl={show.poster_path}
-                            title={show.name}
-                            rating={show.vote_average}
-                            year={show.first_air_date.substring(0, 4)}
-                        />
+                calcStartIndex(topRated.length).map(startIdx => (
+                  <Slider key={startIdx}>
+                    {topRated.slice(startIdx, startIdx+5).map((show, index) => (
+                      <Slider.Item media={show} key={show.id} index={index} isTV></Slider.Item>
                     ))}
-                </Section>
+                  </Slider>
+                ))
             )}
 
+            {/* 인기 TV 프로그램 */}
             {popular && popular.length > 0 && (
-                <Section title="인기 TV 프로그램">
-                    {popular.map(show => (
-                        <Poster 
-                            key={show.id}
-                            id={show.id}
-                            imageUrl={show.poster_path}
-                            title={show.name}
-                            rating={show.vote_average}
-                            year={show.first_air_date.substring(0, 4)}
-                        />
+                calcStartIndex(topRated.length).map(startIdx => (
+                  <Slider key={startIdx}>
+                    {popular.slice(startIdx, startIdx+5).map((show, index) => (
+                      <Slider.Item media={show} key={show.id} index={index} isTV></Slider.Item>
                     ))}
-                </Section>
+                  </Slider>
+                ))
             )}
 
+            {/* 오늘 방영할 TV 프로그램 */}
             {airingToday && airingToday.length > 0 && (
-                <Section title="오늘 방영할 TV 프로그램">
-                    {airingToday.map(show => (
-                        <Poster 
-                            key={show.id}
-                            id={show.id}
-                            imageUrl={show.poster_path}
-                            title={show.name}
-                            rating={show.vote_average}
-                            year={show.first_air_date.substring(0, 4)}
-                        />
+                calcStartIndex(topRated.length).map(startIdx => (
+                  <Slider key={startIdx}>
+                    {airingToday.slice(startIdx, startIdx+5).map((show, index) => (
+                      <Slider.Item media={show} key={show.id} index={index} isTV></Slider.Item>
                     ))}
-                </Section>
+                  </Slider>
+                ))
             )}
         </div>
     }
     </>
-);
+)};
 
 TVPresenter.propTypes = {
     topRated: PropTypes.array,
