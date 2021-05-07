@@ -101,7 +101,7 @@
     "stylis-rule-sheet": "^0.0.10",
     "terser-webpack-plugin": "1.2.3",
     "ts-pnp": "1.1.2",
-    "ua-parser-js": "^0.7.20",
+    "ua-parser-js": "^0.7.24",
     "url-loader": "1.1.2",
     "webpack": "4.29.6",
     "webpack-dev-server": "3.2.1",
